@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async
+      src="https://www.googletagmanager.com/gtag/js?id=G-C7462QX2RR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'G-C7462QX2RR');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+      content="This is the Live class timetable for The Rosary High School">
+    <meta name="keywords"
+      content="Timetable, Live classes, Google meets, meets, meet, The Rosary High School">
+    <meta author="author" content="Mayank Shigaonker">
+    <meta name="theme-color" content="#D35400">
+
+    <title>Live class Time Table</title>
+    <link rel="stylesheet" href="../../general.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="manifest" href="/SchoolWork/TimeTable/manifest.json">
+    <link rel="apple-touch-icon" href="/SchoolWork/TimeTable/icons/logo192.png">
+    <link rel="icon" type="image/png" sizes="192x192"
+      href="/SchoolWork/TimeTable/icons/logo192.svg">
+    <link rel="icon" type="image/png" sizes="512x512"
+      href="/SchoolWork/TimeTable/icons/logo512.svg">
+
+    <script src="../script.js" defer></script>
+  </head>
+
+  <body>
+    <nav>
+      <a href="../" id="back"></a>
+      <div class="ind">
+        <div>
+          <input type="radio" name="div" id="a" onchange="radioChange();">
+          <label for="a" class="btn">A</label>
+        </div>
+
+        <div>
+          <input type="radio" name="div" id="b" onchange="radioChange();">
+          <label for="b" class="btn">B</label>
+        </div>
+
+        <div>
+          <input type="radio" name="div" id="c" onchange="radioChange();">
+          <label for="c" class="btn">C</label>
+        </div>
+      </div>
+    </nav>
+
+    <header>
+      <h1>IXA</h1>
+    </header>
+
+    <main>
+      <ol class="cards">
+        <li class="card link-card">
+          <h2>Today:</h2>
+          <ol>
+            <li>😴</li>
+          </ol>
+        </li>
+
+        <li class="card ind-card">
+          <table class="ixa resp-table" id="curr">
+            <tr>
+              <th></th>
+              <th>8:05 - 8:45</th>
+              <th>8:50 - 9:20</th>
+              <th>9:25 - 9:55</th>
+              <th>9:30 - 10:00</th>
+              <th>12:00 - 12:45</th>
+            </tr>
+
+            <tr>
+              <td>Mon</td>
+              <td>
+                <a href="https://meet.google.com/lookup/ehnoyf3sof"
+                  class="btn">English</a>
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/gicbzgnhzq"
+                  class="btn">Science</a>
+              </td>
+              <td></td>
+              <td></td>
+              <td>
+                <a href="https://meet.google.com/pyj-qimm-cje"
+                  class="btn">Portuguese</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Tues</td>
+              <td>
+                <a href="https://meet.google.com/lookup/etiweqjnfq"
+                  class="btn">Geography</a>
+              </td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/czblaaalaw"
+                  class="btn">Maths</a>
+              </td>
+
+              <td></td>
+
+              <td>
+                <a href="https://meet.google.com/afo-epwg-pin"
+                  class="btn">Theatre Art</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Wed</td>
+
+              <td>
+                <form>
+                  <select name="third-lang" class="dropdown">
+                    <option value="https://meet.google.com/lookup/dvbvonuagy">
+                      French</option>
+                    <option value="https://meet.google.com/lookup/a25hajmwvr">
+                      Konkani
+                    </option>
+                    <option value="https://meet.google.com/lookup/eips74muw3">
+                      Marathi</option>
+                    <option value="https://meet.google.com/pyj-qimm-cje">
+                      Portuguese</option>
+                    <option value="https://meet.google.com/lookup/f5k3wrtxef">
+                      Sanskrit</option>
+                  </select>
+                  <a href="#" class="btn go-btn">Join</a>
+                </form>
+              </td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/cb6jf3ngn4"
+                  class="btn">Hindi</a>
+              </td>
+
+              <td></td>
+              <td></td>
+
+              <td>
+                <a href="https://meet.google.com/pyj-qimm-cje"
+                  class="btn">Portuguese</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Thurs</td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/ehyz3jga5r"
+                  class="btn">Computers</a>
+              </td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/g53g7owgab"
+                  class="btn">History</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Fri</td>
+              <td>
+                <a href="https://meet.google.com/lookup/ehnoyf3sof"
+                  class="btn">English</a>
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/gicbzgnhzq"
+                  class="btn">Science</a>
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/dvbvonuagy"
+                  class="btn">French</a>
+              </td>
+              <td></td>
+              <td>
+                <a href="https://meet.google.com/pyj-qimm-cje"
+                  class="btn">Portuguese</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Sat</td>
+              <td>
+                <a href="https://meet.google.com/lookup/czblaaalaw"
+                  class="btn">Maths</a>
+              </td>
+              <td>
+                <form>
+                  <select name="third-lang" class="dropdown">
+                    <option value="https://meet.google.com/lookup/dvbvonuagy">
+                      French</option>
+                    <option value="https://meet.google.com/lookup/a25hajmwvr">
+                      Konkani
+                    </option>
+                    <option value="https://meet.google.com/lookup/eips74muw3">
+                      Marathi</option>
+                    <option value="https://meet.google.com/pyj-qimm-cje">
+                      Portuguese</option>
+                    <option value="https://meet.google.com/lookup/f5k3wrtxef">
+                      Sanskrit</option>
+                  </select>
+                  <a href="#" class="btn go-btn">Join</a>
+                </form>
+              </td>
+            </tr>
+          </table>
+
+          <table class="ixb resp-table">
+            <tr>
+              <th></th>
+              <th>8:05 - 8:45</th>
+              <th>8:50 - 9:20</th>
+              <th>9:25 - 9:55</th>
+              <th>9:30 - 10:00</th>
+              <th>12:00 - 12:45</th>
+            </tr>
+
+            <tr>
+              <td>Mon</td>
+              <td>
+                <a href="https://meet.google.com/lookup/bqnlwbimun"
+                  class="btn">English</a>
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/fpm57km5h4"
+                  class="btn">Computers</a>
+              </td>
+              <td></td>
+              <td></td>
+              <td>
+                <a href="https://meet.google.com/pyj-qimm-cje"
+                  class="btn">Portuguese</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Tues</td>
+              <td>
+                <a href="https://meet.google.com/lookup/fan2rbeyd6"
+                  class="btn">Maths</a>
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/ge4cn72aor"
+                  class="btn">Science</a>
+              </td>
+              <td></td>
+              <td>
+                <a href="https://meet.google.com/afo-epwg-pin"
+                  class="btn">Theatre Art</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Wed</td>
+
+              <td>
+                <form>
+                  <select name="third-lang" class="dropdown">
+                    <option value="https://meet.google.com/lookup/dvbvonuagy">
+                      French</option>
+                    <option value="https://meet.google.com/lookup/a25hajmwvr">
+                      Konkani
+                    </option>
+                    <option value="https://meet.google.com/lookup/eips74muw3">
+                      Marathi</option>
+                    <option value="https://meet.google.com/pyj-qimm-cje">
+                      Portuguese</option>
+                    <option value="https://meet.google.com/lookup/f5k3wrtxef">
+                      Sanskrit</option>
+                  </select>
+                  <a href="#" class="btn go-btn">Join</a>
+                </form>
+              </td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/enwkmrudh2"
+                  class="btn">Geography</a>
+              </td>
+
+              <td></td>
+              <td></td>
+
+              <td>
+                <a href="https://meet.google.com/pyj-qimm-cje"
+                  class="btn">Portuguese</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Thurs</td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/aibuq3fhue"
+                  class="btn">History</a>
+              </td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/bqnlwbimun"
+                  class="btn">English</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Fri</td>
+              <td>
+                <a href="https://meet.google.com/lookup/ge4cn72aor"
+                  class="btn">Science</a>
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/fan2rbeyd6"
+                  class="btn">Maths</a>
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/dvbvonuagy"
+                  class="btn">French</a>
+              </td>
+              <td></td>
+              <td>
+                <a href="https://meet.google.com/pyj-qimm-cje"
+                  class="btn">Portuguese</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Sat</td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/h3ki6ijpcb"
+                  class="btn">Hindi</a>
+              </td>
+
+              <td>
+                <form>
+                  <select name="third-lang" class="dropdown">
+                    <option value="https://meet.google.com/lookup/dvbvonuagy">
+                      French</option>
+                    <option value="https://meet.google.com/lookup/a25hajmwvr">
+                      Konkani
+                    </option>
+                    <option value="https://meet.google.com/lookup/eips74muw3">
+                      Marathi</option>
+                    <option value="https://meet.google.com/pyj-qimm-cje">
+                      Portuguese</option>
+                    <option value="https://meet.google.com/lookup/f5k3wrtxef">
+                      Sanskrit</option>
+                  </select>
+                  <a href="#" class="btn go-btn">Join</a>
+                </form>
+              </td>
+            </tr>
+          </table>
+
+          <table class="ixc resp-table">
+            <tr>
+              <th></th>
+              <th>8:05 - 8:45</th>
+              <th>8:50 - 9:20</th>
+              <th>9:25 - 9:55</th>
+              <th>12:00 - 12:45</th>
+            </tr>
+
+            <tr>
+              <td>Mon</td>
+              <td>
+                <a href="https://meet.google.com/lookup/cdoyv2mvot"
+                  class="btn">Computers</a>
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/gwgvcvhjnl"
+                  class="btn">Maths</a>
+              </td>
+              <td></td>
+              <td>
+                <a href="https://meet.google.com/pyj-qimm-cje"
+                  class="btn">Portuguese</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Tues</td>
+              <td>
+                <a href="https://meet.google.com/lookup/c43jhgsbkw"
+                  class="btn">Science</a>
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/at6ppxezrx"
+                  class="btn">History</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Wed</td>
+
+              <td>
+                <form>
+                  <select name="third-lang" class="dropdown">
+                    <option value="https://meet.google.com/lookup/dvbvonuagy">
+                      French</option>
+                    <option value="https://meet.google.com/lookup/a25hajmwvr">
+                      Konkani
+                    </option>
+                    <option value="https://meet.google.com/lookup/eips74muw3">
+                      Marathi</option>
+                    <option value="https://meet.google.com/pyj-qimm-cje">
+                      Portuguese</option>
+                    <option value="https://meet.google.com/lookup/f5k3wrtxef">
+                      Sanskrit</option>
+                  </select>
+                  <a href="#" class="btn go-btn">Join</a>
+                </form>
+              </td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/aibuq3fhue"
+                  class="btn">English</a>
+              </td>
+
+              <td></td>
+              <td>
+                <a href="https://meet.google.com/pyj-qimm-cje"
+                  class="btn">Portuguese</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Thurs</td>
+              <td>
+                <a href="https://meet.google.com/lookup/gwgvcvhjnl"
+                  class="btn">Maths</a>
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/gstd4va5uw"
+                  class="btn">Hindi</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Fri</td>
+              <td>
+                <a href="https://meet.google.com/lookup/c43jhgsbkw"
+                  class="btn">Science</a>
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/htl3r4t3hh"
+                  class="btn">Geography</a>
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/dvbvonuagy"
+                  class="btn">French</a>
+              </td>
+              <td>
+                <a href="https://meet.google.com/pyj-qimm-cje"
+                  class="btn">Portuguese</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Sat</td>
+              <td>
+                <a href="https://meet.google.com/lookup/aibuq3fhue"
+                  class="btn">English</a>
+              </td>
+
+              <td>
+                <form>
+                  <select name="third-lang" class="dropdown">
+                    <option value="https://meet.google.com/lookup/dvbvonuagy">
+                      French</option>
+                    <option value="https://meet.google.com/lookup/a25hajmwvr">
+                      Konkani
+                    </option>
+                    <option value="https://meet.google.com/lookup/eips74muw3">
+                      Marathi</option>
+                    <option value="https://meet.google.com/pyj-qimm-cje">
+                      Portuguese</option>
+                    <option value="https://meet.google.com/lookup/f5k3wrtxef">
+                      Sanskrit</option>
+                  </select>
+                  <a href="#" class="btn go-btn">Join</a>
+                </form>
+              </td>
+            </tr>
+          </table>
+        </li>
+      </ol>
+    </main>
+
+    <button class="install btn active">Install</button>
+
+    <footer>
+      <section>
+        Creator: Mayank Shigaonker - <a href="mailto:shigoankerMayank@gmail.com"
+          target="_blank" rel="noopener">shigoankerMayank@gmail.com</a>
+      </section>
+
+      <section>
+        Credits:
+        <ul class="indented-list">
+          <li>Tr. Sarita Carvalho - The timetable and links.</li>
+        </ul>
+      </section>
+
+      <section>
+        This project is open source and code can be found on <a
+          href="https://github.com/MasterMynk/SchoolWork" target="_blank"
+          rel="noopener">Github</a>
+        <br>
+        Email <a href="mailto:shigaonkerMayank@gmail.com" target="_blank"
+          rel="noopener">me</a>
+        for any feature
+        ideas or queries.
+      </section>
+    </footer>
+  </body>
+
+</html>

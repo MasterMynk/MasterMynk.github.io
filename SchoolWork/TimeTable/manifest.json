@@ -1,0 +1,27 @@
+{
+  "name": "Live class timetable",
+  "short_name": "Timetable",
+  "start_url": "/SchoolWork/TimeTable/redirect.html",
+  "display": "standalone",
+  "background_color": "#191919",
+  "theme_color": "#D35400",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/SchoolWork/TimeTable/icons/logo512.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/SchoolWork/TimeTable/icons/logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/SchoolWork/TimeTable/icons/logo192.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192"
+    }
+  ],
+  "desciption": "Interactive timetable for standard 10 live classes of The Rosary High School"
+}
