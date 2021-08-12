@@ -342,7 +342,7 @@ footer > section:last-child { margin-bottom: 0; }
 ::-webkit-scrollbar-thumb:hover { background-color: rgb(var(--main-clr)); }
 
 @media (max-width: 770px) {
-  body::before { background-image: url(bg768.webp), var(--default-bg); }
+  body::before { background-image: url(/SchoolWork/bg768.webp), var(--default-bg); }
   .resp-table { border: none; }
   
   .resp-table tr:first-child {display: none;}
@@ -359,7 +359,7 @@ footer > section:last-child { margin-bottom: 0; }
   .resp-table td:first-child { padding: 0; }
 }
 @media (min-width: 769px) {
-  body::before { background-image: url(bg1080.webp), var(--default-bg); }
+  body::before { background-image: url(/SchoolWork/bg1080.webp), var(--default-bg); }
 }
 
 @media (max-width: 645px) {
