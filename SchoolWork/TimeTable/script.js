@@ -8,8 +8,8 @@ function update() {
   if (date.getDay()) { // If today isn't Sunday
     const todaysClassesOl = document.createElement("ol");
 
-    const timeInRange = (strRange) => {
-      const makeDate = (range) => {
+    const timeInRange = strRange => {
+      const makeDate = range => {
         const retTime = [];
         range.forEach(time => {
           time = time.split(":");
@@ -22,34 +22,62 @@ function update() {
       strRange = strRange.split(' ');
       strRange.splice(1, 1);
 
+
       const range = makeDate(strRange);
       const incMinsBy = (time, offset) => time.setMinutes(time.getMinutes() + offset);
 
       incMinsBy(range[0], -5); // starts 5 mins early
       incMinsBy(range[1], 1); // ends a min late
       if (date >= range[0] && date <= range[1])
-        return true;
+        // Add five minutes to the difference (300000ms = 5 mins) and then convert it to minutes
+        return (((range[0] - date) + 300000) / 60000) || true;
       return false;
     };
 
-    (() => { // Checkes if the ol exits and removes it if it does
+    { // Checkes if the ol exits and removes it if it does
       const ol = $(".link-card ol");
       if (ol)
         $(".link-card").removeChild(ol);
-    })();
+    }
 
     const todaysRow = $$(`#curr tr:nth-child(${date.getDay() + 1}) > td:not(:first-child)`);
 
     todaysRow.forEach((classElem, i) => {
       if (classElem.firstElementChild)
-        todaysClassesOl.appendChild((() => {
+        todaysClassesOl.appendChild((() => { // Adds an li
           const li = document.createElement("li");
+
+          // Adding the text div
+          li.appendChild(document.createElement("div"));
+          li.firstElementChild.classList.add("timing-and-status");
+
           const timings = $(`#curr tr:first-child > th:nth-child(${i + 2})`);
 
-          li.innerText = timings.innerText + ':';
-          if (timeInRange(timings.innerText))
+          { // Adding the timing
+            const timingContainer = document.createElement("div");
+
+            timingContainer.innerText = timings.innerText + ":";
+            li.firstElementChild.appendChild(timingContainer);
+          }
+
+          // Adding the button
+          const timeDetails = timeInRange(timings.innerText);
+          console.log(timeDetails);
+          if (timeDetails) {
             classElem.firstElementChild.classList.add("active");
-          else
+
+            // Adding the status
+            const status = document.createElement("div");
+
+            if (timeDetails === true || timeDetails < 0)
+              status.innerText = "✓Join";
+            else
+              status.innerText = timeDetails +
+                (timeDetails === 1 ? " min" : " mins");
+
+            status.classList.add("status", "ok");
+            li.firstElementChild.appendChild(status);
+          } else
             classElem.firstElementChild.classList.remove("active");
 
           classElem.firstElementChild.classList.remove("tt-btn");
@@ -59,6 +87,7 @@ function update() {
           return li;
         })());
     });
+
     $(".link-card").appendChild(todaysClassesOl);
   }
 }

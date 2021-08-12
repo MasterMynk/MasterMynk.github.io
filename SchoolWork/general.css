@@ -142,7 +142,7 @@ td .go-btn {
 }
 
 .ind input:checked + .btn { display: none; }
- 
+
 h1 {
   font-size: 3.5em;
   font-weight: 700;
@@ -190,6 +190,15 @@ nav + header > h1 {
   background-color: rgb(30, 30, 30);
   box-shadow: .5em .5em .5em rgba(10, 10, 10, 0.6);
 }
+
+.timing-and-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status { font-size: .65em; }
+.status.ok { color: limegreen; }
 
 .soln { padding-left: 2.5em; }
 
