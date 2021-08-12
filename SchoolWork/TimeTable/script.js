@@ -15,13 +15,14 @@ function update() {
           time = time.split(":");
           retTime.push(new Date());
           retTime[retTime.length - 1].setHours(time[0], time[1], 0, 0);
+
+          retTime[retTime.length - 1].setDate(13)
         });
 
         return retTime;
       };
       strRange = strRange.split(' ');
       strRange.splice(1, 1);
-
 
       const range = makeDate(strRange);
       const incMinsBy = (time, offset) => time.setMinutes(time.getMinutes() + offset);
@@ -62,20 +63,27 @@ function update() {
 
           // Adding the button
           const timeDetails = timeInRange(timings.innerText);
-          console.log(timeDetails);
           if (timeDetails) {
             classElem.firstElementChild.classList.add("active");
 
             // Adding the status
             const status = document.createElement("div");
-
-            if (timeDetails === true || timeDetails < 0)
-              status.innerText = "✓Join";
-            else
+            if (timeDetails === true || timeDetails < 0) {
+              if (classElem.querySelector(".greyed")) {
+                status.innerText = "Cancelled";
+                status.classList.add("not-ok");
+              }
+              else {
+                status.innerText = "✓Join";
+                status.classList.add("ok");
+              }
+            } else {
               status.innerText = timeDetails +
                 (timeDetails === 1 ? " min" : " mins");
+              status.classList.add("ok");
+            }
 
-            status.classList.add("status", "ok");
+            status.classList.add("status");
             li.firstElementChild.appendChild(status);
           } else
             classElem.firstElementChild.classList.remove("active");
@@ -166,7 +174,6 @@ function radioChange() {
       );
   });
 
-  update();
   radioChange();
 
   // Every 30 seconds update the links
@@ -183,7 +190,6 @@ function radioChange() {
           goBtn.previousElementSibling.value);
 
         // Set this as the default language now
-        console.log($(`option[value="${goBtn.previousElementSibling.value}"]`).innerText.trim())
         localStorage.setItem("thirdLang", $(`option[value="${goBtn.previousElementSibling.value}"]`).innerText.trim())
       }));
 })();

@@ -197,8 +197,19 @@ nav + header > h1 {
   justify-content: space-between;
 }
 
-.status { font-size: .65em; }
+.status {
+  font-size: .65em;
+  font-weight: 700;
+}
 .status.ok { color: limegreen; }
+.status.not-ok { color: crimson; }
+.status.not-ok::before {
+  content: "!";
+  border: 2px solid;
+  padding: .05em .5em;
+  border-radius: 50%;
+  margin-right: .2em;
+}
 
 .soln { padding-left: 2.5em; }
 
@@ -317,6 +328,9 @@ th {
   margin-bottom: 1em;
 }
 
+.greyed.dropdown,
+.greyed.dropdown + .btn.go-btn { color: #333; }
+
 td .dropdown { margin: 0 auto 1em auto; }
 
 ::-webkit-scrollbar {
@@ -390,6 +404,7 @@ footer > section:last-child { margin-bottom: 0; }
 
 @media (max-width: 340px) {
   .div { font-size: .5em; }
+  .status { font-size: 2.5vw; }
 }
 
 @media (max-width: 290px) {
