@@ -141,6 +141,10 @@ td .go-btn {
   box-shadow: .5em .5em .5em rgba(10, 10, 10, 0.9);
 }
 
+.greyed.btn,
+.greyed.dropdown,
+.greyed.dropdown + .btn.go-btn { color: #333; }
+
 .ind input:checked + .btn { display: none; }
 
 h1 {
@@ -327,9 +331,6 @@ th {
   font-size: .8em;
   margin-bottom: 1em;
 }
-
-.greyed.dropdown,
-.greyed.dropdown + .btn.go-btn { color: #333; }
 
 td .dropdown { margin: 0 auto 1em auto; }
 

@@ -15,8 +15,6 @@ function update() {
           time = time.split(":");
           retTime.push(new Date());
           retTime[retTime.length - 1].setHours(time[0], time[1], 0, 0);
-
-          retTime[retTime.length - 1].setDate(13)
         });
 
         return retTime;
@@ -64,7 +62,9 @@ function update() {
           // Adding the button
           const timeDetails = timeInRange(timings.innerText);
           if (timeDetails) {
-            classElem.firstElementChild.classList.add("active");
+            // If the class is supposed to be cancelled, don't highlight it.
+            if (!classElem.querySelector(".greyed"))
+              classElem.firstElementChild.classList.add("active");
 
             // Adding the status
             const status = document.createElement("div");
