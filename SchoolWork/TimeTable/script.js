@@ -29,7 +29,7 @@ function update() {
       incMinsBy(range[1], 1); // ends a min late
       if (date >= range[0] && date <= range[1])
         // Add five minutes to the difference (300000ms = 5 mins) and then convert it to minutes
-        return (((range[0] - date) + 300000) / 60000) || true;
+        return Math.round(((range[0] - date) + 300000) / 60000) || true;
       return false;
     };
 
