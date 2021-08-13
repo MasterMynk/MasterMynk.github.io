@@ -174,6 +174,7 @@ function radioChange() {
       );
   });
 
+  update();
   radioChange();
 
   // Every 30 seconds update the links
