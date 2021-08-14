@@ -1,7 +1,117 @@
 let installPrompt;
+let date = new Date();
 
 function $(elem) { return document.querySelector(elem); }
 function $$(elems) { return document.querySelectorAll(elems); }
+
+(function main() {
+  // This is used by redirect.html
+  localStorage.setItem("lastVisitedPage", window.location.pathname);
+
+  swInit();
+  installBtnInit();
+  navInit();
+  thirdLangInit();
+
+  update();
+  radioChange();
+
+  window.matchMedia("(max-width: 770px)").addEventListener("change", () => setDataTime(true));
+
+  // Every 30 seconds update the links
+  setInterval(update, 30 * 1000);
+
+  $$(".go-btn") // Get all 3rd language buttons
+    .forEach(goBtns => goBtns.addEventListener("click", // For each button add a click event listener
+      ev => {
+        const goBtn = ev.target;
+
+        // Set the clicked go button's link to
+        // the value of the select element of the button
+        goBtn.setAttribute("href",
+          goBtn.previousElementSibling.value);
+
+        // Set this as the default language now
+        localStorage.setItem("thirdLang", $(`option[value="${goBtn.previousElementSibling.value}"]`).innerText.trim())
+      }));
+})();
+
+function swInit() {
+  // Service worker
+  if ("serviceWorker" in navigator && $('link[rel="manifest"]'))
+    navigator.serviceWorker.register("/SchoolWork/TimeTable/sw.js");
+}
+
+function installBtnInit() {
+  // Get the prompt which usually shows up and save it
+  window.addEventListener("beforeinstallprompt", e => {
+    installPrompt = e;
+    e.preventDefault();
+    $(".install.btn") && ($(".install.btn").style.display = "block");
+  });
+
+  // When the install button is clicked show the previously saved prompt
+  $(".install.btn") && $(".install.btn").addEventListener("click", async ev => {
+    if (installPrompt) {
+      installPrompt.prompt();
+      const { outcome } = await installPrompt.userChoice;
+
+      if (outcome === "accepted") { // That means the user installed the website
+        installPrompt = null; // So we dont need this button to work anymore
+        ev.target.display = "none";
+      }
+    }
+  });
+}
+
+function navInit() {
+  if ($("nav")) {
+    const division = localStorage.getItem("division");
+
+    if (division && $(`#${division}`) && $(".ind > div:last-child > label").innerText <= division)
+      $(`#${division}`).checked = true;
+    else
+      $('input[name="div"]').checked = true;
+  }
+}
+
+function thirdLangInit() {
+  if ($('[name="third-lang"].dropdown')) {
+    const prefLang = localStorage.getItem("thirdLang");
+
+    prefLang && $$('[name="third-lang"].dropdown > option').forEach(opt =>
+      opt.selected = opt.innerText.trim() === prefLang
+    );
+  }
+}
+
+function setDataTime(mobile = false) {
+  const timings = $$(".resp-table#curr tr > th:not(:first-child)");
+  const tds = $$(".resp-table#curr tr > td:not(:first-child)");
+
+  if ((mobile || window.matchMedia("(max-width: 770px)").matches) && !("time" in tds[0].dataset))
+    tds.forEach((td, i) =>
+      td.setAttribute("data-time", timings[i % 2].innerText)
+    );
+}
+
+function setCancelled() {
+  date = new Date();
+  const tds = $$(".resp-table#curr tr > td:not(:first-child)");
+
+  tds.forEach(td => {
+    if ("cancelled" in td.dataset) {
+      const datesAsStr = td.dataset.cancelled;
+
+      datesAsStr.split(", ").forEach(dateAsStr => {
+        const cancelledDateStrArr = dateAsStr.split("-");
+        const cancelledDate = new Date(parseInt(cancelledDateStrArr[2]), parseInt(cancelledDateStrArr[1]), parseInt(cancelledDateStrArr[0]) + 6);
+        if (cancelledDate >= date)
+          td.firstElementChild.classList.add("greyed");
+      });
+    }
+  })
+}
 
 function update() {
   const date = new Date();
@@ -110,104 +220,10 @@ function radioChange() {
       $("#curr").removeAttribute("id");
       $(`.${currClass.toLowerCase()}`).setAttribute("id", "curr");
       update();
+      setDataTime();
+      setCancelled();
       return false;
     }
     return true;
   });
 }
-
-(function main() {
-  localStorage.setItem("lastVisitedPage", window.location.pathname);
-
-  // Service worker
-  if ("serviceWorker" in navigator && $('link[rel="manifest"]'))
-    navigator.serviceWorker.register("/SchoolWork/TimeTable/sw.js");
-
-  // Get the prompt
-  window.addEventListener("beforeinstallprompt", e => {
-    installPrompt = e;
-    e.preventDefault();
-    if ($(".install.btn"))
-      $(".install.btn").style.display = "block";
-  });
-
-  if ($(".install.btn"))
-    $(".install.btn").addEventListener("click", async ev => {
-      if (installPrompt) {
-        installPrompt.prompt();
-        const { outcome } = await installPrompt.userChoice;
-
-        if (outcome === "accepted") { // That means the user installed the website
-          installPrompt = null; // So we dont need this button to work anymore
-          ev.target.display = "none";
-        }
-      }
-    });
-
-  if ($("nav")) { // If I have a navbar
-    const division = localStorage.getItem("division");
-
-    if (division && $(`#${division}`) && $(".ind > div:last-child > label").innerText <= division)
-      $(`#${division}`).checked = true;
-    else
-      $('input[name="div"]').checked = true;
-  }
-
-  if ($('[name="third-lang"].dropdown')) {
-    const prefLang = localStorage.getItem("thirdLang");
-
-    if (prefLang)
-      $$('[name="third-lang"].dropdown > option').forEach(opt => {
-        if (opt.innerText.trim() === prefLang)
-          opt.selected = true;
-      });
-  }
-
-  // Sets the data-time attribute to responsive tables because thats used by CSS
-  // for making the table responsive
-  {
-    const date = new Date();
-    $$("table").forEach(table => {
-      if (Array.from(table.classList).includes("resp-table"))
-        table.querySelectorAll("tr:not(:first-child)").forEach(tr =>
-          tr.querySelectorAll("td:not(:first-child)").forEach((td, i) =>
-            td.setAttribute("data-time", table.querySelectorAll("tr:first-child > th:not(:first-child)")[i].innerText)
-          )
-        );
-
-      table.querySelectorAll("tr > td:not(:first-child)").forEach(classElem => {
-        // Disabling any button if the class is cancelled
-        if (classElem.dataset.cancelled) {
-          Array.from(classElem.dataset.cancelled.split(", ")).forEach(dateStr => {
-            const cancelledDate = dateStr.split("-");
-
-            // If today is the day
-
-            if (cancelledDate[2] == date.getFullYear() && (cancelledDate[1] - 1) == date.getMonth() && parseInt(cancelledDate[0]) >= (date.getDate() - 7))
-              classElem.firstElementChild.classList.add("greyed");
-          });
-        }
-      });
-    });
-  }
-
-  update();
-  radioChange();
-
-  // Every 30 seconds update the links
-  setInterval(update, 30 * 1000);
-
-  $$(".go-btn") // Get all 3rd language buttons
-    .forEach(goBtns => goBtns.addEventListener("click", // For each button add a click event listener
-      ev => {
-        const goBtn = ev.target;
-
-        // Set the clicked go button's link to
-        // the value of the select element of the button
-        goBtn.setAttribute("href",
-          goBtn.previousElementSibling.value);
-
-        // Set this as the default language now
-        localStorage.setItem("thirdLang", $(`option[value="${goBtn.previousElementSibling.value}"]`).innerText.trim())
-      }));
-})();
