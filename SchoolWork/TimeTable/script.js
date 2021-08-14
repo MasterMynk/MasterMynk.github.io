@@ -13,8 +13,8 @@ function $$(elems) { return document.querySelectorAll(elems); }
   navInit();
   thirdLangInit();
 
+  radioChange(false);
   update();
-  radioChange();
 
   window.matchMedia("(max-width: 770px)").addEventListener("change", () => setDataTime(true));
 
@@ -210,7 +210,7 @@ function update() {
   }
 }
 
-function radioChange() {
+function radioChange(callUpdate = true) {
   Array.from($$(".ind input")).every(btn => {
     if (btn.checked) {
       const currClass = $("h1").innerText.slice(0, $("h1").innerText.length - 1) + btn.nextElementSibling.innerText;
@@ -219,7 +219,7 @@ function radioChange() {
       $("h1").innerText = currClass;
       $("#curr").removeAttribute("id");
       $(`.${currClass.toLowerCase()}`).setAttribute("id", "curr");
-      update();
+      callUpdate && update();
       setDataTime();
       setCancelled();
       return false;
