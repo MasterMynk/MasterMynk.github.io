@@ -142,8 +142,8 @@ td .go-btn {
 }
 
 .greyed.btn,
-.greyed.dropdown,
-.greyed.dropdown + .btn.go-btn { color: #333; }
+.greyed > .dropdown,
+.greyed > .btn.go-btn { color: #333; }
 
 .ind input:checked + .btn { display: none; }
 

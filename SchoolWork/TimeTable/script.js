@@ -52,7 +52,7 @@ function update() {
 
           const timings = $(`#curr tr:first-child > th:nth-child(${i + 2})`);
 
-          { // Adding the timing
+          { // Adding the timing container
             const timingContainer = document.createElement("div");
 
             timingContainer.innerText = timings.innerText + ":";
@@ -68,7 +68,7 @@ function update() {
 
             // Adding the status
             const status = document.createElement("div");
-            if (timeDetails === true || timeDetails < 0) {
+            if (timeDetails === true || timeDetails < 0 || classElem.querySelector(".greyed")) {
               if (classElem.querySelector(".greyed")) {
                 status.innerText = "Cancelled";
                 status.classList.add("not-ok");
@@ -165,14 +165,31 @@ function radioChange() {
 
   // Sets the data-time attribute to responsive tables because thats used by CSS
   // for making the table responsive
-  $$("table").forEach(table => {
-    if (Array.from(table.classList).includes("resp-table"))
-      table.querySelectorAll("tr:not(:first-child)").forEach(tr =>
-        tr.querySelectorAll("td:not(:first-child)").forEach((td, i) =>
-          td.setAttribute("data-time", table.querySelectorAll("tr:first-child > th:not(:first-child)")[i].innerText)
-        )
-      );
-  });
+  {
+    const date = new Date();
+    $$("table").forEach(table => {
+      if (Array.from(table.classList).includes("resp-table"))
+        table.querySelectorAll("tr:not(:first-child)").forEach(tr =>
+          tr.querySelectorAll("td:not(:first-child)").forEach((td, i) =>
+            td.setAttribute("data-time", table.querySelectorAll("tr:first-child > th:not(:first-child)")[i].innerText)
+          )
+        );
+
+      table.querySelectorAll("tr > td:not(:first-child)").forEach(classElem => {
+        // Disabling any button if the class is cancelled
+        if (classElem.dataset.cancelled) {
+          Array.from(classElem.dataset.cancelled.split(", ")).forEach(dateStr => {
+            const cancelledDate = dateStr.split("-");
+
+            // If today is the day
+
+            if (cancelledDate[2] == date.getFullYear() && (cancelledDate[1] - 1) == date.getMonth() && parseInt(cancelledDate[0]) >= (date.getDate() - 7))
+              classElem.firstElementChild.classList.add("greyed");
+          });
+        }
+      });
+    });
+  }
 
   update();
   radioChange();
