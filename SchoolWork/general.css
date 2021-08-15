@@ -205,9 +205,11 @@ nav + header > h1 {
   font-size: .65em;
   font-weight: 700;
 }
-.status.ok { color: limegreen; }
-.status.not-ok { color: crimson; }
-.status.not-ok::before {
+.status.go { color: limegreen; }
+.status.wait { color: yellow; }
+
+.status.prob { color: crimson; }
+.status.prob::before {
   content: "!";
   border: 2px solid;
   padding: .05em .5em;

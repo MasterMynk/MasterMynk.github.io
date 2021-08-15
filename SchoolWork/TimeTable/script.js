@@ -1,5 +1,5 @@
 let installPrompt;
-let date = new Date();
+let date = makeDate();
 
 function $(elem) { return document.querySelector(elem); }
 function $$(elems) { return document.querySelectorAll(elems); }
@@ -96,7 +96,8 @@ function setDataTime(mobile = false) {
 }
 
 function setCancelled() {
-  date = new Date();
+  date = makeDate();
+
   const tds = $$(".resp-table#curr tr > td:not(:first-child)");
 
   tds.forEach(td => {
@@ -114,16 +115,15 @@ function setCancelled() {
 }
 
 function update() {
-  const date = new Date();
-  if (date.getDay()) { // If today isn't Sunday
-    const todaysClassesOl = document.createElement("ol");
+  date = makeDate();
 
+  if (date.getDay()) { // If today isn't Sunday
     const timeInRange = strRange => {
-      const makeDate = range => {
+      const makeDateFromStr = range => {
         const retTime = [];
         range.forEach(time => {
           time = time.split(":");
-          retTime.push(new Date());
+          retTime.push(makeDate());
           retTime[retTime.length - 1].setHours(time[0], time[1], 0, 0);
         });
 
@@ -132,81 +132,50 @@ function update() {
       strRange = strRange.split(' ');
       strRange.splice(1, 1);
 
-      const range = makeDate(strRange);
+      const range = makeDateFromStr(strRange);
       const incMinsBy = (time, offset) => time.setMinutes(time.getMinutes() + offset);
 
       incMinsBy(range[0], -5); // starts 5 mins early
       incMinsBy(range[1], 1); // ends a min late
       if (date >= range[0] && date <= range[1])
         // Add five minutes to the difference (300000ms = 5 mins) and then convert it to minutes
-        return Math.round(((range[0] - date) + 300000) / 60000) || true;
+        return Math.round(((range[0] - date) + 300000) / 1000) || true;
       return false;
     };
 
-    { // Checkes if the ol exits and removes it if it does
-      const ol = $(".link-card ol");
-      if (ol)
-        $(".link-card").removeChild(ol);
-    }
+    removeExistingOl();
 
     const todaysRow = $$(`#curr tr:nth-child(${date.getDay() + 1}) > td:not(:first-child)`);
+    const linkCardOl = document.createElement("ol");
 
-    todaysRow.forEach((classElem, i) => {
-      if (classElem.firstElementChild)
-        todaysClassesOl.appendChild((() => { // Adds an li
+    todaysRow.forEach((btn, i) => {
+      if (btn.firstElementChild) // This is a check to block empty tds
+        linkCardOl.appendChild((() => { // Adds an li
           const li = document.createElement("li");
+          const timingAndStatus = addTimingAndStatus(li);
+          const timeFrame = addTime($(`#curr tr > th:nth-child(${i + 2})`).innerText, timingAndStatus);
+          const status = addStatus(timingAndStatus);
+          const timeDetails = timeInRange(timeFrame.innerText);
 
-          // Adding the text div
-          li.appendChild(document.createElement("div"));
-          li.firstElementChild.classList.add("timing-and-status");
-
-          const timings = $(`#curr tr:first-child > th:nth-child(${i + 2})`);
-
-          { // Adding the timing container
-            const timingContainer = document.createElement("div");
-
-            timingContainer.innerText = timings.innerText + ":";
-            li.firstElementChild.appendChild(timingContainer);
-          }
-
-          // Adding the button
-          const timeDetails = timeInRange(timings.innerText);
           if (timeDetails) {
             // If the class is supposed to be cancelled, don't highlight it.
-            if (!classElem.querySelector(".greyed"))
-              classElem.firstElementChild.classList.add("active");
+            if (!btn.querySelector(".greyed"))
+              btn.firstElementChild.classList.add("active");
 
             // Adding the status
-            const status = document.createElement("div");
-            if (timeDetails === true || timeDetails < 0 || classElem.querySelector(".greyed")) {
-              if (classElem.querySelector(".greyed")) {
-                status.innerText = "Cancelled";
-                status.classList.add("not-ok");
-              }
-              else {
-                status.innerText = "✓Join";
-                status.classList.add("ok");
-              }
-            } else {
-              status.innerText = timeDetails +
-                (timeDetails === 1 ? " min" : " mins");
-              status.classList.add("ok");
-            }
-
-            status.classList.add("status");
-            li.firstElementChild.appendChild(status);
+            statusLogic(timeDetails, status, btn);
           } else
-            classElem.firstElementChild.classList.remove("active");
+            btn.firstElementChild.classList.remove("active");
 
-          classElem.firstElementChild.classList.remove("tt-btn");
+          btn.firstElementChild.classList.remove("tt-btn");
 
-          li.appendChild(classElem.firstElementChild.cloneNode(true));
+          li.appendChild(btn.firstElementChild.cloneNode(true));
 
           return li;
         })());
     });
 
-    $(".link-card").appendChild(todaysClassesOl);
+    $(".link-card").appendChild(linkCardOl);
   }
 }
 
@@ -226,4 +195,59 @@ function radioChange(callUpdate = true) {
     }
     return true;
   });
+}
+
+function removeExistingOl() {
+  const ol = $(".link-card ol");
+  ol && $(".link-card").removeChild(ol);
+}
+
+function addTimingAndStatus(parent) {
+  const timingAndStatus = document.createElement("div");
+
+  timingAndStatus.classList.add("timing-and-status");
+  parent.appendChild(timingAndStatus);
+
+  return timingAndStatus;
+}
+
+function addTime(timeFrameText, parent) {
+  const timeFrame = document.createElement("div");
+
+  timeFrame.innerText = timeFrameText + ":";
+  parent.appendChild(timeFrame);
+
+  return timeFrame
+}
+
+function addStatus(parent) {
+  const status = document.createElement("div");
+
+  status.classList.add("status");
+  parent.appendChild(status);
+
+  return status;
+}
+
+function statusLogic(timeDetails, status, btn) {
+  if (btn.querySelector(".greyed") && (timeDetails < 0 || timeDetails === true)) {
+    status.innerText = "Cancelled";
+    status.classList.add("prob");
+  } else if (timeDetails === true || timeDetails < 0) {
+    status.innerText = "✓Join";
+    status.classList.add("go");
+  } else {
+    const secs = timeDetails % 60;
+
+    status.innerText = Math.round(timeDetails / 60) +
+      ":" + (secs < 10 ? "0" : "") + secs;
+    status.classList.add("wait");
+  }
+}
+
+// Function for easy testing
+function makeDate() {
+  const date = new Date();
+  date.setDate(16)
+  return date;
 }
