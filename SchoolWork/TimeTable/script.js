@@ -1,5 +1,5 @@
 let installPrompt;
-let date = makeDate();
+let date = newDate();
 
 function $(elem) { return document.querySelector(elem); }
 function $$(elems) { return document.querySelectorAll(elems); }
@@ -18,8 +18,10 @@ function $$(elems) { return document.querySelectorAll(elems); }
 
   window.matchMedia("(max-width: 770px)").addEventListener("change", () => setDataTime(true));
 
-  // Every 30 seconds update the links
-  setInterval(update, 30 * 1000);
+  if (date.getDay()) { // If today isn't sunday
+    setInterval(update, 30 * 1000);
+    setInterval(statusUpdate, 1 * 1000);
+  }
 
   $$(".go-btn") // Get all 3rd language buttons
     .forEach(goBtns => goBtns.addEventListener("click", // For each button add a click event listener
@@ -96,7 +98,7 @@ function setDataTime(mobile = false) {
 }
 
 function setCancelled() {
-  date = makeDate();
+  date = newDate();
 
   const tds = $$(".resp-table#curr tr > td:not(:first-child)");
 
@@ -115,67 +117,35 @@ function setCancelled() {
 }
 
 function update() {
-  date = makeDate();
+  date = newDate();
+
+  setDataTime();
+  setCancelled();
 
   if (date.getDay()) { // If today isn't Sunday
-    const timeInRange = strRange => {
-      const makeDateFromStr = range => {
-        const retTime = [];
-        range.forEach(time => {
-          time = time.split(":");
-          retTime.push(makeDate());
-          retTime[retTime.length - 1].setHours(time[0], time[1], 0, 0);
-        });
-
-        return retTime;
-      };
-      strRange = strRange.split(' ');
-      strRange.splice(1, 1);
-
-      const range = makeDateFromStr(strRange);
-      const incMinsBy = (time, offset) => time.setMinutes(time.getMinutes() + offset);
-
-      incMinsBy(range[0], -5); // starts 5 mins early
-      incMinsBy(range[1], 1); // ends a min late
-      if (date >= range[0] && date <= range[1])
-        // Add five minutes to the difference (300000ms = 5 mins) and then convert it to minutes
-        return Math.round(((range[0] - date) + 300000) / 1000) || true;
-      return false;
-    };
-
     removeExistingOl();
 
     const todaysRow = $$(`#curr tr:nth-child(${date.getDay() + 1}) > td:not(:first-child)`);
-    const linkCardOl = document.createElement("ol");
+    const ol = document.createElement("ol");
 
-    todaysRow.forEach((btn, i) => {
-      if (btn.firstElementChild) // This is a check to block empty tds
-        linkCardOl.appendChild((() => { // Adds an li
+    todaysRow.forEach(({ firstElementChild: btn }, i) => {
+      if (btn)
+        ol.appendChild((() => { // Adds an li
           const li = document.createElement("li");
           const timingAndStatus = addTimingAndStatus(li);
-          const timeFrame = addTime($(`#curr tr > th:nth-child(${i + 2})`).innerText, timingAndStatus);
-          const status = addStatus(timingAndStatus);
-          const timeDetails = timeInRange(timeFrame.innerText);
+          const timeDetails = timeInRange(addTime($(`#curr tr > th:nth-child(${i + 2})`).innerText, timingAndStatus).innerText);
 
-          if (timeDetails) {
-            // If the class is supposed to be cancelled, don't highlight it.
-            if (!btn.querySelector(".greyed"))
-              btn.firstElementChild.classList.add("active");
+          statusLogic(timeDetails, addStatus(timingAndStatus), btn);
+          activeBtnLogic(timeDetails, btn);
 
-            // Adding the status
-            statusLogic(timeDetails, status, btn);
-          } else
-            btn.firstElementChild.classList.remove("active");
-
-          btn.firstElementChild.classList.remove("tt-btn");
-
-          li.appendChild(btn.firstElementChild.cloneNode(true));
+          btn.classList.remove("tt-btn");
+          li.appendChild(btn.cloneNode(true));
 
           return li;
         })());
     });
 
-    $(".link-card").appendChild(linkCardOl);
+    $(".link-card").appendChild(ol);
   }
 }
 
@@ -189,8 +159,6 @@ function radioChange(callUpdate = true) {
       $("#curr").removeAttribute("id");
       $(`.${currClass.toLowerCase()}`).setAttribute("id", "curr");
       callUpdate && update();
-      setDataTime();
-      setCancelled();
       return false;
     }
     return true;
@@ -229,25 +197,76 @@ function addStatus(parent) {
   return status;
 }
 
-function statusLogic(timeDetails, status, btn) {
-  if (btn.querySelector(".greyed") && (timeDetails < 0 || timeDetails === true)) {
+function statusLogic(timeDetails, status, correspondingInp) {
+  if (correspondingInp.classList.contains("greyed") && timeDetails !== false) {
     status.innerText = "Cancelled";
     status.classList.add("prob");
   } else if (timeDetails === true || timeDetails < 0) {
     status.innerText = "✓Join";
     status.classList.add("go");
-  } else {
+    status.classList.remove("wait");
+  } else if (timeDetails > 0) {
     const secs = timeDetails % 60;
+    console.log(timeDetails);
 
-    status.innerText = Math.round(timeDetails / 60) +
+    status.innerText = Math.floor(timeDetails / 60) +
       ":" + (secs < 10 ? "0" : "") + secs;
     status.classList.add("wait");
-  }
+
+    return false;
+  } else
+    status.innerText = "";
+
+  return true;
 }
 
 // Function for easy testing
-function makeDate() {
+function newDate() {
   const date = new Date();
-  date.setDate(16)
+  // date.setDate(16)
   return date;
+}
+
+function timeInRange(strRange) {
+  date = newDate();
+  strRange = strRange.split(' ');
+  strRange.splice(1, 1);
+
+  const range = makeDateFromStr(strRange);
+  const incMinsBy = (time, offset) => time.setMinutes(time.getMinutes() + offset);
+
+  incMinsBy(range[0], -5); // starts 5 mins early
+  incMinsBy(range[1], 1); // ends a min late
+  if (date >= range[0] && date <= range[1])
+    // Add five minutes to the difference (300000ms = 5 mins) and then convert it to minutes
+    return Math.round(((range[0] - date) + 300000) / 1000) || true;
+  return false;
+};
+
+function makeDateFromStr(range) {
+  const retTime = [];
+
+  range.forEach(time => {
+    time = time.split(":");
+    retTime.push(newDate());
+    retTime[retTime.length - 1].setHours(time[0], time[1], 0, 0);
+  });
+
+  return retTime;
+}
+
+function activeBtnLogic(timeDetails, btn) {
+  if (timeDetails) {
+    // If the class is supposed to be cancelled, don't highlight it.
+    if (!btn.classList.contains("greyed"))
+      btn.classList.add("active");
+  } else
+    btn.classList.remove("active");
+}
+
+function statusUpdate() {
+  $$(".timing-and-status").forEach(timingAndStatus => {
+    const timeDetails = timeInRange(timingAndStatus.firstElementChild.innerText);
+    statusLogic(timeDetails, timingAndStatus.querySelector(".status"), timingAndStatus.parentElement.lastElementChild);
+  })
 }
