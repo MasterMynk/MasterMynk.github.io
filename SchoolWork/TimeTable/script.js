@@ -18,10 +18,8 @@ function $$(elems) { return document.querySelectorAll(elems); }
 
   window.matchMedia("(max-width: 770px)").addEventListener("change", () => setDataTime(true));
 
-  if (date.getDay()) { // If today isn't sunday
-    setInterval(update, 30 * 1000);
+  if (date.getDay()) // If today isn't sunday
     setInterval(statusUpdate, 1 * 1000);
-  }
 
   $$(".go-btn") // Get all 3rd language buttons
     .forEach(goBtns => goBtns.addEventListener("click", // For each button add a click event listener
@@ -136,7 +134,6 @@ function update() {
           const timeDetails = timeInRange(addTime($(`#curr tr > th:nth-child(${i + 2})`).innerText, timingAndStatus).innerText);
 
           statusLogic(timeDetails, addStatus(timingAndStatus), btn);
-          activeBtnLogic(timeDetails, btn);
 
           btn.classList.remove("tt-btn");
           li.appendChild(btn.cloneNode(true));
@@ -198,6 +195,10 @@ function addStatus(parent) {
 }
 
 function statusLogic(timeDetails, status, correspondingInp) {
+  const updateActiveBtn = () => {
+    activeBtnLogic(timeDetails, correspondingInp, false);
+  }
+
   if (correspondingInp.classList.contains("greyed") && timeDetails !== false) {
     status.innerText = "Cancelled";
     status.classList.add("prob");
@@ -205,17 +206,20 @@ function statusLogic(timeDetails, status, correspondingInp) {
     status.innerText = "✓Join";
     status.classList.add("go");
     status.classList.remove("wait");
+    updateActiveBtn();
   } else if (timeDetails > 0) {
     const secs = timeDetails % 60;
-    console.log(timeDetails);
 
     status.innerText = Math.floor(timeDetails / 60) +
       ":" + (secs < 10 ? "0" : "") + secs;
     status.classList.add("wait");
+    updateActiveBtn();
 
     return false;
-  } else
+  } else {
     status.innerText = "";
+    updateActiveBtn();
+  }
 
   return true;
 }
@@ -223,7 +227,6 @@ function statusLogic(timeDetails, status, correspondingInp) {
 // Function for easy testing
 function newDate() {
   const date = new Date();
-  // date.setDate(16)
   return date;
 }
 
@@ -255,18 +258,25 @@ function makeDateFromStr(range) {
   return retTime;
 }
 
-function activeBtnLogic(timeDetails, btn) {
+function activeBtnLogic(timeDetails, correspondingInp, greyed = true) {
   if (timeDetails) {
     // If the class is supposed to be cancelled, don't highlight it.
-    if (!btn.classList.contains("greyed"))
-      btn.classList.add("active");
-  } else
-    btn.classList.remove("active");
+    if (!greyed || !correspondingInp.classList.contains("greyed"))
+      correspondingInp.classList.add("active");
+  } else {
+    if (correspondingInp.classList.contains("active")) {
+      const activeInTT = $("#curr .active");
+      activeInTT && activeInTT.classList.remove("active");
+    }
+
+    correspondingInp.classList.remove("active");
+  }
 }
 
 function statusUpdate() {
-  $$(".timing-and-status").forEach(timingAndStatus => {
+  Array.from($$(".timing-and-status")).every(timingAndStatus => {
     const timeDetails = timeInRange(timingAndStatus.firstElementChild.innerText);
-    statusLogic(timeDetails, timingAndStatus.querySelector(".status"), timingAndStatus.parentElement.lastElementChild);
+
+    return statusLogic(timeDetails, timingAndStatus.querySelector(".status"), timingAndStatus.parentElement.lastElementChild);
   })
 }
