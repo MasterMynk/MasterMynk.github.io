@@ -88,7 +88,6 @@ function thirdLangInit() {
 function setDataTime(mobile = false) {
   const timings = $$(".resp-table#curr tr > th:not(:first-child)");
   const tds = $$(".resp-table#curr tr > td:not(:first-child)");
-  console.log(tds);
 
   if (tds.length && (mobile || window.matchMedia("(max-width: 770px)").matches) && !("time" in tds[0].dataset))
     tds.forEach((td, i) =>

@@ -278,6 +278,10 @@ function statusUpdate() {
 
 function onSignIn(googleUser) {
   makeSignOut();
+
+  console.log(googleUser.getBasicProfile().getImageUrl());
+
+  $(".user .greeting").innerText = `Hello ${googleUser.getBasicProfile().getGivenName()}!`
 }
 
 function makeSignOut() {

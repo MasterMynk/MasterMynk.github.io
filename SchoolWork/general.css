@@ -364,7 +364,7 @@ td .dropdown { margin: 0 auto 1em auto; }
   flex-direction: column;
   justify-content: space-between;
 
-  transition: clip-path 750ms;
+  transition: clip-path 500ms;
 }
 
 .sign-in:focus + .pop-up {
