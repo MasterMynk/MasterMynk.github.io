@@ -218,6 +218,7 @@ function statusLogic(timeDetails, status, correspondingInp) {
     return false;
   } else {
     status.innerText = "";
+    status.classList.remove("prob");
     updateActiveBtn();
   }
 
