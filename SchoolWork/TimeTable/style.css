@@ -1,3 +1,77 @@
+.menu { display: none; }
+
+.menu + label {
+  --before-top: -.4em;
+  --after-bottom: -.25em;
+
+  background-color: var(--light-clr);
+  transition: background-color 250ms, transform 250ms;
+}
+
+.menu + label,
+.menu + label::after,
+.menu + label::before {
+  height: 3px;
+  display: block;
+  width: 1.25em;
+  line-height: 0;
+  border-radius: 25%;
+}
+
+.menu + label::before { top: var(--before-top); }
+
+.menu + label::after,
+.menu + label::before {
+  content: '';
+  background-color: inherit;
+
+  position: relative;
+  left: 0;
+
+  transform-origin: center;
+}
+
+/* Menu Stuff */
+.menu + label::after { bottom: var(--after-bottom); }
+
+.menu + label:hover { cursor: pointer; }
+
+.menu + label:is(:hover, :focus),
+.menu:checked + label {
+  background-color: rgb(var(--main-clr));
+}
+
+.menu:checked + label {
+  transform: rotate(-45deg);
+}
+
+.menu:checked + label::after {
+  display: none;
+}
+
+.menu:checked + label::before {
+  top: 0;
+  transform: rotate(90deg);
+}
+
+.menu-content {
+  z-index: -1;
+  width: min(100vw, 20em);
+  height: 95vh;
+  
+  display: none;
+  background-color: rgba(25, 25, 25, 0.95);
+  box-shadow: .5em .5em .5em rgba(10, 10, 10, 0.6);
+  
+  position: fixed;
+  top: calc(var(--nav-y-padding) - .5em);
+  left: calc(var(--nav-x-padding) - 1em);
+}
+
+.menu:checked ~ .menu-content {
+  display: block;
+}
+
 .card {
   padding: 1.5em;
   max-width: 450px;

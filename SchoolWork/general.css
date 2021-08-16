@@ -39,12 +39,15 @@ body::before {
 }
 
 nav {
+  --nav-x-padding: 10vw;
+  --nav-y-padding: 2vh;
+
   top: 0;
   z-index: 1;
   width: 100%;
   display: flex;
   position: sticky;
-  padding: 2vh 10vw;
+  padding: var(--nav-y-padding) var(--nav-x-padding);
   align-items: center;
   backdrop-filter: blur(2px);
   justify-content: space-between;
@@ -53,12 +56,17 @@ nav {
 }
 
 #back {
-  height: 3px;
   width: 1.2em;
   margin: .55em 0;
-  border-radius: 25%;
   transition: background-color .25s;
   background-color: var(--light-clr);
+}
+
+#back,
+#back::before,
+#back::after {
+  height: 3px;
+  border-radius: 25%;
 }
 
 #back::before {
@@ -71,10 +79,8 @@ nav {
 #back::after {
   content: '';
   width: .8em;
-  height: inherit;
   display: inherit;
   position: relative;
-  border-radius: inherit;
   background-color: inherit;
   transform-origin: top left;
 }
