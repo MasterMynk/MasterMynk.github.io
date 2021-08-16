@@ -56,20 +56,22 @@
 
 .menu-content {
   z-index: -1;
-  width: min(100vw, 20em);
+  width: min(95vw, 20em);
   height: 95vh;
   
-  display: none;
+  clip-path: circle(0 at top left);
   background-color: rgba(25, 25, 25, 0.95);
   box-shadow: .5em .5em .5em rgba(10, 10, 10, 0.6);
   
   position: fixed;
   top: calc(var(--nav-y-padding) - .5em);
   left: calc(var(--nav-x-padding) - 1em);
+
+  transition: clip-path 250ms;
 }
 
 .menu:checked ~ .menu-content {
-  display: block;
+  clip-path: circle(144% at top left);
 }
 
 .card {
