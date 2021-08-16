@@ -57,11 +57,13 @@
 .menu-content {
   z-index: -1;
   width: min(95vw, 20em);
-  height: 95vh;
   
+  padding-top: 6vh;
+  border-radius: 15px;
   clip-path: circle(0 at top left);
   background-color: rgba(25, 25, 25, 0.95);
-  box-shadow: .5em .5em .5em rgba(10, 10, 10, 0.6);
+
+  box-shadow: .5em .5em .5em rgba(25, 25, 25, 0.6);
   
   position: fixed;
   top: calc(var(--nav-y-padding) - .5em);
@@ -70,8 +72,88 @@
   transition: clip-path 250ms;
 }
 
+.menu-content .slide-down + label .name {
+  background-color: rgba(20, 20, 20, 0.2)
+}
+
 .menu:checked ~ .menu-content {
   clip-path: circle(144% at top left);
+}
+
+/* Slide down */
+.slide-down {
+  display: none;
+}
+
+.slide-down + label {
+  position: relative;
+}
+
+.slide-down + label .name {
+  position: relative;
+
+  padding: 1em 2em;
+  border-bottom: 2px solid rgb(var(--main-clr));
+
+  transition: color 250ms;
+}
+
+.slide-down + label .name:is(:focus, :hover),
+.slide-down:checked + label .name {
+  color: rgb(var(--main-clr));
+}
+
+.slide-down + label .name::after {
+  right: -1em;
+  transform: rotate(45deg);
+}
+
+.slide-down + label .name::before,
+.slide-down + label .name::after {
+  width: 2px;
+  height: .5em;
+
+  content: '';
+  display: inline-block;
+  background-color: currentColor;
+
+  position: relative;
+  top: 0;
+
+  transform-origin: center;
+  transition: transform 250ms;
+}
+
+.slide-down + label .name::before {
+  left: 7.3em;
+  transform: rotate(-45deg);
+}
+
+.slide-down:checked + label .name::before {
+  transform: rotate(45deg);
+}
+.slide-down:checked + label .name::after {
+  transform: rotate(-45deg);
+}
+
+.stuff-to-slide {
+  display: flex;
+  padding: 1em 0;
+  align-items: center;
+  justify-content: space-around;
+  opacity: 0;
+
+  position: absolute;
+  top: -100%;
+  z-index: -2;
+
+  transition: opacity 0;
+}
+
+.slide-down:checked + label > .stuff-to-slide {
+  position: relative;
+  opacity: 100%;
+  transition: opacity 250ms;
 }
 
 .card {
