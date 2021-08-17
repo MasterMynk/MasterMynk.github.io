@@ -8,11 +8,9 @@ function $$(elems) { return document.querySelectorAll(elems); }
   // This is used by redirect.html
   localStorage.setItem("lastVisitedPage", window.location.pathname);
 
-  const config = localStorage.getItem("settings") || {
-    mainClr: "211, 84, 0"
-  };
+  const config = getConfig();
 
-  setMainClr(config.mainClr);
+  setMainClr(config.mainClr, config);
 
   swInit();
   installBtnInit();
@@ -288,11 +286,13 @@ function statusUpdate() {
   })
 }
 
-function setMainClr(to) {
-  if (to instanceof String)
-    $("html").style.setProperty("--main-clr", to);
-  else if (to instanceof Object)
-    $("html").style.setProperty("--main-clr", `${to.r}, ${to.g}, ${to.b}`);
+function setMainClr(to, config = getConfig()) {
+  const mainClr = typeof to == "string" ? to : `${to.r}, ${to.g}, ${to.b}`
+
+  $("html").style.setProperty("--main-clr", mainClr);
+
+  config.mainClr = mainClr;
+  setConfig(config);
 }
 
 function mainClrChange() {
@@ -307,7 +307,21 @@ function hexToRGB(hex) {
     b: parseInt(hex.slice(4, hex.length), 16),
   };
 
-  console.log(color);
-
   return color;
+}
+
+function getConfig() {
+  return JSON.parse(localStorage.getItem("config")) || (() => {
+    const config = {
+      mainClr: "211, 84, 0"
+    };
+
+    localStorage.setItem("config", JSON.stringify(config));
+
+    return config;
+  })();
+}
+
+function setConfig(config) {
+  localStorage.setItem("config", JSON.stringify(config));
 }
