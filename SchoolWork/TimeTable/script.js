@@ -8,6 +8,12 @@ function $$(elems) { return document.querySelectorAll(elems); }
   // This is used by redirect.html
   localStorage.setItem("lastVisitedPage", window.location.pathname);
 
+  const config = localStorage.getItem("settings") || {
+    mainClr: "211, 84, 0"
+  };
+
+  setMainClr(config.mainClr);
+
   swInit();
   installBtnInit();
   navInit();
@@ -280,4 +286,8 @@ function statusUpdate() {
 
     return statusLogic(timeDetails, timingAndStatus.querySelector(".status"), timingAndStatus.parentElement.lastElementChild);
   })
+}
+
+function setMainClr(to) {
+  $("html").style.setProperty("--main-clr", to);
 }

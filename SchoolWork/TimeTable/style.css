@@ -72,8 +72,8 @@
   transition: clip-path 250ms;
 }
 
-.menu-content .slide-down + label .name {
-  background-color: rgba(20, 20, 20, 0.2)
+.menu-content .slide-down + .name {
+  background-color: rgba(20, 20, 20, 0.9)
 }
 
 .menu:checked ~ .menu-content {
@@ -81,15 +81,16 @@
 }
 
 /* Slide down */
+.slide-down-parent {
+  position: relative;
+}
+
 .slide-down {
   display: none;
 }
 
-.slide-down + label {
-  position: relative;
-}
-
-.slide-down + label .name {
+.slide-down + .name {
+  display: block;
   position: relative;
 
   padding: 1em 2em;
@@ -98,18 +99,22 @@
   transition: color 250ms;
 }
 
-.slide-down + label .name:is(:focus, :hover),
-.slide-down:checked + label .name {
+.slide-down + .name:hover {
+  cursor: pointer;
+}
+
+.slide-down + .name:is(:focus, :hover),
+.slide-down:checked + .name {
   color: rgb(var(--main-clr));
 }
 
-.slide-down + label .name::after {
+.slide-down + .name::after {
   right: -1em;
   transform: rotate(45deg);
 }
 
-.slide-down + label .name::before,
-.slide-down + label .name::after {
+.slide-down + .name::before,
+.slide-down + .name::after {
   width: 2px;
   height: .5em;
 
@@ -124,36 +129,39 @@
   transition: transform 250ms;
 }
 
-.slide-down + label .name::before {
-  left: 7.3em;
+.slide-down + .name::before {
+  left: 7.9em;
   transform: rotate(-45deg);
 }
 
-.slide-down:checked + label .name::before {
+.slide-down:checked + .name::before {
   transform: rotate(45deg);
 }
-.slide-down:checked + label .name::after {
+.slide-down:checked + .name::after {
   transform: rotate(-45deg);
 }
 
 .stuff-to-slide {
+  width: 100%;
+
+  background-color: rgba(25, 25, 25, 0.95);
+
   display: flex;
   padding: 1em 0;
   align-items: center;
   justify-content: space-around;
-  opacity: 0;
 
   position: absolute;
-  top: -100%;
-  z-index: -2;
+  bottom: 0;
+  z-index: -1;
 
-  transition: opacity 0;
+  transition: transform 250ms;
 }
 
-.slide-down:checked + label > .stuff-to-slide {
-  position: relative;
-  opacity: 100%;
-  transition: opacity 250ms;
+.slide-down:checked ~ .stuff-to-slide {
+  opacity: 100;
+  /* position: static; */
+  transform: translateY(100%);
 }
 
 .card {
@@ -207,7 +215,7 @@ td .go-btn {
   margin-bottom: 1em;
 }
 
-form > .btn { margin: 0 auto; }
+.go-btn { margin: 0 auto; }
 
 .timing-and-status {
   display: flex;
