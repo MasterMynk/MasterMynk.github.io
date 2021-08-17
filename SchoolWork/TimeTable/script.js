@@ -1,12 +1,21 @@
 let installPrompt;
 let date = newDate();
 
+const defConfig = {
+  mainClr: "211, 84, 0"
+};
+
 function $(elem) { return document.querySelector(elem); }
 function $$(elems) { return document.querySelectorAll(elems); }
 
 (function main() {
   // This is used by redirect.html
   localStorage.setItem("lastVisitedPage", window.location.pathname);
+
+  const config = getConfig();
+  $("#main-clr-chooser") && ($("#main-clr-chooser").value = rgbToHex(config.mainClr));
+
+  setMainClr(config.mainClr, config);
 
   swInit();
   installBtnInit();
@@ -280,4 +289,59 @@ function statusUpdate() {
 
     return statusLogic(timeDetails, timingAndStatus.querySelector(".status"), timingAndStatus.parentElement.lastElementChild);
   })
+}
+
+function setMainClr(to, config = getConfig()) {
+  const mainClr = typeof to == "string" ? to : `${to.r}, ${to.g}, ${to.b}`
+
+  $("html").style.setProperty("--main-clr", mainClr);
+
+  config.mainClr = mainClr;
+  saveConfig(config);
+}
+
+function mainClrChange() {
+  setMainClr(hexToRGB($("#main-clr-chooser").value));
+}
+
+function hexToRGB(hex) {
+  hex = hex.slice(1, hex.length);
+  color = {
+    r: parseInt(hex.slice(0, 2), 16),
+    g: parseInt(hex.slice(2, 4), 16),
+    b: parseInt(hex.slice(4, hex.length), 16),
+  };
+
+  return color;
+}
+
+function rgbToHex(rgbStr) {
+  rgbStr = rgbStr
+    .split(", ")
+    .map(clr =>
+      parseInt(clr)
+        .toString(16)
+        .padStart(2, "0"));
+
+  rgbStr.unshift('#');
+
+  return rgbStr.join('');
+}
+
+function getConfig() {
+  return JSON.parse(localStorage.getItem("config")) || (() => {
+    const config = defConfig;
+
+    saveConfig(config)
+
+    return config;
+  })();
+}
+
+function saveConfig(config) {
+  localStorage.setItem("config", JSON.stringify(config));
+}
+
+function mainClrReset() {
+  setMainClr(defConfig.mainClr);
 }
