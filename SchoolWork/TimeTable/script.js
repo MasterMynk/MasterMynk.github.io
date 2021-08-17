@@ -7,8 +7,6 @@ const linkCardLiTemplate = (() => {
     timingAndStatus.appendChild(document.createElement("div"));
     addStatus(timingAndStatus);
 
-    console.log(li);
-
     return li;
 })();
 
