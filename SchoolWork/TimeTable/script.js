@@ -289,5 +289,25 @@ function statusUpdate() {
 }
 
 function setMainClr(to) {
-  $("html").style.setProperty("--main-clr", to);
+  if (to instanceof String)
+    $("html").style.setProperty("--main-clr", to);
+  else if (to instanceof Object)
+    $("html").style.setProperty("--main-clr", `${to.r}, ${to.g}, ${to.b}`);
+}
+
+function mainClrChange() {
+  setMainClr(hexToRGB($("#main-clr-chooser").value));
+}
+
+function hexToRGB(hex) {
+  hex = hex.slice(1, hex.length);
+  color = {
+    r: parseInt(hex.slice(0, 2), 16),
+    g: parseInt(hex.slice(2, 4), 16),
+    b: parseInt(hex.slice(4, hex.length), 16),
+  };
+
+  console.log(color);
+
+  return color;
 }
