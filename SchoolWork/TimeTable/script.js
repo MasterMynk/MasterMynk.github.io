@@ -1,6 +1,10 @@
 let installPrompt;
 let date = newDate();
 
+const defConfig = {
+  mainClr: "211, 84, 0"
+};
+
 function $(elem) { return document.querySelector(elem); }
 function $$(elems) { return document.querySelectorAll(elems); }
 
@@ -9,6 +13,7 @@ function $$(elems) { return document.querySelectorAll(elems); }
   localStorage.setItem("lastVisitedPage", window.location.pathname);
 
   const config = getConfig();
+  $("#main-clr-chooser") && ($("#main-clr-chooser").value = rgbToHex(config.mainClr));
 
   setMainClr(config.mainClr, config);
 
@@ -292,7 +297,7 @@ function setMainClr(to, config = getConfig()) {
   $("html").style.setProperty("--main-clr", mainClr);
 
   config.mainClr = mainClr;
-  setConfig(config);
+  saveConfig(config);
 }
 
 function mainClrChange() {
@@ -310,18 +315,33 @@ function hexToRGB(hex) {
   return color;
 }
 
+function rgbToHex(rgbStr) {
+  rgbStr = rgbStr
+    .split(", ")
+    .map(clr =>
+      parseInt(clr)
+        .toString(16)
+        .padStart(2, "0"));
+
+  rgbStr.unshift('#');
+
+  return rgbStr.join('');
+}
+
 function getConfig() {
   return JSON.parse(localStorage.getItem("config")) || (() => {
-    const config = {
-      mainClr: "211, 84, 0"
-    };
+    const config = defConfig;
 
-    localStorage.setItem("config", JSON.stringify(config));
+    saveConfig(config)
 
     return config;
   })();
 }
 
-function setConfig(config) {
+function saveConfig(config) {
   localStorage.setItem("config", JSON.stringify(config));
+}
+
+function mainClrReset() {
+  setMainClr(defConfig.mainClr);
 }
