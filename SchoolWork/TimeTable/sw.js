@@ -21,11 +21,15 @@ self.addEventListener("install", ev => {
 
 self.addEventListener("fetch", ev => {
     if (notToCache.filter(elem => !ev.request.url.includes(elem)).length >= 2) {
-        console.log(`checking in cache for ${ev.request.url}`);
+        console.log("checking in cache");
         ev.respondWith(get(ev.request)
             .then(stuff => stuff ? stuff :
                 getFromCache("/SchoolWork/TimeTable/error.html")
                 .then(error => error)));
+
+        ev.waitUntil(openCache(cache, async cache => {
+            cache.put(ev.request.url, await fetch(ev.request));
+        }));
     }
 });
 
