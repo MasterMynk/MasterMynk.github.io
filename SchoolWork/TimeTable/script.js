@@ -34,8 +34,12 @@ function $$(elems) {
   $("#main-clr-chooser") &&
     ($("#main-clr-chooser").value = rgbToHex(config.mainClr));
 
+  $("#border-radius-cards") &&
+    ($("#border-radius-cards").value =
+      config?.borderRad?.card || defConfig.borderRad.card);
+
   setMainClr(config.mainClr || defConfig.mainClr, config);
-  setCardBorderRad(config.borderRad.card || defConfig.borderRad.card, config);
+  setCardBorderRad(config?.borderRad?.card || defConfig.borderRad.card, config);
 
   swInit();
   installBtnInit();
