@@ -12,6 +12,9 @@ const linkCardLiTemplate = (() => {
 
 const defConfig = {
   mainClr: "211, 84, 0",
+  borderRad: {
+    card: 15,
+  },
 };
 
 function $(elem) {
@@ -27,10 +30,12 @@ function $$(elems) {
   localStorage.setItem("lastVisitedPage", window.location.pathname);
 
   const config = getConfig();
+
   $("#main-clr-chooser") &&
     ($("#main-clr-chooser").value = rgbToHex(config.mainClr));
 
-  setMainClr(config.mainClr, config);
+  setMainClr(config.mainClr || defConfig.mainClr, config);
+  setCardBorderRad(config.borderRad.card || defConfig.borderRad.card, config);
 
   swInit();
   installBtnInit();
@@ -354,6 +359,17 @@ function setMainClr(to, config = getConfig()) {
   saveConfig(config);
 }
 
+function setCardBorderRad(rad, config = getConfig()) {
+  $$(".card").forEach((card) =>
+    card.style.setProperty("border-radius", rad + "px")
+  );
+
+  config.borderRad || (config.borderRad = {});
+  config.borderRad.card = rad;
+  console.log(config);
+  saveConfig(config);
+}
+
 function mainClrChange() {
   setMainClr(hexToRGB($("#main-clr-chooser").value));
 }
@@ -400,3 +416,10 @@ function mainClrReset() {
   setMainClr(defConfig.mainClr);
   $("#main-clr-chooser").value = rgbToHex(defConfig.mainClr);
 }
+
+function cardRadReset() {
+  setCardBorderRad(defConfig.borderRad.card);
+  $("#border-radius-cards").value = defConfig.borderRad.card;
+}
+
+function btnRadReset() {}
