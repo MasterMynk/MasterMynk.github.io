@@ -1,3 +1,4 @@
+/* Menu Stuff */
 .menu {
   display: none;
 }
@@ -31,8 +32,6 @@
   left: 0;
   transform-origin: center;
 }
-
-/* Menu Stuff */
 
 .menu + label::after {
   bottom: var(--after-bottom);
@@ -74,7 +73,7 @@
   transition: clip-path 250ms;
 }
 
-.menu-content :is(.slide-down, .flip) + .name {
+.menu-content .name {
   background-color: rgba(20, 20, 20, 0.9);
 }
 
@@ -82,7 +81,51 @@
   clip-path: circle(158% at top left);
 }
 
-/* Slide down */
+.menu-content-container {
+  position: relative;
+}
+
+.menu-item-radio {
+  display: none;
+}
+
+/* Menu Item */
+
+.menu-content .name {
+  display: block;
+  padding: 1em 2em;
+  border-bottom: 2px solid rgb(var(--main-clr));
+  position: relative;
+  transition: color 250ms;
+  cursor: pointer;
+}
+
+.menu-content .name:is(:focus, :hover),
+.slide-down:checked + .name {
+  color: rgb(var(--main-clr));
+}
+
+.menu-content .item {
+  width: 100%;
+  height: 100%;
+  clip-path: circle(0 at top left);
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #171717;
+
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+
+  transition: clip-path 400ms;
+}
+
+.menu-item-radio:checked + .item{
+  clip-path: circle(100%);
+}
 
 .slide-down-parent {
   position: relative;
@@ -94,24 +137,6 @@
 
 .slide-down + .name {
   --offset: 7.9em;
-  transition: color 250ms;
-}
-
-.slide-down + .name,
-.flip + .name {
-  display: block;
-  position: relative;
-  padding: 1em 2em;
-  border-bottom: 2px solid rgb(var(--main-clr));
-}
-
-.slide-down + .name:hover {
-  cursor: pointer;
-}
-
-.slide-down + .name:is(:focus, :hover),
-.slide-down:checked + .name {
-  color: rgb(var(--main-clr));
 }
 
 .slide-down + .name::after {
@@ -167,52 +192,6 @@
   opacity: 100;
   transform: translateY(100%);
   z-index: 2;
-}
-
-/* Flip */
-.flip-container {
-  position: relative;
-}
-
-.flip {
-  display: none;
-}
-
-.flip + .name {
-  transition: color 250ms;
-}
-
-.flip + .name:hover {
-  cursor: pointer;
-}
-
-.flip + .name:is(:focus, :hover),
-.flip:checked + .name {
-  color: rgb(var(--main-clr));
-}
-
-.flip + .name::before {
-  content: " ";
-}
-
-.flip ~ .to-flip {
-  width: 100%;
-  height: 100%;
-  clip-path: circle(0 at top left);
-
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  background-color: #171717;
-
-  position: absolute;
-  bottom: 0;
-
-  transition: clip-path 400ms;
-}
-
-.flip:checked ~ .to-flip {
-  clip-path: circle(100%);
 }
 
 .card {

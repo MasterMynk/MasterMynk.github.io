@@ -67,12 +67,27 @@
         <input type="checkbox" class="menu" id="menu" />
         <label for="menu"></label>
         <div class="menu-content">
-          <div class="flip-container">
-            <input type="checkbox" id="main-clr-flip" class="flip" />
+          <!-- This second container is so that I dont have to set an offset to all
+          absolutely positioned elements due to the top padding -->
+          <div class="menu-content-container">
+            <input
+              type="radio"
+              name="menu-items"
+              id="def-menu-item"
+              class="menu-item-radio"
+            />
 
-            <label for="main-clr-flip" class="name">Theme Color</label>
-
-            <label for="main-clr-flip" class="to-flip">
+            <input
+              type="radio"
+              name="menu-items"
+              id="main-clr-chooser-radio"
+              class="menu-item-radio"
+            />
+            <label
+              for="def-menu-item"
+              class="item"
+              id="main-clr-chooser-content"
+            >
               <input
                 type="color"
                 id="main-clr-chooser"
@@ -83,28 +98,32 @@
                 Reset
               </button>
             </label>
-          </div>
+            <label for="main-clr-chooser-radio" class="name">Theme Color</label>
 
-          <div class="slide-down-parent">
-            <input
-              type="checkbox"
-              id="border-radius-slider"
-              class="slide-down"
-            />
-
-            <label
-              for="border-radius-slider"
-              class="name"
-              style="--offset: 7.4em"
-            >Border curve</label>
-
-            <div class="stuff-to-slide has-children-sliders">
-              <div class="flip-container">
-                <input type="checkbox" id="border-radius-cards-flip" class="flip" />
-    
-                <label for="border-radius-cards-flip" class="name">Card</label>
-    
-                <label for="border-radius-cards-flip" class="to-flip">
+            <div class="slide-down-parent">
+              <input
+                type="checkbox"
+                id="border-radius-slider"
+                class="slide-down"
+              />
+              <label
+                for="border-radius-slider"
+                class="name"
+                style="--offset: 7.4em"
+                >Border curve</label
+              >
+              <div class="stuff-to-slide has-children-sliders">
+                <input
+                  type="radio"
+                  name="menu-items"
+                  id="border-radius-cards-radio"
+                  class="menu-item-radio"
+                />
+                <label
+                  for="def-menu-item"
+                  class="item"
+                  id="border-radius-cards-content"
+                >
                   <input
                     type="range"
                     id="border-radius-cards"
@@ -116,35 +135,44 @@
                     Reset
                   </button>
                 </label>
-              </div>
+                <label for="border-radius-cards-radio" class="name"
+                  >Cards</label
+                >
 
-              <div class="flip-container">
-                <input type="checkbox" id="border-radius-button-flip" class="flip" />
-    
-                <label for="border-radius-button-flip" class="name">Button</label>
-    
-                <label for="border-radius-button-flip" class="to-flip">
+                <input
+                  type="radio"
+                  name="menu-items"
+                  id="border-radius-btns-radio"
+                  class="menu-item-radio"
+                />
+                <label
+                  for="def-menu-item"
+                  class="item"
+                  id="border-radius-btns-content"
+                >
                   <input
                     type="range"
-                    id="border-radius-button"
+                    id="border-radius-btns"
                     value="50"
                     min="0"
                     max="50"
                   />
-                  <button type="button" class="btn" onclick="btnRadiusReset()">
+                  <button type="button" class="btn" onclick="cardRadiusReset()">
                     Reset
                   </button>
                 </label>
+                <label for="border-radius-btns-radio" class="name"
+                  >Button</label
+                >
               </div>
             </div>
+            <p class="thank-you-text">
+              Thank you for taking the time to open me!!
+            </p>
+            <p class="thank-you-text">
+              More options to configure on their way !! :)
+            </p>
           </div>
-
-          <p class="thank-you-text">
-            Thank you for taking the time to open me!!
-          </p>
-          <p class="thank-you-text">
-            More options to configure on their way !! :)
-          </p>
         </div>
       </div>
 
