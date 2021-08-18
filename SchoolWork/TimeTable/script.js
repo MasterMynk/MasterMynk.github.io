@@ -12,6 +12,10 @@ const linkCardLiTemplate = (() => {
 
 const defConfig = {
   mainClr: "211, 84, 0",
+  borderRad: {
+    card: 15,
+    btn: 30,
+  },
 };
 
 function $(elem) {
@@ -27,10 +31,21 @@ function $$(elems) {
   localStorage.setItem("lastVisitedPage", window.location.pathname);
 
   const config = getConfig();
+
   $("#main-clr-chooser") &&
     ($("#main-clr-chooser").value = rgbToHex(config.mainClr));
 
-  setMainClr(config.mainClr, config);
+  $("#border-radius-cards") &&
+    ($("#border-radius-cards").value =
+      config?.borderRad?.card || defConfig.borderRad.card);
+
+  $("#border-radius-btns") &&
+    ($("#border-radius-btns").value =
+      config?.borderRad?.btn || defConfig.borderRad.btn);
+
+  setMainClr(config.mainClr || defConfig.mainClr, config);
+  setCardBorderRad(config?.borderRad?.card || defConfig.borderRad.card, config);
+  setBtnBorderRad(config?.borderRad?.btn || defConfig.borderRad.btn, config);
 
   swInit();
   installBtnInit();
@@ -354,6 +369,26 @@ function setMainClr(to, config = getConfig()) {
   saveConfig(config);
 }
 
+function setCardBorderRad(rad, config = getConfig()) {
+  $$(".card").forEach((card) =>
+    card.style.setProperty("border-radius", rad + "px")
+  );
+
+  config.borderRad || (config.borderRad = {});
+  config.borderRad.card = rad;
+  saveConfig(config);
+}
+
+function setBtnBorderRad(rad, config = getConfig()) {
+  $$(".btn,.dropdown").forEach((btn) =>
+    btn.style.setProperty("border-radius", rad + "px")
+  );
+
+  config.borderRad || (config.borderRad = {});
+  config.borderRad.btn = rad;
+  saveConfig(config);
+}
+
 function mainClrChange() {
   setMainClr(hexToRGB($("#main-clr-chooser").value));
 }
@@ -398,4 +433,15 @@ function saveConfig(config) {
 
 function mainClrReset() {
   setMainClr(defConfig.mainClr);
+  $("#main-clr-chooser").value = rgbToHex(defConfig.mainClr);
+}
+
+function cardRadReset() {
+  setCardBorderRad(defConfig.borderRad.card);
+  $("#border-radius-cards").value = defConfig.borderRad.card;
+}
+
+function btnRadReset() {
+  setBtnBorderRad(defConfig.borderRad.btn);
+  $("#border-radius-btns").value = defConfig.borderRad.btn;
 }

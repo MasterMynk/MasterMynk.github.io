@@ -56,7 +56,7 @@
 
     <style>
       .thank-you-text {
-        font-size: .7em;
+        font-size: 0.7em;
       }
     </style>
   </head>
@@ -67,33 +67,114 @@
         <input type="checkbox" class="menu" id="menu" />
         <label for="menu"></label>
         <div class="menu-content">
-          <p class="thank-you-text">Thank you for taking the time to open me!!</p>
-          <p class="thank-you-text">More options to configure on their way !! :)</p>
-          
-          <div class="slide-down-parent">
+          <!-- This second container is so that I dont have to set an offset to all
+          absolutely positioned elements due to the top padding -->
+          <div class="menu-content-container">
             <input
-              type="checkbox"
-              id="main-clr-chooser-slider"
-              class="slide-down"
+              type="radio"
+              name="menu-items"
+              id="def-menu-item"
+              class="menu-item-radio"
             />
 
-            <label for="main-clr-chooser-slider" class="name">
-              Theme Color
-            </label>
-
-            <form class="stuff-to-slide">
+            <input
+              type="radio"
+              name="menu-items"
+              id="main-clr-chooser-radio"
+              class="menu-item-radio"
+            />
+            <label
+              for="def-menu-item"
+              class="item"
+              id="main-clr-chooser-content"
+            >
               <input
                 type="color"
                 id="main-clr-chooser"
                 value="#D35400"
                 oninput="mainClrChange()"
               />
-              <button type="reset" class="btn" onclick="mainClrReset()">
+              <button type="button" class="btn" onclick="mainClrReset()">
                 Reset
               </button>
-            </form>
-          </div>
+            </label>
+            <label for="main-clr-chooser-radio" class="name">Theme Color</label>
 
+            <div class="slide-down-parent">
+              <input
+                type="checkbox"
+                id="border-radius-slider"
+                class="slide-down"
+              />
+              <label
+                for="border-radius-slider"
+                class="name"
+                style="--offset: 7.4em"
+                >Border curve</label
+              >
+              <div class="stuff-to-slide">
+                <input
+                  type="radio"
+                  name="menu-items"
+                  id="border-radius-cards-radio"
+                  class="menu-item-radio"
+                />
+                <label
+                  for="def-menu-item"
+                  class="item"
+                  id="border-radius-cards-content"
+                >
+                  <input
+                    type="range"
+                    id="border-radius-cards"
+                    value="15"
+                    min="0"
+                    max="100"
+                    oninput="setCardBorderRad(document.getElementById('border-radius-cards').value)"
+                  />
+                  <button type="button" class="btn" onclick="cardRadReset()">
+                    Reset
+                  </button>
+                </label>
+                <label for="border-radius-cards-radio" class="name"
+                  >Cards</label
+                >
+
+                <input
+                  type="radio"
+                  name="menu-items"
+                  id="border-radius-btns-radio"
+                  class="menu-item-radio"
+                />
+                <label
+                  for="def-menu-item"
+                  class="item"
+                  id="border-radius-btns-content"
+                >
+                  <input
+                    type="range"
+                    id="border-radius-btns"
+                    value="50"
+                    min="0"
+                    max="30"
+                    oninput="setBtnBorderRad(document.getElementById('border-radius-btns').value)"
+                  />
+                  <button type="button" class="btn" onclick="btnRadReset()">
+                    Reset
+                  </button>
+                </label>
+                <label for="border-radius-btns-radio" class="name"
+                  >Button</label
+                >
+              </div>
+            </div>
+            <p class="thank-you-text">
+              Thank you for taking the time to open me!!
+            </p>
+            <p class="thank-you-text">
+              More options to configure on their way !! :)
+            </p>
+          </div>
         </div>
       </div>
 
@@ -157,13 +238,13 @@
             <tr>
               <td>Tues</td>
 
-              <td data-cancelled="17-8-2021">
+              <td>
                 <a href="https://meet.google.com/lookup/ghjj26z6b2" class="btn"
                   >Geography</a
                 >
               </td>
 
-              <td data-cancelled="17-8-2021">
+              <td>
                 <form>
                   <select name="third-lang" class="dropdown">
                     <option value="https://meet.google.com/lookup/d43bb5nwzr">
@@ -314,13 +395,13 @@
             <tr>
               <td>Tues</td>
 
-              <td data-cancelled="17-8-2021">
+              <td>
                 <a href="https://meet.google.com/lookup/fdqw6zuxxb" class="btn"
                   >English</a
                 >
               </td>
 
-              <td data-cancelled="17-8-2021">
+              <td>
                 <form>
                   <select name="third-lang" class="dropdown">
                     <option value="https://meet.google.com/lookup/d43bb5nwzr">
@@ -472,13 +553,13 @@
             <tr>
               <td>Tues</td>
 
-              <td data-cancelled="17-8-2021">
+              <td>
                 <a href="https://meet.google.com/lookup/brikqaardn" class="btn"
                   >History</a
                 >
               </td>
 
-              <td data-cancelled="17-8-2021">
+              <td>
                 <form>
                   <select name="third-lang" class="dropdown">
                     <option value="https://meet.google.com/lookup/d43bb5nwzr">
