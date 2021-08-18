@@ -93,6 +93,8 @@
 }
 
 .slide-down + .name {
+  --offset: 7.9em;
+
   display: block;
   position: relative;
   padding: 1em 2em;
@@ -128,7 +130,7 @@
 }
 
 .slide-down + .name::before {
-  left: 7.9em;
+  left: var(--offset);
   transform: rotate(-45deg);
 }
 
@@ -153,9 +155,18 @@
   transition: transform 250ms;
 }
 
+.stuff-to-slide.has-children-sliders {
+  padding: 0;
+}
+
+.stuff-to-slide.with-range {
+  flex-direction: column;
+}
+
 .slide-down:checked ~ .stuff-to-slide {
   opacity: 100;
   transform: translateY(100%);
+  z-index: 2;
 }
 
 .card {

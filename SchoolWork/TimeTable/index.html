@@ -56,7 +56,7 @@
 
     <style>
       .thank-you-text {
-        font-size: .7em;
+        font-size: 0.7em;
       }
     </style>
   </head>
@@ -67,9 +67,6 @@
         <input type="checkbox" class="menu" id="menu" />
         <label for="menu"></label>
         <div class="menu-content">
-          <p class="thank-you-text">Thank you for taking the time to open me!!</p>
-          <p class="thank-you-text">More options to configure on their way !! :)</p>
-          
           <div class="slide-down-parent">
             <input
               type="checkbox"
@@ -88,12 +85,94 @@
                 value="#D35400"
                 oninput="mainClrChange()"
               />
-              <button type="reset" class="btn" onclick="mainClrReset()">
+              <button type="button" class="btn" onclick="mainClrReset()">
                 Reset
               </button>
             </div>
           </div>
 
+          <div class="slide-down-parent">
+            <input
+              type="checkbox"
+              id="border-radius-slider"
+              class="slide-down"
+            />
+
+            <label
+              for="border-radius-slider"
+              class="name"
+              style="--offset: 8em"
+            >
+              Border curve
+            </label>
+
+            <div class="stuff-to-slide has-children-sliders">
+              <div class="slide-down-parent">
+                <input
+                  type="checkbox"
+                  id="border-radius-cards-slider"
+                  class="slide-down"
+                />
+
+                <label
+                  for="border-radius-cards-slider"
+                  class="name"
+                  style="--offset: 4.3em"
+                >
+                  Cards
+                </label>
+
+                <div class="stuff-to-slide with-range">
+                  <input
+                    type="range"
+                    id="border-radius-cards-range"
+                    value="15"
+                    min="0"
+                    max="100"
+                  />
+                  <button type="button" class="btn" onclick="cardRadiusReset()">
+                    Reset
+                  </button>
+                </div>
+              </div>
+
+              <div class="slide-down-parent">
+                <input
+                  type="checkbox"
+                  id="border-radius-button-chooser-slider"
+                  class="slide-down"
+                />
+
+                <label
+                  for="border-radius-button-chooser-slider"
+                  class="name"
+                  style="--offset: 4.8em"
+                >
+                  Button
+                </label>
+
+                <div class="stuff-to-slide with-range">
+                  <input
+                    type="range"
+                    id="border-radius-button-range"
+                    value="50"
+                    min="0"
+                    max="50"
+                  />
+                  <button type="button" class="btn" onclick="btnRadiusReset()">
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="thank-you-text">
+            Thank you for taking the time to open me!!
+          </p>
+          <p class="thank-you-text">
+            More options to configure on their way !! :)
+          </p>
         </div>
       </div>
 
@@ -157,13 +236,13 @@
             <tr>
               <td>Tues</td>
 
-              <td data-cancelled="17-8-2021">
+              <td>
                 <a href="https://meet.google.com/lookup/ghjj26z6b2" class="btn"
                   >Geography</a
                 >
               </td>
 
-              <td data-cancelled="17-8-2021">
+              <td>
                 <form>
                   <select name="third-lang" class="dropdown">
                     <option value="https://meet.google.com/lookup/d43bb5nwzr">
@@ -314,13 +393,13 @@
             <tr>
               <td>Tues</td>
 
-              <td data-cancelled="17-8-2021">
+              <td>
                 <a href="https://meet.google.com/lookup/fdqw6zuxxb" class="btn"
                   >English</a
                 >
               </td>
 
-              <td data-cancelled="17-8-2021">
+              <td>
                 <form>
                   <select name="third-lang" class="dropdown">
                     <option value="https://meet.google.com/lookup/d43bb5nwzr">
@@ -472,13 +551,13 @@
             <tr>
               <td>Tues</td>
 
-              <td data-cancelled="17-8-2021">
+              <td>
                 <a href="https://meet.google.com/lookup/brikqaardn" class="btn"
                   >History</a
                 >
               </td>
 
-              <td data-cancelled="17-8-2021">
+              <td>
                 <form>
                   <select name="third-lang" class="dropdown">
                     <option value="https://meet.google.com/lookup/d43bb5nwzr">
