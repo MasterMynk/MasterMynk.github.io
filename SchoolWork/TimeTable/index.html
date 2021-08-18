@@ -67,18 +67,12 @@
         <input type="checkbox" class="menu" id="menu" />
         <label for="menu"></label>
         <div class="menu-content">
-          <div class="slide-down-parent">
-            <input
-              type="checkbox"
-              id="main-clr-chooser-slider"
-              class="slide-down"
-            />
+          <div class="flip-container">
+            <input type="checkbox" id="main-clr-flip" class="flip" />
 
-            <label for="main-clr-chooser-slider" class="name">
-              Theme Color
-            </label>
+            <label for="main-clr-flip" class="name">Theme Color</label>
 
-            <div class="stuff-to-slide">
+            <label for="main-clr-flip" class="to-flip">
               <input
                 type="color"
                 id="main-clr-chooser"
@@ -88,7 +82,7 @@
               <button type="button" class="btn" onclick="mainClrReset()">
                 Reset
               </button>
-            </div>
+            </label>
           </div>
 
           <div class="slide-down-parent">
@@ -101,31 +95,19 @@
             <label
               for="border-radius-slider"
               class="name"
-              style="--offset: 8em"
-            >
-              Border curve
-            </label>
+              style="--offset: 7.4em"
+            >Border curve</label>
 
             <div class="stuff-to-slide has-children-sliders">
-              <div class="slide-down-parent">
-                <input
-                  type="checkbox"
-                  id="border-radius-cards-slider"
-                  class="slide-down"
-                />
-
-                <label
-                  for="border-radius-cards-slider"
-                  class="name"
-                  style="--offset: 4.3em"
-                >
-                  Cards
-                </label>
-
-                <div class="stuff-to-slide with-range">
+              <div class="flip-container">
+                <input type="checkbox" id="border-radius-cards-flip" class="flip" />
+    
+                <label for="border-radius-cards-flip" class="name">Card</label>
+    
+                <label for="border-radius-cards-flip" class="to-flip">
                   <input
                     type="range"
-                    id="border-radius-cards-range"
+                    id="border-radius-cards"
                     value="15"
                     min="0"
                     max="100"
@@ -133,28 +115,18 @@
                   <button type="button" class="btn" onclick="cardRadiusReset()">
                     Reset
                   </button>
-                </div>
+                </label>
               </div>
 
-              <div class="slide-down-parent">
-                <input
-                  type="checkbox"
-                  id="border-radius-button-chooser-slider"
-                  class="slide-down"
-                />
-
-                <label
-                  for="border-radius-button-chooser-slider"
-                  class="name"
-                  style="--offset: 4.8em"
-                >
-                  Button
-                </label>
-
-                <div class="stuff-to-slide with-range">
+              <div class="flip-container">
+                <input type="checkbox" id="border-radius-button-flip" class="flip" />
+    
+                <label for="border-radius-button-flip" class="name">Button</label>
+    
+                <label for="border-radius-button-flip" class="to-flip">
                   <input
                     type="range"
-                    id="border-radius-button-range"
+                    id="border-radius-button"
                     value="50"
                     min="0"
                     max="50"
@@ -162,7 +134,7 @@
                   <button type="button" class="btn" onclick="btnRadiusReset()">
                     Reset
                   </button>
-                </div>
+                </label>
               </div>
             </div>
           </div>

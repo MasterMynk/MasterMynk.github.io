@@ -74,12 +74,12 @@
   transition: clip-path 250ms;
 }
 
-.menu-content .slide-down + .name {
+.menu-content :is(.slide-down, .flip) + .name {
   background-color: rgba(20, 20, 20, 0.9);
 }
 
 .menu:checked ~ .menu-content {
-  clip-path: circle(144% at top left);
+  clip-path: circle(158% at top left);
 }
 
 /* Slide down */
@@ -94,12 +94,15 @@
 
 .slide-down + .name {
   --offset: 7.9em;
+  transition: color 250ms;
+}
 
+.slide-down + .name,
+.flip + .name {
   display: block;
   position: relative;
   padding: 1em 2em;
   border-bottom: 2px solid rgb(var(--main-clr));
-  transition: color 250ms;
 }
 
 .slide-down + .name:hover {
@@ -156,17 +159,60 @@
 }
 
 .stuff-to-slide.has-children-sliders {
-  padding: 0;
-}
-
-.stuff-to-slide.with-range {
-  flex-direction: column;
+  padding: 0 1em;
+  display: block;
 }
 
 .slide-down:checked ~ .stuff-to-slide {
   opacity: 100;
   transform: translateY(100%);
   z-index: 2;
+}
+
+/* Flip */
+.flip-container {
+  position: relative;
+}
+
+.flip {
+  display: none;
+}
+
+.flip + .name {
+  transition: color 250ms;
+}
+
+.flip + .name:hover {
+  cursor: pointer;
+}
+
+.flip + .name:is(:focus, :hover),
+.flip:checked + .name {
+  color: rgb(var(--main-clr));
+}
+
+.flip + .name::before {
+  content: " ";
+}
+
+.flip ~ .to-flip {
+  width: 100%;
+  height: 100%;
+  clip-path: circle(0 at top left);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #171717;
+
+  position: absolute;
+  bottom: 0;
+
+  transition: clip-path 400ms;
+}
+
+.flip:checked ~ .to-flip {
+  clip-path: circle(100%);
 }
 
 .card {
