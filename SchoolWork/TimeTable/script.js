@@ -398,4 +398,5 @@ function saveConfig(config) {
 
 function mainClrReset() {
   setMainClr(defConfig.mainClr);
+  $("#main-clr-chooser").value = rgbToHex(defConfig.mainClr);
 }
