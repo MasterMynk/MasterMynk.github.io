@@ -172,26 +172,19 @@
 
 .stuff-to-slide {
   width: 100%;
+  max-height: 0;
   background-color: rgba(25, 25, 25, 0.95);
-  display: flex;
-  padding: 1em 0;
-  align-items: center;
-  justify-content: space-around;
-  position: absolute;
-  bottom: 0;
-  z-index: -1;
-  transition: transform 250ms;
-}
-
-.stuff-to-slide.has-children-sliders {
-  padding: 0 1em;
   display: block;
+  padding: 0 1em;
+  overflow: hidden;
+  transition: max-height 250ms ease-in;
 }
 
 .slide-down:checked ~ .stuff-to-slide {
-  opacity: 100;
-  transform: translateY(100%);
-  z-index: 2;
+  /* transform: translateY(100%); */
+  /* z-index: 2; */
+  max-height: 100vh;
+
 }
 
 .card {
