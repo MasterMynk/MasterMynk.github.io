@@ -1,4 +1,6 @@
-.soln { padding-left: 2.5em; }
+.soln {
+  padding-left: 2.5em;
+}
 
 .soln > li {
   line-height: 2.2;
@@ -6,7 +8,7 @@
 }
 
 .ans {
-  padding: .25em;
+  padding: 0.25em;
   margin-top: 1em;
   font-size: 1.2em;
   text-align: center;
@@ -16,7 +18,9 @@
   background-color: rgba(17, 17, 17, 0.3);
 }
 
-.ans::before { content: "∴ "; }
+.ans::before {
+  content: "∴ ";
+}
 
 .frac {
   line-height: 1.2;
@@ -25,7 +29,9 @@
 }
 
 .frac,
-.frac > * { display: inline-block; }
+.frac > * {
+  display: inline-block;
+}
 
 .numerator {
   top: -1.3ex;
@@ -44,13 +50,17 @@
 }
 
 .denominator sup {
-  bottom: -.4ex;
+  bottom: -0.4ex;
   position: relative;
 }
 
-.div { --divisor-size: 7.8ch; }
+.div {
+  --divisor-size: 7.8ch;
+}
 
-.quotient { line-height: 1; }
+.quotient {
+  line-height: 1;
+}
 
 .quotient,
 .div-steps {
@@ -59,18 +69,22 @@
 }
 
 .divisor {
-  padding-left: .15em;
-  padding-right: .2em;
-  margin-right: -.33em;
+  padding-left: 0.15em;
+  padding-right: 0.2em;
+  margin-right: -0.33em;
   display: inline-block;
   border-right: 1px solid;
   border-bottom: 1px solid;
 }
 
 .divisor,
-.divident { line-height: 1.3; }
+.divident {
+  line-height: 1.3;
+}
 
-.div sup { font-size: .55em; }
+.div sup {
+  font-size: 0.55em;
+}
 
 .divident {
   margin-left: 0;
@@ -86,17 +100,21 @@
   flex-direction: column;
 }
 
-.div-steps > div { display: inline-block; }
-.div-steps > div:nth-child(odd) { border-bottom: 2px solid; }
+.div-steps > div {
+  display: inline-block;
+}
+.div-steps > div:nth-child(odd) {
+  border-bottom: 2px solid;
+}
 
 #author {
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 
 #author::after {
   left: 62%;
   bottom: -1em;
-  font-size: .3em;
+  font-size: 0.3em;
   position: absolute;
   content: "— Mayank Shigaonker";
 }
@@ -110,9 +128,13 @@
 }
 
 @media (max-width: 390px) {
-  .div { font-size: .7em; }
+  .div {
+    font-size: 0.7em;
+  }
 }
 
 @media (max-width: 340px) {
-  .div { font-size: .5em; }
+  .div {
+    font-size: 0.5em;
+  }
 }

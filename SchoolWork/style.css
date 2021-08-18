@@ -12,4 +12,6 @@ body {
   backdrop-filter: blur(5px);
 }
 
-nav { position: fixed; }
+nav {
+  position: fixed;
+}
