@@ -30,21 +30,33 @@ function $$(elems) {
   return document.querySelectorAll(elems);
 }
 
+function $id(elem) {
+  return document.getElementById(elem);
+}
+
+function $cl(elem) {
+  return document.getElementsByClassName(elem)[0];
+}
+
+function $$cl(elems) {
+  return document.getElementsByClassName(elems);
+}
+
 (function main() {
   // This is used by redirect.html
   localStorage.setItem("lastVisitedPage", window.location.pathname);
 
   const config = getConfig();
 
-  $("#main-clr-chooser") &&
-    ($("#main-clr-chooser").value = rgbToHex(config.mainClr));
+  $id("main-clr-chooser") &&
+    ($id("main-clr-chooser").value = rgbToHex(config.mainClr));
 
-  $("#border-radius-cards") &&
-    ($("#border-radius-cards").value =
+  $id("border-radius-cards") &&
+    ($id("border-radius-cards").value =
       config?.borderRad?.card || defConfig.borderRad.card);
 
-  $("#border-radius-btns") &&
-    ($("#border-radius-btns").value =
+  $id("border-radius-btns") &&
+    ($id("border-radius-btns").value =
       config?.borderRad?.btn || defConfig.borderRad.btn);
 
   setMainClr(config.mainClr || defConfig.mainClr, config);
@@ -72,7 +84,7 @@ function $$(elems) {
     // If today isn't sunday
     setInterval(statusUpdate, 1 * 1000);
 
-  $$(".go-btn") // Get all 3rd language buttons
+  Array.from($$cl("go-btn")) // Get all 3rd language buttons
     .forEach((goBtns) =>
       goBtns.addEventListener(
         "click", // For each button add a click event listener
@@ -102,16 +114,18 @@ function swInit() {
 }
 
 function installBtnInit() {
+  const installBtn = $(".install.btn");
+
   // Get the prompt which usually shows up and save it
   window.addEventListener("beforeinstallprompt", (e) => {
     installPrompt = e;
     e.preventDefault();
-    $(".install.btn") && ($(".install.btn").style.display = "block");
+    installBtn && (installBtn.style.display = "block");
   });
 
   // When the install button is clicked show the previously saved prompt
-  $(".install.btn") &&
-    $(".install.btn").addEventListener("click", async (ev) => {
+  installBtn &&
+    installBtn.addEventListener("click", async (ev) => {
       if (installPrompt) {
         installPrompt.prompt();
         const { outcome } = await installPrompt.userChoice;
@@ -131,10 +145,10 @@ function navInit() {
 
     if (
       division &&
-      $(`#${division}`) &&
+      $id(division) &&
       $(".ind > div:last-child > label").innerText <= division
     )
-      $(`#${division}`).checked = true;
+      $id(division).checked = true;
     else $('input[name="div"]').checked = true;
   }
 }
@@ -224,7 +238,7 @@ function update() {
         );
     });
 
-    $(".link-card").appendChild(ol);
+    $cl("link-card").appendChild(ol);
   }
 }
 
@@ -237,7 +251,7 @@ function radioChange(callUpdate = true) {
       localStorage.setItem("division", btn.id);
 
       $("h1").innerText = currClass;
-      $("#curr").removeAttribute("id");
+      $id("curr").removeAttribute("id");
       $(`.${currClass.toLowerCase()}`).setAttribute("id", "curr");
       callUpdate && update();
       return false;
@@ -248,7 +262,7 @@ function radioChange(callUpdate = true) {
 
 function removeExistingOl() {
   const ol = $(".link-card ol");
-  ol && $(".link-card").removeChild(ol);
+  ol && $cl("link-card").removeChild(ol);
 }
 
 function addTimingAndStatus(parent) {
@@ -356,7 +370,7 @@ function activeBtnLogic(timeDetails, correspondingInp, greyed = true) {
 }
 
 function statusUpdate() {
-  Array.from($$(".timing-and-status")).every((timingAndStatus) => {
+  Array.from($$cl("timing-and-status")).every((timingAndStatus) => {
     const timeDetails = timeInRange(
       timingAndStatus.firstElementChild.innerText
     );
@@ -377,11 +391,11 @@ function setMainClr(to, config = getConfig(), setClrChooser) {
   config.mainClr = mainClr;
   saveConfig(config);
 
-  setClrChooser && ($("#main-clr-chooser").value = rgbToHex(mainClr));
+  setClrChooser && ($id("main-clr-chooser").value = rgbToHex(mainClr));
 }
 
 function setCardBorderRad(rad, config = getConfig(), setRange) {
-  $$(".card").forEach((card) =>
+  Array.from($$cl("card")).forEach((card) =>
     card.style.setProperty("border-radius", rad + "px")
   );
 
@@ -389,7 +403,7 @@ function setCardBorderRad(rad, config = getConfig(), setRange) {
   config.borderRad.card = rad;
   saveConfig(config);
 
-  setRange && ($("#border-radius-cards").value = rad);
+  setRange && ($id("border-radius-cards").value = rad);
 }
 
 function setBtnBorderRad(rad, config = getConfig(), setRange) {
@@ -401,7 +415,7 @@ function setBtnBorderRad(rad, config = getConfig(), setRange) {
   config.borderRad.btn = rad;
   saveConfig(config);
 
-  setRange && ($("#border-radius-btns").value = rad);
+  setRange && ($id("border-radius-btns").value = rad);
 }
 
 function setBgClr(clr, opacity, config = getConfig(), setClrChooser) {
@@ -417,8 +431,8 @@ function setBgClr(clr, opacity, config = getConfig(), setClrChooser) {
   saveConfig(config);
 
   if (setClrChooser) {
-    $("#bg-clr").value = rgbToHex(bgClr);
-    $("#bg-clr-opacity").value = opacity;
+    $id("bg-clr").value = rgbToHex(bgClr);
+    $id("bg-clr-opacity").value = opacity;
   }
 }
 

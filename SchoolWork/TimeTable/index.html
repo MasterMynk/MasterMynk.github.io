@@ -134,7 +134,7 @@
                     value="15"
                     min="0"
                     max="100"
-                    oninput="setCardBorderRad(document.getElementById('border-radius-cards').value);"
+                    oninput="setCardBorderRad($id('border-radius-cards').value);"
                   />
                   <button
                     type="button"
@@ -165,7 +165,7 @@
                     value="50"
                     min="0"
                     max="30"
-                    oninput="setBtnBorderRad(document.getElementById('border-radius-btns').value);"
+                    oninput="setBtnBorderRad($id('border-radius-btns').value);"
                   />
                   <button
                     type="button"
@@ -200,7 +200,7 @@
                   type="color"
                   id="bg-clr"
                   value="#191919"
-                  oninput="setBgClr(hexToRGB(document.getElementById('bg-clr').value), document.getElementById('bg-clr-opacity').value);"
+                  oninput="setBgClr(hexToRGB($id('bg-clr').value), $id('bg-clr-opacity').value);"
                 />
                 <div>
                   <label
@@ -214,7 +214,7 @@
                     min="0"
                     max="100"
                     value="70"
-                    oninput="setBgClr(hexToRGB(document.getElementById('bg-clr').value), document.getElementById('bg-clr-opacity').value);"
+                    oninput="setBgClr(hexToRGB($id('bg-clr').value), $id('bg-clr-opacity').value);"
                   />
                 </div>
               </div>
