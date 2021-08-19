@@ -16,6 +16,10 @@ const defConfig = {
     card: 15,
     btn: 30,
   },
+  bgClr: {
+    clr: "25, 25, 25",
+    opacity: 70,
+  },
 };
 
 function $(elem) {
@@ -46,6 +50,11 @@ function $$(elems) {
   setMainClr(config.mainClr || defConfig.mainClr, config);
   setCardBorderRad(config?.borderRad?.card || defConfig.borderRad.card, config);
   setBtnBorderRad(config?.borderRad?.btn || defConfig.borderRad.btn, config);
+  setBgClr(
+    config?.bgClr?.clr || defConfig.bgClr.clr,
+    config?.bgClr?.opacity || defConfig.bgClr.opacity,
+    config
+  );
 
   swInit();
   installBtnInit();
@@ -395,15 +404,22 @@ function setBtnBorderRad(rad, config = getConfig(), setRange) {
   setRange && ($("#border-radius-btns").value = rad);
 }
 
-function setBgClr(clr, config = getConfig(), setClrChooser) {
-  const mainClr = typeof to == "string" ? to : `${to.r}, ${to.g}, ${to.b}`;
+function setBgClr(clr, opacity, config = getConfig(), setClrChooser) {
+  const bgClr = typeof clr == "string" ? clr : `${clr.r}, ${clr.g}, ${clr.b}`;
+  const html = $("html");
 
-  $("html").style.setProperty("--main-clr", mainClr);
+  html.style.setProperty("--dark-bg-clr", bgClr);
+  html.style.setProperty("--opacity", opacity / 100);
 
-  config.mainClr = mainClr;
+  config.bgClr || (config.bgClr = {});
+  config.bgClr.clr = bgClr;
+  config.bgClr.opacity = opacity;
   saveConfig(config);
 
-  setClrChooser && ($("#main-clr-chooser").value = rgbToHex(mainClr));
+  if (setClrChooser) {
+    $("#bg-clr").value = rgbToHex(bgClr);
+    $("#bg-clr-opacity").value = opacity;
+  }
 }
 
 function hexToRGB(hex) {

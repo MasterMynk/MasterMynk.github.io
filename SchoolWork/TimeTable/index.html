@@ -199,29 +199,29 @@
                 <input
                   type="color"
                   id="bg-clr"
-                  value="#D35400"
-                  oninput="setBgClr(document.getElementById('bg-clr').value, document.getElementById('bg-clr-transparency').value);"
+                  value="#191919"
+                  oninput="setBgClr(hexToRGB(document.getElementById('bg-clr').value), document.getElementById('bg-clr-opacity').value);"
                 />
                 <div>
                   <label
-                    for="bg-clr-transparency"
+                    for="bg-clr-opacity"
                     style="font-size: 0.8em; display: block"
-                    >Transparency:
+                    >Opacity:
                   </label>
                   <input
                     type="range"
-                    id="bg-clr-transparency"
+                    id="bg-clr-opacity"
                     min="0"
                     max="100"
                     value="70"
-                    oninput="setBgClr(document.getElementById('bg-clr').value, document.getElementById('bg-clr-transparency').value);"
+                    oninput="setBgClr(hexToRGB(document.getElementById('bg-clr').value), document.getElementById('bg-clr-opacity').value);"
                   />
                 </div>
               </div>
               <button
                 type="button"
                 class="btn"
-                onclick="setBgClr(document.getElementById('bg-clr').value, getConfig(), true);"
+                onclick="setBgClr(defConfig.bgClr.clr, defConfig.bgClr.opacity, getConfig(), true);"
               >
                 Reset
               </button>
