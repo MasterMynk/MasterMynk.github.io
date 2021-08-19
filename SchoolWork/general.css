@@ -8,7 +8,9 @@
 }
 
 html {
-  --dark-clr: #111;
+  --dark-clr: #111; /* For fonts */
+  --dark-bg-clr: 25, 25, 25;
+  --opacity: 0.7;
   --light-clr: #eee;
   --main-clr: 211, 84, 0;
   --accent-clr: royalblue;
@@ -42,16 +44,16 @@ nav {
   --nav-x-padding: 10vw;
   --nav-y-padding: 2vh;
 
-  top: 0;
-  z-index: 1;
   width: 100%;
   display: flex;
-  position: sticky;
   padding: var(--nav-y-padding) var(--nav-x-padding);
   align-items: center;
-  backdrop-filter: blur(2px);
   justify-content: space-between;
-  background-color: rgba(25, 25, 25, 0.7);
+  backdrop-filter: blur(2px);
+  background-color: rgb(30, 30, 30);
+  position: sticky;
+  top: 0;
+  z-index: 1;
   box-shadow: 0.5em 0 1em rgba(0, 0, 0, 1);
 }
 
@@ -220,6 +222,10 @@ nav + header > h1 {
 
 @supports (backdrop-filter: blur(1em)) or (-webkit-backdrop-filter: blur(1em)) {
   .card {
-    background-color: rgba(25, 25, 25, 0.7);
+    background-color: rgba(var(--dark-bg-clr), var(--opacity));
+  }
+
+  nav {
+    background-color: rgba(var(--dark-bg-clr), var(--opacity));
   }
 }

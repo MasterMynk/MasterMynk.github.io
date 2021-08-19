@@ -109,7 +109,7 @@
   width: 100%;
   height: 100%;
   clip-path: circle(0 at top left);
-  
+
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -123,7 +123,7 @@
   transition: clip-path 400ms;
 }
 
-.menu-item-radio:checked + .item{
+.menu-item-radio:checked + .item {
   clip-path: circle(100%);
 }
 
@@ -181,10 +181,14 @@
 }
 
 .slide-down:checked ~ .stuff-to-slide {
-  /* transform: translateY(100%); */
-  /* z-index: 2; */
   max-height: 100vh;
+}
 
+.centered-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
 }
 
 .card {

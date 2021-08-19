@@ -360,16 +360,18 @@ function statusUpdate() {
   });
 }
 
-function setMainClr(to, config = getConfig()) {
+function setMainClr(to, config = getConfig(), setClrChooser) {
   const mainClr = typeof to == "string" ? to : `${to.r}, ${to.g}, ${to.b}`;
 
   $("html").style.setProperty("--main-clr", mainClr);
 
   config.mainClr = mainClr;
   saveConfig(config);
+
+  setClrChooser && ($("#main-clr-chooser").value = rgbToHex(mainClr));
 }
 
-function setCardBorderRad(rad, config = getConfig()) {
+function setCardBorderRad(rad, config = getConfig(), setRange) {
   $$(".card").forEach((card) =>
     card.style.setProperty("border-radius", rad + "px")
   );
@@ -377,9 +379,11 @@ function setCardBorderRad(rad, config = getConfig()) {
   config.borderRad || (config.borderRad = {});
   config.borderRad.card = rad;
   saveConfig(config);
+
+  setRange && ($("#border-radius-cards").value = rad);
 }
 
-function setBtnBorderRad(rad, config = getConfig()) {
+function setBtnBorderRad(rad, config = getConfig(), setRange) {
   $$(".btn,.dropdown").forEach((btn) =>
     btn.style.setProperty("border-radius", rad + "px")
   );
@@ -387,10 +391,19 @@ function setBtnBorderRad(rad, config = getConfig()) {
   config.borderRad || (config.borderRad = {});
   config.borderRad.btn = rad;
   saveConfig(config);
+
+  setRange && ($("#border-radius-btns").value = rad);
 }
 
-function mainClrChange() {
-  setMainClr(hexToRGB($("#main-clr-chooser").value));
+function setBgClr(clr, config = getConfig(), setClrChooser) {
+  const mainClr = typeof to == "string" ? to : `${to.r}, ${to.g}, ${to.b}`;
+
+  $("html").style.setProperty("--main-clr", mainClr);
+
+  config.mainClr = mainClr;
+  saveConfig(config);
+
+  setClrChooser && ($("#main-clr-chooser").value = rgbToHex(mainClr));
 }
 
 function hexToRGB(hex) {
@@ -429,19 +442,4 @@ function getConfig() {
 
 function saveConfig(config) {
   localStorage.setItem("config", JSON.stringify(config));
-}
-
-function mainClrReset() {
-  setMainClr(defConfig.mainClr);
-  $("#main-clr-chooser").value = rgbToHex(defConfig.mainClr);
-}
-
-function cardRadReset() {
-  setCardBorderRad(defConfig.borderRad.card);
-  $("#border-radius-cards").value = defConfig.borderRad.card;
-}
-
-function btnRadReset() {
-  setBtnBorderRad(defConfig.borderRad.btn);
-  $("#border-radius-btns").value = defConfig.borderRad.btn;
 }

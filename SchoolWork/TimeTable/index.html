@@ -92,9 +92,13 @@
                 type="color"
                 id="main-clr-chooser"
                 value="#D35400"
-                oninput="mainClrChange()"
+                oninput="setMainClr(hexToRGB($('#main-clr-chooser').value));"
               />
-              <button type="button" class="btn" onclick="mainClrReset()">
+              <button
+                type="button"
+                class="btn"
+                onclick="setMainClr(defConfig.mainClr, getConfig(), true);"
+              >
                 Reset
               </button>
             </label>
@@ -130,9 +134,13 @@
                     value="15"
                     min="0"
                     max="100"
-                    oninput="setCardBorderRad(document.getElementById('border-radius-cards').value)"
+                    oninput="setCardBorderRad(document.getElementById('border-radius-cards').value);"
                   />
-                  <button type="button" class="btn" onclick="cardRadReset()">
+                  <button
+                    type="button"
+                    class="btn"
+                    onclick="setCardBorderRad(defConfig.borderRad.card, getConfig(), true);"
+                  >
                     Reset
                   </button>
                 </label>
@@ -157,9 +165,13 @@
                     value="50"
                     min="0"
                     max="30"
-                    oninput="setBtnBorderRad(document.getElementById('border-radius-btns').value)"
+                    oninput="setBtnBorderRad(document.getElementById('border-radius-btns').value);"
                   />
-                  <button type="button" class="btn" onclick="btnRadReset()">
+                  <button
+                    type="button"
+                    class="btn"
+                    onclick="setBtnBorderRad(defConfig.borderRad.btn, getConfig(), true);"
+                  >
                     Reset
                   </button>
                 </label>
@@ -168,12 +180,53 @@
                 >
               </div>
             </div>
-            <p class="thank-you-text">
-              Thank you for taking the time to open me!!
-            </p>
-            <p class="thank-you-text">
-              More options to configure on their way !! :)
-            </p>
+
+            <input
+              type="radio"
+              name="menu-items"
+              id="def-menu-item"
+              class="menu-item-radio"
+            />
+
+            <input
+              type="radio"
+              name="menu-items"
+              id="bg-clr-radio"
+              class="menu-item-radio"
+            />
+            <label for="def-menu-item" class="item" id="bg-clr-content">
+              <div class="centered-vertical">
+                <input
+                  type="color"
+                  id="bg-clr"
+                  value="#D35400"
+                  oninput="setBgClr(document.getElementById('bg-clr').value, document.getElementById('bg-clr-transparency').value);"
+                />
+                <div>
+                  <label
+                    for="bg-clr-transparency"
+                    style="font-size: 0.8em; display: block"
+                    >Transparency:
+                  </label>
+                  <input
+                    type="range"
+                    id="bg-clr-transparency"
+                    min="0"
+                    max="100"
+                    value="70"
+                    oninput="setBgClr(document.getElementById('bg-clr').value, document.getElementById('bg-clr-transparency').value);"
+                  />
+                </div>
+              </div>
+              <button
+                type="button"
+                class="btn"
+                onclick="setBgClr(document.getElementById('bg-clr').value, getConfig(), true);"
+              >
+                Reset
+              </button>
+            </label>
+            <label for="bg-clr-radio" class="name">Background Color</label>
           </div>
         </div>
       </div>
