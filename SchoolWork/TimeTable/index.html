@@ -77,92 +77,176 @@
               class="menu-item-radio"
             />
 
-            <input
-              type="radio"
-              name="menu-items"
-              id="main-clr-chooser-radio"
-              class="menu-item-radio"
-            />
-            <label
-              for="def-menu-item"
-              class="item"
-              id="main-clr-chooser-content"
-            >
-              <input
-                type="color"
-                id="main-clr-chooser"
-                value="#D35400"
-                oninput="setMainClr(false, hexToRGB($('#main-clr-chooser').value));"
-              />
-              <button class="btn" onclick="setMainClr();">Reset</button>
-            </label>
-            <label for="main-clr-chooser-radio" class="name">Theme Color</label>
-
             <div class="slide-down-parent">
-              <input
-                type="checkbox"
-                id="border-radius-slider"
-                class="slide-down"
-              />
-              <label
-                for="border-radius-slider"
-                class="name"
-                style="--offset: 7.4em"
-                >Border curve</label
+              <input type="checkbox" id="clr-slider" class="slide-down" />
+              <label for="clr-slider" class="name" style="--offset: 3.5em"
+                >Color</label
               >
               <div class="stuff-to-slide">
                 <input
                   type="radio"
                   name="menu-items"
-                  id="border-radius-cards-radio"
+                  id="main-clr-chooser-radio"
                   class="menu-item-radio"
                 />
                 <label
                   for="def-menu-item"
                   class="item"
-                  id="border-radius-cards-content"
+                  id="main-clr-chooser-content"
                 >
                   <input
-                    type="range"
-                    id="border-radius-cards"
-                    value="15"
-                    min="0"
-                    max="100"
-                    oninput="setCardBorderRad(false, $id('border-radius-cards').value);"
+                    type="color"
+                    id="main-clr-chooser"
+                    value="#D35400"
+                    oninput="setMainClr(false, hexToRGB($('#main-clr-chooser').value));"
                   />
-                  <button class="btn" onclick="setCardBorderRad();">
-                    Reset
-                  </button>
+                  <button class="btn" onclick="setMainClr();">Reset</button>
                 </label>
-                <label for="border-radius-cards-radio" class="name"
-                  >Cards</label
+                <label for="main-clr-chooser-radio" class="name"
+                  >Theme</label
                 >
 
                 <input
                   type="radio"
                   name="menu-items"
-                  id="border-radius-btns-radio"
+                  id="font-clr-radio"
+                  class="menu-item-radio"
+                />
+                <label
+                  for="def-menu-item"
+                  class="item centered-vertical"
+                  id="font-clr-content"
+                >
+                  <div>
+                    <label for="norm-font-clr" style="font-size: 0.8em"
+                      >Normal Font:</label
+                    >
+                    <input
+                      type="color"
+                      id="norm-font-clr"
+                      value="#eeeeee"
+                      oninput="setNormFont(false, $id('norm-font-clr').value);"
+                    />
+                  </div>
+                  <div>
+                    <label for="theme-font-clr" style="font-size: 0.8em"
+                      >Font on theme:
+                    </label>
+                    <input
+                      type="color"
+                      id="theme-font-clr"
+                      value="#111111"
+                      oninput="setThemeFont(false, $id('theme-font-clr').value);"
+                    />
+                  </div>
+                  <button class="btn" onclick="setNormFont(); setThemeFont();">
+                    Reset
+                  </button>
+                </label>
+                <label for="font-clr-radio" class="name">Font</label>
+              </div>
+            </div>
+
+            <div class="slide-down-parent">
+              <input type="checkbox" id="border-slider" class="slide-down" />
+              <label for="border-slider" class="name" style="--offset: 4.25em"
+                >Border</label
+              >
+              <div class="stuff-to-slide">
+                <div class="slide-down-parent">
+                  <input
+                    type="checkbox"
+                    id="border-radius-slider"
+                    class="slide-down"
+                  />
+                  <label
+                    for="border-radius-slider"
+                    class="name"
+                    style="--offset: 3.8em"
+                    >Curve</label
+                  >
+                  <div class="stuff-to-slide">
+                    <input
+                      type="radio"
+                      name="menu-items"
+                      id="border-radius-cards-radio"
+                      class="menu-item-radio"
+                    />
+                    <label
+                      for="def-menu-item"
+                      class="item"
+                      id="border-radius-cards-content"
+                    >
+                      <input
+                        type="range"
+                        id="border-radius-cards"
+                        value="15"
+                        min="0"
+                        max="100"
+                        oninput="setCardBorderRad(false, $id('border-radius-cards').value);"
+                      />
+                      <button class="btn" onclick="setCardBorderRad();">
+                        Reset
+                      </button>
+                    </label>
+                    <label for="border-radius-cards-radio" class="name"
+                      >Cards</label
+                    >
+
+                    <input
+                      type="radio"
+                      name="menu-items"
+                      id="border-radius-btns-radio"
+                      class="menu-item-radio"
+                    />
+                    <label
+                      for="def-menu-item"
+                      class="item"
+                      id="border-radius-btns-content"
+                    >
+                      <input
+                        type="range"
+                        id="border-radius-btns"
+                        value="50"
+                        min="0"
+                        max="30"
+                        oninput="setBtnBorderRad(false, $id('border-radius-btns').value);"
+                      />
+                      <button class="btn" onclick="setBtnBorderRad();">
+                        Reset
+                      </button>
+                    </label>
+                    <label for="border-radius-btns-radio" class="name"
+                      >Button</label
+                    >
+                  </div>
+                </div>
+
+                <input
+                  type="radio"
+                  name="menu-items"
+                  id="border-thickness-radio"
                   class="menu-item-radio"
                 />
                 <label
                   for="def-menu-item"
                   class="item"
-                  id="border-radius-btns-content"
+                  id="border-thickness-content"
                 >
                   <input
                     type="range"
-                    id="border-radius-btns"
-                    value="50"
+                    id="border-thickness"
                     min="0"
                     max="30"
-                    oninput="setBtnBorderRad(false, $id('border-radius-btns').value);"
+                    value="2"
+                    oninput="setBorderThickness(false, $id('border-thickness').value);"
                   />
-                  <button class="btn" onclick="setBtnBorderRad();">
+                  <button class="btn" onclick="setBorderThickness();">
                     Reset
                   </button>
                 </label>
-                <label for="border-radius-btns-radio" class="name"
-                  >Button</label
+                <label for="border-thickness-radio" class="name"
+                  >Thickness</label
                 >
               </div>
             </div>
@@ -175,193 +259,160 @@
             />
 
             <div class="slide-down-parent">
-              <input type="checkbox" id="bg-clr-slider" class="slide-down" />
-              <label for="bg-clr-slider" class="name" style="--offset: 10em"
-                >Background Color</label
+              <input type="checkbox" id="bg-slider" class="slide-down" />
+              <label for="bg-slider" class="name" style="--offset: 7em"
+                >Background</label
               >
               <div class="stuff-to-slide">
-                <input
-                  type="radio"
-                  name="menu-items"
-                  class="menu-item-radio"
-                  id="bg-clr-btn-radio"
-                />
-                <label for="def-menu-item" class="item" id="bg-clr-btn-content">
-                  <div class="centered-vertical">
+                <div class="slide-down-parent">
+                  <input
+                    type="checkbox"
+                    id="bg-clr-slider"
+                    class="slide-down"
+                  />
+                  <label
+                    for="bg-clr-slider"
+                    class="name"
+                    style="--offset: 3.5em"
+                    >Color</label
+                  >
+                  <div class="stuff-to-slide">
                     <input
-                      type="color"
-                      id="bg-clr-btn"
-                      value="#0a0a0a"
+                      type="radio"
+                      name="menu-items"
+                      class="menu-item-radio"
                       id="bg-clr-btn-radio"
-                      oninput="setBtnBgClr(false, hexToRGB($id('bg-clr-btn').value), $id('bg-clr-btn-opacity').value);"
                     />
-                    <div>
-                      <label for="bg-clr-opacity" class="range-label"
-                        >Opacity:
-                      </label>
-                      <input
-                        type="range"
-                        id="bg-clr-btn-opacity"
-                        min="0"
-                        max="100"
-                        value="50"
-                        oninput="setBtnBgClr(false, hexToRGB($id('bg-clr-btn').value), $id('bg-clr-btn-opacity').value);"
-                      />
-                    </div>
-                  </div>
-                  <button class="btn" onclick="setBtnBgClr();">Reset</button>
-                </label>
-                <label for="bg-clr-btn-radio" class="name">Buttons</label>
+                    <label
+                      for="def-menu-item"
+                      class="item"
+                      id="bg-clr-btn-content"
+                    >
+                      <div class="centered-vertical">
+                        <input
+                          type="color"
+                          id="bg-clr-btn"
+                          value="#0a0a0a"
+                          id="bg-clr-btn-radio"
+                          oninput="setBtnBgClr(false, hexToRGB($id('bg-clr-btn').value), $id('bg-clr-btn-opacity').value);"
+                        />
+                        <div>
+                          <label for="bg-clr-opacity" class="range-label"
+                            >Opacity:
+                          </label>
+                          <input
+                            type="range"
+                            id="bg-clr-btn-opacity"
+                            min="0"
+                            max="100"
+                            value="50"
+                            oninput="setBtnBgClr(false, hexToRGB($id('bg-clr-btn').value), $id('bg-clr-btn-opacity').value);"
+                          />
+                        </div>
+                      </div>
+                      <button class="btn" onclick="setBtnBgClr();">
+                        Reset
+                      </button>
+                    </label>
+                    <label for="bg-clr-btn-radio" class="name">Buttons</label>
 
-                <input
-                  type="radio"
-                  name="menu-items"
-                  id="bg-clr-radio"
-                  class="menu-item-radio"
-                />
-                <label for="def-menu-item" class="item" id="bg-clr-content">
-                  <div class="centered-vertical">
                     <input
-                      type="color"
-                      id="bg-clr"
-                      value="#191919"
-                      oninput="setBgClr(false, hexToRGB($id('bg-clr').value), $id('bg-clr-opacity').value);"
+                      type="radio"
+                      name="menu-items"
+                      id="bg-clr-radio"
+                      class="menu-item-radio"
                     />
-                    <div>
-                      <label for="bg-clr-opacity" class="range-label"
-                        >Opacity:
-                      </label>
+                    <label for="def-menu-item" class="item" id="bg-clr-content">
+                      <div class="centered-vertical">
+                        <input
+                          type="color"
+                          id="bg-clr"
+                          value="#191919"
+                          oninput="setBgClr(false, hexToRGB($id('bg-clr').value), $id('bg-clr-opacity').value);"
+                        />
+                        <div>
+                          <label for="bg-clr-opacity" class="range-label"
+                            >Opacity:
+                          </label>
+                          <input
+                            type="range"
+                            id="bg-clr-opacity"
+                            min="0"
+                            max="100"
+                            value="70"
+                            oninput="setBgClr(false, hexToRGB($id('bg-clr').value), $id('bg-clr-opacity').value);"
+                          />
+                        </div>
+                      </div>
+                      <button class="btn" onclick="setBgClr();">Reset</button>
+                    </label>
+                    <label for="bg-clr-radio" class="name"
+                      >Everything else</label
+                    >
+                  </div>
+                </div>
+
+                <div class="slide-down-parent">
+                  <input
+                    type="checkbox"
+                    id="bg-blur-slider"
+                    class="slide-down"
+                  />
+                  <label for="bg-blur-slider" class="name" style="--offset: 3em"
+                    >Blur</label
+                  >
+                  <div class="stuff-to-slide">
+                    <input
+                      type="radio"
+                      name="menu-items"
+                      class="menu-item-radio"
+                      id="bg-blur-cards-radio"
+                    />
+                    <label
+                      for="def-menu-item"
+                      class="item"
+                      id="bg-blur-cards-content"
+                    >
                       <input
                         type="range"
-                        id="bg-clr-opacity"
+                        id="bg-blur-cards"
                         min="0"
-                        max="100"
-                        value="70"
-                        oninput="setBgClr(false, hexToRGB($id('bg-clr').value), $id('bg-clr-opacity').value);"
+                        max="20"
+                        value="8"
+                        oninput="setCardBlur(false, $id('bg-blur-cards').value);"
                       />
-                    </div>
+                      <button class="btn" onclick="setCardBlur();">
+                        Reset
+                      </button>
+                    </label>
+                    <label for="bg-blur-cards-radio" class="name">Cards</label>
+
+                    <input
+                      type="radio"
+                      name="menu-items"
+                      class="menu-item-radio"
+                      id="bg-blur-nav-radio"
+                    />
+                    <label
+                      for="def-menu-item"
+                      class="item"
+                      id="bg-blur-nav-content"
+                    >
+                      <input
+                        type="range"
+                        id="bg-blur-nav"
+                        min="0"
+                        max="20"
+                        value="2"
+                        oninput="setNavBlur(false, $id('bg-blur-nav').value);"
+                      />
+                      <button class="btn" onclick="setNavBlur();">Reset</button>
+                    </label>
+                    <label for="bg-blur-nav-radio" class="name"
+                      >Top Panel</label
+                    >
                   </div>
-                  <button class="btn" onclick="setBgClr();">Reset</button>
-                </label>
-                <label for="bg-clr-radio" class="name">Everything else</label>
-              </div>
-            </div>
-
-            <input
-              type="radio"
-              name="menu-items"
-              id="font-clr-radio"
-              class="menu-item-radio"
-            />
-            <label
-              for="def-menu-item"
-              class="item centered-vertical"
-              id="font-clr-content"
-            >
-              <div>
-                <label for="norm-font-clr" style="font-size: 0.8em"
-                  >Normal Font:</label
-                >
-                <input
-                  type="color"
-                  id="norm-font-clr"
-                  value="#eeeeee"
-                  oninput="setNormFont(false, $id('norm-font-clr').value);"
-                />
-              </div>
-              <div>
-                <label for="theme-font-clr" style="font-size: 0.8em"
-                  >Font on theme:
-                </label>
-                <input
-                  type="color"
-                  id="theme-font-clr"
-                  value="#111111"
-                  oninput="setThemeFont(false, $id('theme-font-clr').value);"
-                />
-              </div>
-              <button class="btn" onclick="setNormFont(); setThemeFont();">
-                Reset
-              </button>
-            </label>
-            <label for="font-clr-radio" class="name">Font Color</label>
-
-            <input
-              type="radio"
-              name="menu-items"
-              id="border-thickness-radio"
-              class="menu-item-radio"
-            />
-            <label
-              for="def-menu-item"
-              class="item"
-              id="border-thickness-content"
-            >
-              <input
-                type="range"
-                id="border-thickness"
-                min="0"
-                max="30"
-                value="2"
-                oninput="setBorderThickness(false, $id('border-thickness').value);"
-              />
-              <button class="btn" onclick="setBorderThickness();">Reset</button>
-            </label>
-            <label for="border-thickness-radio" class="name"
-              >Border thickness</label
-            >
-
-            <div class="slide-down-parent">
-              <input type="checkbox" id="bg-blur-slider" class="slide-down" />
-              <label for="bg-blur-slider" class="name" style="--offset: 9.5em"
-                >Background Blur</label
-              >
-              <div class="stuff-to-slide">
-                <input
-                  type="radio"
-                  name="menu-items"
-                  class="menu-item-radio"
-                  id="bg-blur-cards-radio"
-                />
-                <label
-                  for="def-menu-item"
-                  class="item"
-                  id="bg-blur-cards-content"
-                >
-                  <input
-                    type="range"
-                    id="bg-blur-cards"
-                    min="0"
-                    max="20"
-                    value="8"
-                    oninput="setCardBlur(false, $id('bg-blur-cards').value);"
-                  />
-                  <button class="btn" onclick="setCardBlur();">Reset</button>
-                </label>
-                <label for="bg-blur-cards-radio" class="name">Cards</label>
-
-                <input
-                  type="radio"
-                  name="menu-items"
-                  class="menu-item-radio"
-                  id="bg-blur-nav-radio"
-                />
-                <label
-                  for="def-menu-item"
-                  class="item"
-                  id="bg-blur-nav-content"
-                >
-                  <input
-                    type="range"
-                    id="bg-blur-nav"
-                    min="0"
-                    max="20"
-                    value="2"
-                    oninput="setNavBlur(false, $id('bg-blur-nav').value);"
-                  />
-                  <button class="btn" onclick="setNavBlur();">Reset</button>
-                </label>
-                <label for="bg-blur-nav-radio" class="name">Top Panel</label>
+                </div>
               </div>
             </div>
 
