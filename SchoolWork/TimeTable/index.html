@@ -94,9 +94,7 @@
                 value="#D35400"
                 oninput="setMainClr(false, hexToRGB($('#main-clr-chooser').value));"
               />
-              <button type="button" class="btn" onclick="setMainClr();">
-                Reset
-              </button>
+              <button class="btn" onclick="setMainClr();">Reset</button>
             </label>
             <label for="main-clr-chooser-radio" class="name">Theme Color</label>
 
@@ -132,11 +130,7 @@
                     max="100"
                     oninput="setCardBorderRad(false, $id('border-radius-cards').value);"
                   />
-                  <button
-                    type="button"
-                    class="btn"
-                    onclick="setCardBorderRad();"
-                  >
+                  <button class="btn" onclick="setCardBorderRad();">
                     Reset
                   </button>
                 </label>
@@ -163,11 +157,7 @@
                     max="30"
                     oninput="setBtnBorderRad(false, $id('border-radius-btns').value);"
                   />
-                  <button
-                    type="button"
-                    class="btn"
-                    onclick="setBtnBorderRad();"
-                  >
+                  <button class="btn" onclick="setBtnBorderRad();">
                     Reset
                   </button>
                 </label>
@@ -224,9 +214,7 @@
                       />
                     </div>
                   </div>
-                  <button type="button" class="btn" onclick="setBtnBgClr();">
-                    Reset
-                  </button>
+                  <button class="btn" onclick="setBtnBgClr();">Reset</button>
                 </label>
                 <label for="bg-clr-btn-radio" class="name">Buttons</label>
 
@@ -258,9 +246,7 @@
                       />
                     </div>
                   </div>
-                  <button type="button" class="btn" onclick="setBgClr();">
-                    Reset
-                  </button>
+                  <button class="btn" onclick="setBgClr();">Reset</button>
                 </label>
                 <label for="bg-clr-radio" class="name">Everything else</label>
               </div>
@@ -299,15 +285,36 @@
                   oninput="setThemeFont(false, $id('theme-font-clr').value);"
                 />
               </div>
-              <button
-                type="button"
-                class="btn"
-                onclick="setNormFont(); setThemeFont();"
-              >
+              <button class="btn" onclick="setNormFont(); setThemeFont();">
                 Reset
               </button>
             </label>
             <label for="font-clr-radio" class="name">Font Color</label>
+
+            <input
+              type="radio"
+              name="menu-items"
+              id="border-thickness-radio"
+              class="menu-item-radio"
+            />
+            <label
+              for="def-menu-item"
+              class="item"
+              id="border-thickness-content"
+            >
+              <input
+                type="range"
+                id="border-thickness"
+                min="0"
+                max="30"
+                value="2"
+                oninput="setBorderThickness(false, $id('border-thickness').value);"
+              />
+              <button class="btn" onclick="setBorderThickness();">Reset</button>
+            </label>
+            <label for="border-thickness-radio" class="name"
+              >Border thickness</label
+            >
 
             <input
               type="radio"
@@ -321,7 +328,10 @@
               id="reset-content"
             >
               Are you sure you want to do this?
-              <button type="button" class="btn" onclick="resetAll();">Yes, I'm absolutely certain that the act I'm about to perform is the 1 told to me by my  🧠 and ❤️</button>
+              <button class="btn" onclick="resetAll();">
+                Yes, I'm absolutely certain that the act I'm about to perform is
+                the 1 told to me by my 🧠 and ❤️
+              </button>
             </label>
             <label for="reset-radio" class="name">Reset</label>
           </div>

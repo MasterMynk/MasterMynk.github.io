@@ -28,6 +28,7 @@ const defConfig = {
     norm: "#eeeeee",
     theme: "#111111",
   },
+  borderThickness: 2,
 };
 
 function $(elem) {
@@ -80,6 +81,11 @@ function $$cl(elems) {
       true,
       config?.bgClr?.btn?.clr || defConfig.bgClr.btn.clr,
       config?.bgClr?.btn?.opacity || defConfig.bgClr.btn.opacity,
+      config
+    );
+    setBorderThickness(
+      true,
+      config?.borderThickness || defConfig.borderThickness,
       config
     );
   }
@@ -214,6 +220,19 @@ function setCancelled() {
       });
     }
   });
+}
+
+function setBorderThickness(
+  setRange = true,
+  thickness = defConfig.borderThickness,
+  config = getConfig()
+) {
+  $("html").style.setProperty("--border-thickness", `${thickness}px`);
+
+  config.borderThickness = thickness;
+  saveConfig(config);
+
+  if (setRange) $id("border-thickness").value = thickness;
 }
 
 function update() {

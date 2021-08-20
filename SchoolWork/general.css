@@ -14,6 +14,7 @@ html {
   --theme-font-clr: #111; /* For fonts */
   --main-clr: 211, 84, 0;
   --accent-clr: royalblue;
+  --border-thickness: 2px;
 
   scroll-padding: 6vh;
   scroll-behavior: smooth;
@@ -113,7 +114,7 @@ nav {
 .dropdown {
   color: inherit;
   cursor: pointer;
-  border: 2px solid;
+  border: var(--border-thickness) solid;
   padding: 0.3em 1em;
   border-radius: 30px;
   font-family: inherit;
@@ -164,7 +165,7 @@ nav + header > h1 {
   flex-direction: column;
   backdrop-filter: blur(8px);
   justify-content: space-between;
-  border: 2px solid rgb(var(--main-clr));
+  border: var(--border-thickness) solid rgb(var(--main-clr));
   background-color: rgb(30, 30, 30);
   box-shadow: 0.5em 0.5em 0.5em rgba(10, 10, 10, 0.6);
 }
