@@ -91,7 +91,7 @@
   display: block;
   padding: 1em 2em;
   background-color: rgb(var(--elem-bg-clr));
-  border-bottom: 2px solid rgb(var(--main-clr));
+  border-bottom: var(--border-thickness) solid rgb(var(--main-clr));
   position: relative;
   transition: color 250ms;
   cursor: pointer;
