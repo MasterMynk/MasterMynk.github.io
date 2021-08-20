@@ -48,25 +48,36 @@ function $$cl(elems) {
 
   const config = getConfig();
 
-  $id("main-clr-chooser") &&
-    ($id("main-clr-chooser").value = rgbToHex(config.mainClr));
+  // $id("main-clr-chooser") &&
+  //   ($id("main-clr-chooser").value = rgbToHex(config.mainClr));
 
-  $id("border-radius-cards") &&
-    ($id("border-radius-cards").value =
-      config?.borderRad?.card || defConfig.borderRad.card);
+  // $id("border-radius-cards") &&
+  //   ($id("border-radius-cards").value =
+  //     config?.borderRad?.card || defConfig.borderRad.card);
 
-  $id("border-radius-btns") &&
-    ($id("border-radius-btns").value =
-      config?.borderRad?.btn || defConfig.borderRad.btn);
+  // $id("border-radius-btns") &&
+  //   ($id("border-radius-btns").value =
+  //     config?.borderRad?.btn || defConfig.borderRad.btn);
 
-  setMainClr(config.mainClr || defConfig.mainClr, config);
-  setCardBorderRad(config?.borderRad?.card || defConfig.borderRad.card, config);
-  setBtnBorderRad(config?.borderRad?.btn || defConfig.borderRad.btn, config);
-  setBgClr(
-    config?.bgClr?.clr || defConfig.bgClr.clr,
-    config?.bgClr?.opacity || defConfig.bgClr.opacity,
-    config
-  );
+  if ($cl("menu-content")) {
+    setMainClr(config.mainClr || defConfig.mainClr, config, true);
+    setCardBorderRad(
+      config?.borderRad?.card || defConfig.borderRad.card,
+      config,
+      true
+    );
+    setBtnBorderRad(
+      config?.borderRad?.btn || defConfig.borderRad.btn,
+      config,
+      true
+    );
+    setBgClr(
+      config?.bgClr?.clr || defConfig.bgClr.clr,
+      config?.bgClr?.opacity || defConfig.bgClr.opacity,
+      config,
+      true
+    );
+  }
 
   swInit();
   installBtnInit();
@@ -418,7 +429,7 @@ function setBtnBorderRad(rad, config = getConfig(), setRange) {
   setRange && ($id("border-radius-btns").value = rad);
 }
 
-function setBgClr(clr, opacity, config = getConfig(), setClrChooser) {
+function setBgClr(clr, opacity, config = getConfig(), setInps) {
   const bgClr = typeof clr == "string" ? clr : `${clr.r}, ${clr.g}, ${clr.b}`;
   const html = $("html");
 
@@ -430,7 +441,7 @@ function setBgClr(clr, opacity, config = getConfig(), setClrChooser) {
   config.bgClr.opacity = opacity;
   saveConfig(config);
 
-  if (setClrChooser) {
+  if (setInps) {
     $id("bg-clr").value = rgbToHex(bgClr);
     $id("bg-clr-opacity").value = opacity;
   }
