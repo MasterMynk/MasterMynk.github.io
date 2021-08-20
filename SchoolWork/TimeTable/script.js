@@ -559,3 +559,13 @@ function getConfig() {
 function saveConfig(config) {
   localStorage.setItem("config", JSON.stringify(config));
 }
+
+function resetAll() {
+  setMainClr();
+  setCardBorderRad();
+  setBtnBorderRad();
+  setBgClr();
+  setNormFont();
+  setThemeFont();
+  setBtnBgClr();
+}

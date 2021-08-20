@@ -185,12 +185,22 @@
             />
 
             <div class="slide-down-parent">
-              <input type="checkbox" id="bg-clr-slider" bg-clr-btn-radio="bg-clr-btn-radio" class="slide-down" />
+              <input
+                type="checkbox"
+                id="bg-clr-slider"
+                bg-clr-btn-radio="bg-clr-btn-radio"
+                class="slide-down"
+              />
               <label for="bg-clr-slider" class="name" style="--offset: 10em"
                 >Background Color</label
               >
               <div class="stuff-to-slide">
-                <input type="radio" name="menu-items" class="menu-item-radio" id="bg-clr-btn-radio" />
+                <input
+                  type="radio"
+                  name="menu-items"
+                  class="menu-item-radio"
+                  id="bg-clr-btn-radio"
+                />
                 <label for="def-menu-item" class="item" id="bg-clr-btn-content">
                   <div class="centered-vertical">
                     <input
@@ -298,6 +308,22 @@
               </button>
             </label>
             <label for="font-clr-radio" class="name">Font Color</label>
+
+            <input
+              type="radio"
+              name="menu-items"
+              id="reset-radio"
+              class="menu-item-radio"
+            />
+            <label
+              for="def-menu-item"
+              class="item centered-vertical"
+              id="reset-content"
+            >
+              Are you sure you want to do this?
+              <button type="button" class="btn" onclick="resetAll();">Yes, I'm absolutely certain that the act I'm about to perform is the 1 told to me by my  🧠 and ❤️</button>
+            </label>
+            <label for="reset-radio" class="name">Reset</label>
           </div>
         </div>
       </div>
