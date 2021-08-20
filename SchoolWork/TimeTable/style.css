@@ -65,16 +65,12 @@
   padding-top: 6vh;
   border-radius: 15px;
   clip-path: circle(0 at top left);
-  background-color: rgba(25, 25, 25, 0.95);
+  background-color: rgba(var(--elem-bg-clr), 0.95);
   box-shadow: 0.5em 0.5em 0.5em rgba(25, 25, 25, 0.6);
   position: fixed;
   top: calc(var(--nav-y-padding) - 0.5em);
   left: calc(var(--nav-x-padding) - 1em);
   transition: clip-path 250ms;
-}
-
-.menu-content .name {
-  background-color: rgba(20, 20, 20, 0.9);
 }
 
 .menu:checked ~ .menu-content {
@@ -94,6 +90,7 @@
 .menu-content .name {
   display: block;
   padding: 1em 2em;
+  background-color: rgb(var(--elem-bg-clr));
   border-bottom: 2px solid rgb(var(--main-clr));
   position: relative;
   transition: color 250ms;
@@ -113,7 +110,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background-color: #171717;
+  background-color: rgb(var(--elem-bg-clr));
 
   position: absolute;
   z-index: 2;
@@ -173,7 +170,7 @@
 .stuff-to-slide {
   width: 100%;
   max-height: 0;
-  background-color: rgba(25, 25, 25, 0.95);
+  background-color: rgb(var(--elem-bg-clr));
   display: block;
   padding: 0 1em;
   overflow: hidden;

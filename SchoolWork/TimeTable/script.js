@@ -445,7 +445,7 @@ function setBgClr(
   const bgClr = typeof clr == "string" ? clr : `${clr.r}, ${clr.g}, ${clr.b}`;
   const html = $("html");
 
-  html.style.setProperty("--dark-bg-clr", bgClr);
+  html.style.setProperty("--elem-bg-clr", bgClr);
   html.style.setProperty("--opacity", opacity / 100);
 
   config.bgClr || (config.bgClr = {});

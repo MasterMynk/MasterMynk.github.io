@@ -8,7 +8,7 @@
 }
 
 html {
-  --dark-bg-clr: 25, 25, 25;
+  --elem-bg-clr: 25, 25, 25;
   --opacity: 0.7;
   --norm-font-clr: #eee;
   --theme-font-clr: #111; /* For fonts */
@@ -119,7 +119,7 @@ nav {
   font-family: inherit;
   display: inline-block;
   text-decoration: none;
-  background-color: rgba(10, 10, 10, 0.5);
+  background-color: rgba(10, 10, 10, 0);
   transition: background-color 0.25s, border 0.25s;
   text-shadow: 0.1em 0.1em 0.2em rgba(10, 10, 10, 0.7);
 }
@@ -129,6 +129,7 @@ nav {
 ul.active .btn {
   border-color: rgb(var(--main-clr));
   background-color: rgb(var(--main-clr));
+  color: var(--theme-font-clr);
 }
 
 h1 {
@@ -222,10 +223,10 @@ nav + header > h1 {
 
 @supports (backdrop-filter: blur(1em)) or (-webkit-backdrop-filter: blur(1em)) {
   .card {
-    background-color: rgba(var(--dark-bg-clr), var(--opacity));
+    background-color: rgba(var(--elem-bg-clr), var(--opacity));
   }
 
   nav {
-    background-color: rgba(var(--dark-bg-clr), var(--opacity));
+    background-color: rgba(var(--elem-bg-clr), var(--opacity));
   }
 }
