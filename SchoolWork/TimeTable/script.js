@@ -92,6 +92,8 @@ function $$cl(elems) {
       config?.borderThickness || defConfig.borderThickness,
       config
     );
+    setCardBlur(true, config?.blur?.cards || defConfig.blur.cards, config);
+    setNavBlur(true, config?.blur?.nav || defConfig.blur.nav, config);
   }
 
   swInit();
@@ -619,4 +621,7 @@ function resetAll() {
   setNormFont();
   setThemeFont();
   setBtnBgClr();
+  setBorderThickness();
+  setCardBlur();
+  setNavBlur();
 }
