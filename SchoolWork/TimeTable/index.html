@@ -175,12 +175,7 @@
             />
 
             <div class="slide-down-parent">
-              <input
-                type="checkbox"
-                id="bg-clr-slider"
-                bg-clr-btn-radio="bg-clr-btn-radio"
-                class="slide-down"
-              />
+              <input type="checkbox" id="bg-clr-slider" class="slide-down" />
               <label for="bg-clr-slider" class="name" style="--offset: 10em"
                 >Background Color</label
               >
@@ -315,6 +310,60 @@
             <label for="border-thickness-radio" class="name"
               >Border thickness</label
             >
+
+            <div class="slide-down-parent">
+              <input type="checkbox" id="bg-blur-slider" class="slide-down" />
+              <label for="bg-blur-slider" class="name" style="--offset: 9.5em"
+                >Background Blur</label
+              >
+              <div class="stuff-to-slide">
+                <input
+                  type="radio"
+                  name="menu-items"
+                  class="menu-item-radio"
+                  id="bg-blur-cards-radio"
+                />
+                <label
+                  for="def-menu-item"
+                  class="item"
+                  id="bg-blur-cards-content"
+                >
+                  <input
+                    type="range"
+                    id="bg-blur-cards"
+                    min="0"
+                    max="20"
+                    value="8"
+                    oninput="setCardBlur(false, $id('bg-blur-cards').value);"
+                  />
+                  <button class="btn" onclick="setCardBlur();">Reset</button>
+                </label>
+                <label for="bg-blur-cards-radio" class="name">Cards</label>
+
+                <input
+                  type="radio"
+                  name="menu-items"
+                  class="menu-item-radio"
+                  id="bg-blur-nav-radio"
+                />
+                <label
+                  for="def-menu-item"
+                  class="item"
+                  id="bg-blur-nav-content"
+                >
+                  <input
+                    type="range"
+                    id="bg-blur-nav"
+                    min="0"
+                    max="20"
+                    value="8"
+                    oninput="setNavBlur(false, $id('bg-blur-nav').value);"
+                  />
+                  <button class="btn" onclick="setNavBlur();">Reset</button>
+                </label>
+                <label for="bg-blur-nav-radio" class="name">Top Panel</label>
+              </div>
+            </div>
 
             <input
               type="radio"

@@ -15,6 +15,7 @@ html {
   --main-clr: 211, 84, 0;
   --accent-clr: royalblue;
   --border-thickness: 2px;
+  --card-blur: 8px;
 
   scroll-padding: 6vh;
   scroll-behavior: smooth;
@@ -163,7 +164,7 @@ nav + header > h1 {
   overflow-x: hidden;
   border-radius: 15px;
   flex-direction: column;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(var(--card-blur));
   justify-content: space-between;
   border: var(--border-thickness) solid rgb(var(--main-clr));
   background-color: rgb(30, 30, 30);

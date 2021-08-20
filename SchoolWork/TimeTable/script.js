@@ -29,6 +29,10 @@ const defConfig = {
     theme: "#111111",
   },
   borderThickness: 2,
+  blur: {
+    cards: 8,
+    nav: 2,
+  },
 };
 
 function $(elem) {
@@ -233,6 +237,34 @@ function setBorderThickness(
   saveConfig(config);
 
   if (setRange) $id("border-thickness").value = thickness;
+}
+
+function setCardBlur(
+  setRange = true,
+  blur = defConfig.blur.cards,
+  config = getConfig()
+) {
+  $("html").style.setProperty("--card-blur", `${blur}px`);
+
+  config.blur || (config.blur = {});
+  config.blur.cards = blur;
+  saveConfig(config);
+
+  if (setRange) $id("bg-blur-cards").value = blur;
+}
+
+function setNavBlur(
+  setRange = true,
+  blur = defConfig.blur.nav,
+  config = getConfig()
+) {
+  $("nav").style.setProperty("backdrop-filter", `blur(${blur}px)`);
+
+  config.blur || (config.blur = {});
+  config.blur.nav = blur;
+  saveConfig(config);
+
+  if (setRange) $id("bg-blur-nav").value = blur;
 }
 
 function update() {
