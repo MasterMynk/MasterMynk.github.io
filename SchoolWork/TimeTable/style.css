@@ -188,6 +188,11 @@
   gap: 1em;
 }
 
+.range-label {
+  font-size: .7em;
+  display: block;
+}
+
 .card {
   padding: 1.5em;
   max-width: 450px;
@@ -244,7 +249,7 @@ td .go-btn {
 .greyed.btn,
 .greyed > .dropdown,
 .greyed > .btn.go-btn {
-  color: #333;
+  opacity: 35%;
 }
 
 .ind input:checked + .btn {

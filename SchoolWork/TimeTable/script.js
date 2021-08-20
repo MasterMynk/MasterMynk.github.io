@@ -19,6 +19,10 @@ const defConfig = {
   bgClr: {
     clr: "25, 25, 25",
     opacity: 70,
+    btn: {
+      clr: "10, 10, 10",
+      opacity: 50,
+    },
   },
   font: {
     norm: "#eeeeee",
@@ -72,6 +76,12 @@ function $$cl(elems) {
     );
     setNormFont(true, config?.font?.norm || defConfig.font.norm, config);
     setThemeFont(true, config?.font?.theme || defConfig.font.theme, config);
+    setBtnBgClr(
+      true,
+      config?.bgClr?.btn?.clr || defConfig.bgClr.btn.clr,
+      config?.bgClr?.btn?.opacity || defConfig.bgClr.btn.opacity,
+      config
+    );
   }
 
   swInit();
@@ -485,6 +495,31 @@ function setThemeFont(
   saveConfig(config);
 
   setChooser && ($id("theme-font-clr").value = clr);
+}
+
+function setBtnBgClr(
+  setInps = true,
+  clr = defConfig.bgClr.btn.clr,
+  opacity = defConfig.bgClr.btn.opacity,
+  config = getConfig()
+) {
+  const bgClr = typeof clr == "string" ? clr : `${clr.r}, ${clr.g}, ${clr.b}`;
+  const forCSS = `rgba(${bgClr}, ${opacity / 100})`;
+
+  $$(".btn,.dropdown").forEach((btn) =>
+    btn.style.setProperty("background-color", forCSS)
+  );
+
+  config.bgClr || (config.bgClr = {});
+  config.bgClr.btn || (config.bgClr.btn = {});
+  config.bgClr.btn.clr = bgClr;
+  config.bgClr.btn.opacity = opacity;
+  saveConfig(config);
+
+  if (setInps) {
+    $id("bg-clr-btn").value = rgbToHex(bgClr);
+    $id("bg-clr-btn-opacity").value = opacity;
+  }
 }
 
 function hexToRGB(hex) {

@@ -119,7 +119,7 @@ nav {
   font-family: inherit;
   display: inline-block;
   text-decoration: none;
-  background-color: rgba(10, 10, 10, 0);
+  background-color: rgba(10, 10, 10, 0.5);
   transition: background-color 0.25s, border 0.25s;
   text-shadow: 0.1em 0.1em 0.2em rgba(10, 10, 10, 0.7);
 }
@@ -127,9 +127,9 @@ nav {
 .btn:is(:hover, :focus, .active),
 .active.btn > .go-btn,
 ul.active .btn {
-  border-color: rgb(var(--main-clr));
-  background-color: rgb(var(--main-clr));
-  color: var(--theme-font-clr);
+  border-color: rgb(var(--main-clr)) !important;
+  background-color: rgb(var(--main-clr)) !important;
+  color: var(--theme-font-clr) !important;
 }
 
 h1 {

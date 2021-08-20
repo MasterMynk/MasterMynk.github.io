@@ -185,11 +185,41 @@
             />
 
             <div class="slide-down-parent">
-              <input type="checkbox" id="bg-clr-slider" class="slide-down" />
+              <input type="checkbox" id="bg-clr-slider" bg-clr-btn-radio="bg-clr-btn-radio" class="slide-down" />
               <label for="bg-clr-slider" class="name" style="--offset: 10em"
                 >Background Color</label
               >
               <div class="stuff-to-slide">
+                <input type="radio" name="menu-items" class="menu-item-radio" id="bg-clr-btn-radio" />
+                <label for="def-menu-item" class="item" id="bg-clr-btn-content">
+                  <div class="centered-vertical">
+                    <input
+                      type="color"
+                      id="bg-clr-btn"
+                      value="#0a0a0a"
+                      id="bg-clr-btn-radio"
+                      oninput="setBtnBgClr(false, hexToRGB($id('bg-clr-btn').value), $id('bg-clr-btn-opacity').value);"
+                    />
+                    <div>
+                      <label for="bg-clr-opacity" class="range-label"
+                        >Opacity:
+                      </label>
+                      <input
+                        type="range"
+                        id="bg-clr-btn-opacity"
+                        min="0"
+                        max="100"
+                        value="50"
+                        oninput="setBtnBgClr(false, hexToRGB($id('bg-clr-btn').value), $id('bg-clr-btn-opacity').value);"
+                      />
+                    </div>
+                  </div>
+                  <button type="button" class="btn" onclick="setBtnBgClr();">
+                    Reset
+                  </button>
+                </label>
+                <label for="bg-clr-btn-radio" class="name">Buttons</label>
+
                 <input
                   type="radio"
                   name="menu-items"
@@ -205,9 +235,7 @@
                       oninput="setBgClr(false, hexToRGB($id('bg-clr').value), $id('bg-clr-opacity').value);"
                     />
                     <div>
-                      <label
-                        for="bg-clr-opacity"
-                        style="font-size: 0.8em; display: block"
+                      <label for="bg-clr-opacity" class="range-label"
                         >Opacity:
                       </label>
                       <input
