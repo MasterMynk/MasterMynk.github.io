@@ -92,12 +92,12 @@
                 type="color"
                 id="main-clr-chooser"
                 value="#D35400"
-                oninput="setMainClr(hexToRGB($('#main-clr-chooser').value));"
+                oninput="setMainClr(false, hexToRGB($('#main-clr-chooser').value));"
               />
               <button
                 type="button"
                 class="btn"
-                onclick="setMainClr(defConfig.mainClr, getConfig(), true);"
+                onclick="setMainClr();"
               >
                 Reset
               </button>
@@ -134,12 +134,12 @@
                     value="15"
                     min="0"
                     max="100"
-                    oninput="setCardBorderRad($id('border-radius-cards').value);"
+                    oninput="setCardBorderRad(false, $id('border-radius-cards').value);"
                   />
                   <button
                     type="button"
                     class="btn"
-                    onclick="setCardBorderRad(defConfig.borderRad.card, getConfig(), true);"
+                    onclick="setCardBorderRad();"
                   >
                     Reset
                   </button>
@@ -165,12 +165,12 @@
                     value="50"
                     min="0"
                     max="30"
-                    oninput="setBtnBorderRad($id('border-radius-btns').value);"
+                    oninput="setBtnBorderRad(false, $id('border-radius-btns').value);"
                   />
                   <button
                     type="button"
                     class="btn"
-                    onclick="setBtnBorderRad(defConfig.borderRad.btn, getConfig(), true);"
+                    onclick="setBtnBorderRad();"
                   >
                     Reset
                   </button>
@@ -200,7 +200,7 @@
                   type="color"
                   id="bg-clr"
                   value="#191919"
-                  oninput="setBgClr(hexToRGB($id('bg-clr').value), $id('bg-clr-opacity').value);"
+                  oninput="setBgClr(false, hexToRGB($id('bg-clr').value), $id('bg-clr-opacity').value);"
                 />
                 <div>
                   <label
@@ -214,19 +214,58 @@
                     min="0"
                     max="100"
                     value="70"
-                    oninput="setBgClr(hexToRGB($id('bg-clr').value), $id('bg-clr-opacity').value);"
+                    oninput="setBgClr(false, hexToRGB($id('bg-clr').value), $id('bg-clr-opacity').value);"
                   />
                 </div>
               </div>
               <button
                 type="button"
                 class="btn"
-                onclick="setBgClr(defConfig.bgClr.clr, defConfig.bgClr.opacity, getConfig(), true);"
+                onclick="setBgClr();"
               >
                 Reset
               </button>
             </label>
             <label for="bg-clr-radio" class="name">Background Color</label>
+
+            <input
+              type="radio"
+              name="menu-items"
+              id="font-clr-radio"
+              class="menu-item-radio"
+            />
+            <label for="def-menu-item" class="item centered-vertical" id="font-clr-content">
+                <div>
+                  <label for="norm-font-clr" style="font-size: .8em;">Normal Font:</label>
+                  <input
+                    type="color"
+                    id="norm-font-clr"
+                    value="#eeeeee"
+                    oninput="setNormFont(false, $id('norm-font-clr').value);"
+                  />
+                </div>
+                <div>
+                  <label
+                    for="theme-font-clr"
+                    style="font-size: 0.8em;"
+                    >Font on theme:
+                  </label>
+                  <input
+                    type="color"
+                    id="theme-font-clr"
+                    value="#111111"
+                    oninput="setThemeFont(false, $id('theme-font-clr').value);"
+                  />
+                </div>
+                <button
+                  type="button"
+                  class="btn"
+                  onclick="setNormFont(); setThemeFont();"
+                >
+                  Reset
+                </button>
+            </label>
+            <label for="font-clr-radio" class="name">Font Color</label>
           </div>
         </div>
       </div>

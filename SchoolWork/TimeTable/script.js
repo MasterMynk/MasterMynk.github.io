@@ -20,6 +20,10 @@ const defConfig = {
     clr: "25, 25, 25",
     opacity: 70,
   },
+  font: {
+    norm: "#eeeeee",
+    theme: "#111111",
+  },
 };
 
 function $(elem) {
@@ -48,35 +52,26 @@ function $$cl(elems) {
 
   const config = getConfig();
 
-  // $id("main-clr-chooser") &&
-  //   ($id("main-clr-chooser").value = rgbToHex(config.mainClr));
-
-  // $id("border-radius-cards") &&
-  //   ($id("border-radius-cards").value =
-  //     config?.borderRad?.card || defConfig.borderRad.card);
-
-  // $id("border-radius-btns") &&
-  //   ($id("border-radius-btns").value =
-  //     config?.borderRad?.btn || defConfig.borderRad.btn);
-
   if ($cl("menu-content")) {
-    setMainClr(config.mainClr || defConfig.mainClr, config, true);
+    setMainClr(true, config.mainClr || defConfig.mainClr, config);
     setCardBorderRad(
+      true,
       config?.borderRad?.card || defConfig.borderRad.card,
-      config,
-      true
+      config
     );
     setBtnBorderRad(
+      true,
       config?.borderRad?.btn || defConfig.borderRad.btn,
-      config,
-      true
+      config
     );
     setBgClr(
+      true,
       config?.bgClr?.clr || defConfig.bgClr.clr,
       config?.bgClr?.opacity || defConfig.bgClr.opacity,
-      config,
-      true
+      config
     );
+    setNormFont(true, config?.font?.norm || defConfig.font.norm, config);
+    setThemeFont(true, config?.font?.theme || defConfig.font.theme, config);
   }
 
   swInit();
@@ -394,7 +389,11 @@ function statusUpdate() {
   });
 }
 
-function setMainClr(to, config = getConfig(), setClrChooser) {
+function setMainClr(
+  setClrChooser = true,
+  to = defConfig.mainClr,
+  config = getConfig()
+) {
   const mainClr = typeof to == "string" ? to : `${to.r}, ${to.g}, ${to.b}`;
 
   $("html").style.setProperty("--main-clr", mainClr);
@@ -405,7 +404,11 @@ function setMainClr(to, config = getConfig(), setClrChooser) {
   setClrChooser && ($id("main-clr-chooser").value = rgbToHex(mainClr));
 }
 
-function setCardBorderRad(rad, config = getConfig(), setRange) {
+function setCardBorderRad(
+  setRange = true,
+  rad = defConfig.borderRad.card,
+  config = getConfig()
+) {
   Array.from($$cl("card")).forEach((card) =>
     card.style.setProperty("border-radius", rad + "px")
   );
@@ -417,7 +420,11 @@ function setCardBorderRad(rad, config = getConfig(), setRange) {
   setRange && ($id("border-radius-cards").value = rad);
 }
 
-function setBtnBorderRad(rad, config = getConfig(), setRange) {
+function setBtnBorderRad(
+  setRange = true,
+  rad = defConfig.borderRad.btn,
+  config = getConfig()
+) {
   $$(".btn,.dropdown").forEach((btn) =>
     btn.style.setProperty("border-radius", rad + "px")
   );
@@ -429,7 +436,12 @@ function setBtnBorderRad(rad, config = getConfig(), setRange) {
   setRange && ($id("border-radius-btns").value = rad);
 }
 
-function setBgClr(clr, opacity, config = getConfig(), setInps) {
+function setBgClr(
+  setInps = true,
+  clr = defConfig.bgClr.clr,
+  opacity = defConfig.bgClr.opacity,
+  config = getConfig()
+) {
   const bgClr = typeof clr == "string" ? clr : `${clr.r}, ${clr.g}, ${clr.b}`;
   const html = $("html");
 
@@ -445,6 +457,34 @@ function setBgClr(clr, opacity, config = getConfig(), setInps) {
     $id("bg-clr").value = rgbToHex(bgClr);
     $id("bg-clr-opacity").value = opacity;
   }
+}
+
+function setNormFont(
+  setChooser = true,
+  clr = defConfig.font.norm,
+  config = getConfig()
+) {
+  $("html").style.setProperty("--norm-font-clr", clr);
+
+  config.font || (config.font = {});
+  config.font.norm = clr;
+  saveConfig(config);
+
+  setChooser && ($id("norm-font-clr").value = clr);
+}
+
+function setThemeFont(
+  setChooser = true,
+  clr = defConfig.font.theme,
+  config = getConfig()
+) {
+  $("html").style.setProperty("--theme-font-clr", clr);
+
+  config.font || (config.font = {});
+  config.font.theme = clr;
+  saveConfig(config);
+
+  setChooser && ($id("theme-font-clr").value = clr);
 }
 
 function hexToRGB(hex) {

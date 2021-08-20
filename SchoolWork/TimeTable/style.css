@@ -6,7 +6,7 @@
 .menu + label {
   --before-top: -0.4em;
   --after-bottom: -0.25em;
-  background-color: var(--light-clr);
+  background-color: var(--norm-font-clr);
   transition: background-color 250ms, transform 250ms;
 }
 
@@ -308,7 +308,7 @@ tr,
 td,
 th {
   text-align: center;
-  border: 1px solid var(--light-clr);
+  border: 1px solid var(--norm-font-clr);
 }
 
 td {
@@ -318,7 +318,7 @@ td {
 td:first-child,
 th {
   font-weight: 700;
-  color: var(--dark-clr);
+  color: var(--theme-font-clr);
   background-color: rgb(var(--main-clr));
 }
 
