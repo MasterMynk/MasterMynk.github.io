@@ -413,6 +413,13 @@
                     >
                   </div>
                 </div>
+
+                <input type="radio" name="menu-items" id="bg-img-radio" class="menu-item-radio">
+                <label for="def-menu-item" class="item" id="bg-img-content">
+                  <input type="file" id="bg-img" onchange="setBgImg($id('bg-img').files?.[0]);" accept="image/*">
+                  <button class="btn" onclick="loadBg();">Reset</button>
+                </label>
+                <label for="bg-img-radio" class="name">Image (Experimental ☠️)</label>
               </div>
             </div>
 

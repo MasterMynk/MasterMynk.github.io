@@ -16,6 +16,8 @@ html {
   --accent-clr: royalblue;
   --border-thickness: 2px;
   --card-blur: 8px;
+  --bg-1080: url("/SchoolWork/bg1080.webp");
+  --bg-768: url("/SchoolWork/bg768.webp");
 
   scroll-padding: 6vh;
   scroll-behavior: smooth;
@@ -196,12 +198,12 @@ nav + header > h1 {
 
 @media (max-width: 770px) {
   body::before {
-    background-image: url(/SchoolWork/bg768.webp), var(--default-bg);
+    background-image: var(--bg-768, var(--bg-1080)), var(--default-bg);
   }
 }
 @media (min-width: 769px) {
   body::before {
-    background-image: url(/SchoolWork/bg1080.webp), var(--default-bg);
+    background-image: var(--bg-1080), var(--default-bg);
   }
 }
 

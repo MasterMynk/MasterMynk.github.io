@@ -33,6 +33,11 @@ const defConfig = {
     cards: 8,
     nav: 2,
   },
+  bgImg: {
+    1080: "/SchoolWork/bg1080.webp",
+    768: "/SchoolWork/bg768.webp",
+    changed: false,
+  },
 };
 
 function $(elem) {
@@ -53,6 +58,14 @@ function $cl(elem) {
 
 function $$cl(elems) {
   return document.getElementsByClassName(elems);
+}
+
+function $t(elem) {
+  return document.getElementsByTagName(elem)[0];
+}
+
+function $$t(elem) {
+  return document.getElementsByTagName(elem);
 }
 
 (function main() {
@@ -94,6 +107,14 @@ function $$cl(elems) {
     );
     setCardBlur(true, config?.blur?.cards || defConfig.blur.cards, config);
     setNavBlur(true, config?.blur?.nav || defConfig.blur.nav, config);
+
+    if (config.bgImg && config.bgImg.changed)
+      loadBg(
+        false,
+        config?.bgImg?.[1080] || defConfig.bgImg[1080],
+        null,
+        config
+      );
   }
 
   swInit();
@@ -160,7 +181,7 @@ function installBtnInit() {
 
         if (outcome === "accepted") {
           // That means the user installed the website
-          installPrompt = null; // So we dont need this button to work anymore
+          installPrompt = false; // So we dont need this button to work anymore
           ev.target.display = "none";
         }
       }
@@ -572,6 +593,47 @@ function setBtnBgClr(
   if (setInps) {
     $id("bg-clr-btn").value = rgbToHex(bgClr);
     $id("bg-clr-btn-opacity").value = opacity;
+  }
+}
+
+function setBgImg(file, config = getConfig()) {
+  const reader = new FileReader();
+  reader.onerror = () => {
+    alert(`${reader.error} error occured`);
+  };
+
+  reader.onload = () => {
+    const html = $t("html");
+
+    loadBg(false, reader.result, null, config);
+
+    config.bgImg || (config.bgImg = {});
+    config.bgImg[1080] = reader.result;
+    config.bgImg.changed = true;
+    saveConfig(config);
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function loadBg(
+  reset = true,
+  bg1080 = defConfig.bgImg[1080],
+  bg768 = defConfig.bgImg[768],
+  config = getConfig()
+) {
+  const html = $t("html");
+
+  html.style.setProperty("--bg-1080", `url(${bg1080})`);
+  html.style.setProperty(
+    "--bg-768",
+    bg768 ? `url(${bg768})` : "var(--bg-1080)"
+  );
+
+  config.bgImg || (config.bgImg = {});
+  if (reset) {
+    config.bgImg.changed = false;
+    saveConfig(config);
   }
 }
 
