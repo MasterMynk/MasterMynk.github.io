@@ -193,6 +193,10 @@
   display: block;
 }
 
+input[type="file"] {
+  display: none;
+}
+
 .card {
   padding: 1.5em;
   max-width: 450px;
