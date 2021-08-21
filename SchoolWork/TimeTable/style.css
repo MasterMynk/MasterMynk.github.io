@@ -18,6 +18,7 @@
   width: 1.25em;
   line-height: 0;
   border-radius: 25%;
+  will-change: transform;
 }
 
 .menu + label::before {
@@ -174,7 +175,6 @@
   display: block;
   padding: 0 1em;
   overflow: hidden;
-  transition: max-height 250ms ease-in;
 }
 
 .slide-down:checked ~ .stuff-to-slide {
