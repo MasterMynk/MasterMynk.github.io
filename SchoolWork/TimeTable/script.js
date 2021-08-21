@@ -686,4 +686,5 @@ function resetAll() {
   setBorderThickness();
   setCardBlur();
   setNavBlur();
+  loadBg();
 }
