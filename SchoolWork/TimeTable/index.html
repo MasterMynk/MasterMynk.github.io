@@ -102,9 +102,7 @@
                   />
                   <button class="btn" onclick="setMainClr();">Reset</button>
                 </label>
-                <label for="main-clr-chooser-radio" class="name"
-                  >Theme</label
-                >
+                <label for="main-clr-chooser-radio" class="name">Theme</label>
 
                 <input
                   type="radio"
@@ -414,13 +412,25 @@
                   </div>
                 </div>
 
-                <input type="radio" name="menu-items" id="bg-img-radio" class="menu-item-radio">
+                <input
+                  type="radio"
+                  name="menu-items"
+                  id="bg-img-radio"
+                  class="menu-item-radio"
+                />
                 <label for="def-menu-item" class="item" id="bg-img-content">
-                  <input type="file" id="bg-img" onchange="setBgImg($id('bg-img').files?.[0]);" accept="image/*">
+                  <input
+                    type="file"
+                    id="bg-img"
+                    onchange="setBgImg($id('bg-img').files?.[0]);"
+                    accept="image/*"
+                  />
                   <label for="bg-img" class="btn">Choose a 📸</label>
                   <button class="btn" onclick="loadBg();">Reset</button>
                 </label>
-                <label for="bg-img-radio" class="name">Image (Experimental ☠️)</label>
+                <label for="bg-img-radio" class="name"
+                  >Image (Experimental ☠️)</label
+                >
               </div>
             </div>
 
@@ -437,8 +447,8 @@
             >
               Are you sure you want to do this?
               <button class="btn" onclick="resetAll();">
-                Yes, I'm absolutely certain that the act I'm about to perform is
-                the 1 told to me by my 🧠 and ❤️
+                I have thought twice before doing this and I'm sure that that I
+                want to reset all my configs.
               </button>
             </label>
             <label for="reset-radio" class="name">Reset</label>

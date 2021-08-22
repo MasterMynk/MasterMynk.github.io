@@ -175,10 +175,11 @@
   display: block;
   padding: 0 1em;
   overflow: hidden;
+  transition: max-height 250ms;
 }
 
 .slide-down:checked ~ .stuff-to-slide {
-  max-height: 100vh;
+  max-height: 25em;
 }
 
 .centered-vertical {
