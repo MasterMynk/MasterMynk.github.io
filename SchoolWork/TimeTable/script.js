@@ -1,17 +1,3 @@
-let installPrompt;
-let date = newDate();
-let config = getConfig();
-const html = $t("html");
-
-const linkCardLiTemplate = (() => {
-  const li = document.createElement("li");
-  const timingAndStatus = addTimingAndStatus(li);
-  timingAndStatus.appendChild(document.createElement("div"));
-  addStatus(timingAndStatus);
-
-  return li;
-})();
-
 const defConfig = {
   mainClr: "211, 84, 0",
   borderRad: {
@@ -41,6 +27,20 @@ const defConfig = {
     changed: false,
   },
 };
+
+let installPrompt;
+let date = newDate();
+let config = getConfig();
+const html = $t("html");
+
+const linkCardLiTemplate = (() => {
+  const li = document.createElement("li");
+  const timingAndStatus = addTimingAndStatus(li);
+  timingAndStatus.appendChild(document.createElement("div"));
+  addStatus(timingAndStatus);
+
+  return li;
+})();
 
 function $(elem) {
   return document.querySelector(elem);
