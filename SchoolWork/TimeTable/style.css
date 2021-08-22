@@ -121,6 +121,10 @@
   transition: clip-path 400ms;
 }
 
+.menu-content .item .btn {
+  font-size: .75em;
+}
+
 .menu-item-radio:checked + .item {
   clip-path: circle(100%);
 }
@@ -169,6 +173,8 @@
 }
 
 .stuff-to-slide {
+  --height: 7em;
+
   width: 100%;
   max-height: 0;
   background-color: rgb(var(--elem-bg-clr));
@@ -179,7 +185,7 @@
 }
 
 .slide-down:checked ~ .stuff-to-slide {
-  max-height: 25em;
+  max-height: var(--height);
 }
 
 .centered-vertical {
@@ -249,6 +255,7 @@ td .go-btn {
   display: none;
   position: fixed;
   box-shadow: 0.5em 0.5em 0.5em rgba(10, 10, 10, 0.9);
+  font-size: .7em;
 }
 
 .greyed.btn,

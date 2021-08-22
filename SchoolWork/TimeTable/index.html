@@ -150,7 +150,7 @@
               <label for="border-slider" class="name" style="--offset: 4.25em"
                 >Border</label
               >
-              <div class="stuff-to-slide">
+              <div class="stuff-to-slide" style="--height: 14em">
                 <div class="slide-down-parent">
                   <input
                     type="checkbox"
@@ -261,7 +261,7 @@
               <label for="bg-slider" class="name" style="--offset: 7em"
                 >Background</label
               >
-              <div class="stuff-to-slide">
+              <div class="stuff-to-slide" style="--height: 24em">
                 <div class="slide-down-parent">
                   <input
                     type="checkbox"
@@ -434,24 +434,56 @@
               </div>
             </div>
 
-            <input
-              type="radio"
-              name="menu-items"
-              id="reset-radio"
-              class="menu-item-radio"
-            />
-            <label
-              for="def-menu-item"
-              class="item centered-vertical"
-              id="reset-content"
-            >
-              Are you sure you want to do this?
-              <button class="btn" onclick="resetAll();">
-                I have thought twice before doing this and I'm sure that that I
-                want to reset all my configs.
-              </button>
-            </label>
-            <label for="reset-radio" class="name">Reset</label>
+            <div class="slide-down-parent">
+              <input
+                type="checkbox"
+                id="other-slide-down"
+                class="slide-down"
+              /><label
+                for="other-slide-down"
+                class="name"
+                style="--offset: 3.6em"
+                >Other</label
+              >
+              <div class="stuff-to-slide">
+                <input
+                  type="radio"
+                  name="menu-items"
+                  id="share-radio"
+                  class="menu-item-radio"
+                />
+                <label
+                  for="def-menu-item"
+                  class="item centered-vertical"
+                  id="save-content"
+                >
+                  <div>
+                    <button class="btn" id="export-btn">Export</button>
+                    <button class="btn" id="import-btn">Import</button>
+                  </div>
+                </label>
+                <label for="share-radio" class="name">Share</label>
+
+                <input
+                  type="radio"
+                  name="menu-items"
+                  id="reset-radio"
+                  class="menu-item-radio"
+                />
+                <label
+                  for="def-menu-item"
+                  class="item centered-vertical"
+                  id="reset-content"
+                >
+                  Are you sure you want to do this?
+                  <button class="btn" onclick="resetAll();">
+                    I have thought twice before doing this and I'm sure that
+                    that I want to reset all my configs.
+                  </button>
+                </label>
+                <label for="reset-radio" class="name">Reset</label>
+              </div>
+            </div>
           </div>
         </div>
       </div>

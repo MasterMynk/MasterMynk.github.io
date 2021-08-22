@@ -68,93 +68,9 @@ function $$t(elem) {
   return document.getElementsByTagName(elem);
 }
 
-(function main() {
-  // This is used by redirect.html
-  localStorage.setItem("lastVisitedPage", window.location.pathname);
-
-  const config = getConfig();
-
-  if ($cl("menu-content")) {
-    setMainClr(true, config.mainClr || defConfig.mainClr, config);
-    setCardBorderRad(
-      true,
-      config?.borderRad?.card || defConfig.borderRad.card,
-      config
-    );
-    setBtnBorderRad(
-      true,
-      config?.borderRad?.btn || defConfig.borderRad.btn,
-      config
-    );
-    setBgClr(
-      true,
-      config?.bgClr?.clr || defConfig.bgClr.clr,
-      config?.bgClr?.opacity || defConfig.bgClr.opacity,
-      config
-    );
-    setNormFont(true, config?.font?.norm || defConfig.font.norm, config);
-    setThemeFont(true, config?.font?.theme || defConfig.font.theme, config);
-    setBtnBgClr(
-      true,
-      config?.bgClr?.btn?.clr || defConfig.bgClr.btn.clr,
-      config?.bgClr?.btn?.opacity || defConfig.bgClr.btn.opacity,
-      config
-    );
-    setBorderThickness(
-      true,
-      config?.borderThickness || defConfig.borderThickness,
-      config
-    );
-    setCardBlur(true, config?.blur?.cards || defConfig.blur.cards, config);
-    setNavBlur(true, config?.blur?.nav || defConfig.blur.nav, config);
-
-    if (config.bgImg && config.bgImg.changed)
-      loadBg(
-        false,
-        config?.bgImg?.[1080] || defConfig.bgImg[1080],
-        null,
-        config
-      );
-  }
-
-  swInit();
-  installBtnInit();
-  navInit();
-  thirdLangInit();
-
-  radioChange(false);
-  update();
-
-  window
-    .matchMedia("(max-width: 770px)")
-    .addEventListener("change", () => setDataTime(true));
-
-  if (date.getDay())
-    // If today isn't sunday
-    setInterval(statusUpdate, 1 * 1000);
-
-  Array.from($$cl("go-btn")) // Get all 3rd language buttons
-    .forEach((goBtns) =>
-      goBtns.addEventListener(
-        "click", // For each button add a click event listener
-        (ev) => {
-          const goBtn = ev.target;
-
-          // Set the clicked go button's link to
-          // the value of the select element of the button
-          goBtn.setAttribute("href", goBtn.previousElementSibling.value);
-
-          // Set this as the default language now
-          localStorage.setItem(
-            "thirdLang",
-            $(
-              `option[value="${goBtn.previousElementSibling.value}"]`
-            ).innerText.trim()
-          );
-        }
-      )
-    );
-})();
+function $add(tagName) {
+  return document.createElement(tagName);
+}
 
 function swInit() {
   // Service worker
@@ -632,7 +548,7 @@ function loadBg(
 
   config.bgImg || (config.bgImg = {});
   if (reset) {
-    config.bgImg.changed = false;
+    config.bgImg = defConfig.bgImg;
     saveConfig(config);
   }
 }
@@ -688,3 +604,94 @@ function resetAll() {
   setNavBlur();
   loadBg();
 }
+
+// This is used by redirect.html
+localStorage.setItem("lastVisitedPage", window.location.pathname);
+
+swInit();
+installBtnInit();
+navInit();
+thirdLangInit();
+
+radioChange(false);
+update();
+
+window
+  .matchMedia("(max-width: 770px)")
+  .addEventListener("change", () => setDataTime(true));
+
+if (date.getDay())
+  // If today isn't sunday
+  setInterval(statusUpdate, 1 * 1000);
+
+Array.from($$cl("go-btn")) // Get all 3rd language buttons
+  .forEach((goBtns) =>
+    goBtns.addEventListener(
+      "click", // For each button add a click event listener
+      (ev) => {
+        const goBtn = ev.target;
+
+        // Set the clicked go button's link to
+        // the value of the select element of the button
+        goBtn.setAttribute("href", goBtn.previousElementSibling.value);
+
+        // Set this as the default language now
+        localStorage.setItem(
+          "thirdLang",
+          $(
+            `option[value="${goBtn.previousElementSibling.value}"]`
+          ).innerText.trim()
+        );
+      }
+    )
+  );
+
+const config = getConfig();
+
+if ($cl("menu-content")) {
+  setMainClr(true, config.mainClr || defConfig.mainClr, config);
+  setCardBorderRad(
+    true,
+    config?.borderRad?.card || defConfig.borderRad.card,
+    config
+  );
+  setBtnBorderRad(
+    true,
+    config?.borderRad?.btn || defConfig.borderRad.btn,
+    config
+  );
+  setBgClr(
+    true,
+    config?.bgClr?.clr || defConfig.bgClr.clr,
+    config?.bgClr?.opacity || defConfig.bgClr.opacity,
+    config
+  );
+  setNormFont(true, config?.font?.norm || defConfig.font.norm, config);
+  setThemeFont(true, config?.font?.theme || defConfig.font.theme, config);
+  setBtnBgClr(
+    true,
+    config?.bgClr?.btn?.clr || defConfig.bgClr.btn.clr,
+    config?.bgClr?.btn?.opacity || defConfig.bgClr.btn.opacity,
+    config
+  );
+  setBorderThickness(
+    true,
+    config?.borderThickness || defConfig.borderThickness,
+    config
+  );
+  setCardBlur(true, config?.blur?.cards || defConfig.blur.cards, config);
+  setNavBlur(true, config?.blur?.nav || defConfig.blur.nav, config);
+
+  if (config.bgImg && config.bgImg.changed)
+    loadBg(false, config?.bgImg?.[1080] || defConfig.bgImg[1080], null, config);
+}
+
+const exportBtn = $id("export-btn");
+exportBtn &&
+  exportBtn.addEventListener("click", (e) => {
+    const fileData = encodeURIComponent(localStorage.getItem("config"));
+    const a = $add("a");
+    a.setAttribute("href", "data:application/json;charset=utf-8," + fileData);
+    a.setAttribute("download", "config.json");
+    a.click();
+  });
