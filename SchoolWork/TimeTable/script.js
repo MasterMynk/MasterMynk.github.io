@@ -558,18 +558,8 @@ function saveConfig(config = defConfig) {
 }
 
 function resetAll() {
-  setMainClr();
-  setCardBorderRad();
-  setBtnBorderRad();
-  setBgClr();
-  setBgClrOpacity();
-  setNormFont();
-  setThemeFont();
-  setBtnBgClr();
-  setBorderThickness();
-  setCardBlur();
-  setNavBlur();
-  loadBg();
+  config = defConfig;
+  window.location.reload();
 }
 
 // This is used by redirect.html
@@ -658,7 +648,6 @@ importInp &&
 
     reader.onload = () => {
       config = JSON.parse(reader.result);
-      saveConfig(config);
       window.location.reload();
     };
 
@@ -668,3 +657,4 @@ importInp &&
 window.onunload = () => {
   saveConfig(config);
 };
+
