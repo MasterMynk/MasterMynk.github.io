@@ -18,6 +18,9 @@ html {
   --card-blur: 8px;
   --bg-1080: url("/SchoolWork/bg1080.webp");
   --bg-768: url("/SchoolWork/bg768.webp");
+  --card-border-rad: 15px;
+  --btn-border-rad: 30px;
+  --btn-bg-clr: rgba(10, 10, 10, 0.5);
 
   scroll-padding: 6vh;
   scroll-behavior: smooth;
@@ -120,11 +123,11 @@ nav {
   font-size: 1.2rem;
   border: var(--border-thickness) solid;
   padding: 0.3em 1em;
-  border-radius: 30px;
+  border-radius: var(--btn-border-rad);
   font-family: inherit;
   display: inline-block;
   text-decoration: none;
-  background-color: rgba(10, 10, 10, 0.5);
+  background-color: var(--btn-bg-clr);
   transition: background-color 250ms, border 250ms, color 250ms;
   text-shadow: 0.1em 0.1em 0.2em rgba(10, 10, 10, 0.7);
 }
@@ -165,7 +168,7 @@ nav + header > h1 {
   line-height: 2;
   max-width: 375px;
   overflow-x: hidden;
-  border-radius: 15px;
+  border-radius: var(--card-border-rad);
   flex-direction: column;
   backdrop-filter: blur(var(--card-blur));
   justify-content: space-between;

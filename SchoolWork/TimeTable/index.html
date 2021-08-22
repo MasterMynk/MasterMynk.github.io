@@ -326,7 +326,7 @@
                           type="color"
                           id="bg-clr"
                           value="#191919"
-                          oninput="setBgClr(false, hexToRGB($id('bg-clr').value), $id('bg-clr-opacity').value);"
+                          oninput="setBgClr(false, hexToRGB($id('bg-clr').value));"
                         />
                         <div>
                           <label for="bg-clr-opacity" class="range-label"
@@ -338,11 +338,11 @@
                             min="0"
                             max="100"
                             value="70"
-                            oninput="setBgClr(false, hexToRGB($id('bg-clr').value), $id('bg-clr-opacity').value);"
+                            oninput="setBgClrOpacity(false, $id('bg-clr-opacity').value);"
                           />
                         </div>
                       </div>
-                      <button class="btn" onclick="setBgClr();">Reset</button>
+                      <button class="btn" onclick="setBgClr(); setBgClrOpacity();">Reset</button>
                     </label>
                     <label for="bg-clr-radio" class="name"
                       >Everything else</label
@@ -442,7 +442,7 @@
               /><label
                 for="other-slide-down"
                 class="name"
-                style="--offset: 3.6em"
+                style="--offset: 3.65em"
                 >Other</label
               >
               <div class="stuff-to-slide">
@@ -459,10 +459,16 @@
                 >
                   <div>
                     <button class="btn" id="export-btn">Export</button>
-                    <button class="btn" id="import-btn">Import</button>
+                    <input
+                    type="file"
+                    id="import-inp"
+                    accept="application/json"
+                  />
+                  <label for="import-inp" class="btn">Import</label>
                   </div>
                 </label>
-                <label for="share-radio" class="name">Share</label>
+                <label for="share-radio" class="name">Share (Experimental ☠)️</label>
+                
 
                 <input
                   type="radio"

@@ -1,5 +1,7 @@
 let installPrompt;
 let date = newDate();
+let config = getConfig();
+const html = $t("html");
 
 const linkCardLiTemplate = (() => {
   const li = document.createElement("li");
@@ -168,12 +170,12 @@ function setCancelled() {
 function setBorderThickness(
   setRange = true,
   thickness = defConfig.borderThickness,
-  config = getConfig()
+  myConfig = config
 ) {
   $("html").style.setProperty("--border-thickness", `${thickness}px`);
 
-  config.borderThickness = thickness;
-  saveConfig(config);
+  myConfig.borderThickness = thickness;
+  saveConfig(myConfig);
 
   if (setRange) $id("border-thickness").value = thickness;
 }
@@ -389,33 +391,29 @@ function statusUpdate() {
   });
 }
 
+function setProp(propName, propContent) {
+  html.style.setProperty(propName, propContent);
+}
+
 function setMainClr(
   setClrChooser = true,
   to = defConfig.mainClr,
-  config = getConfig()
+  myConfig = config
 ) {
-  const mainClr = typeof to == "string" ? to : `${to.r}, ${to.g}, ${to.b}`;
-
-  $("html").style.setProperty("--main-clr", mainClr);
-
-  config.mainClr = mainClr;
-  saveConfig(config);
-
-  setClrChooser && ($id("main-clr-chooser").value = rgbToHex(mainClr));
+  setProp("--main-clr", to);
+  myConfig.mainClr = to;
+  setClrChooser && ($id("main-clr-chooser").value = rgbToHex(to));
 }
 
 function setCardBorderRad(
   setRange = true,
   rad = defConfig.borderRad.card,
-  config = getConfig()
+  myConfig = config
 ) {
-  Array.from($$cl("card")).forEach((card) =>
-    card.style.setProperty("border-radius", rad + "px")
-  );
+  setProp("--card-border-rad", `${rad}px`);
 
-  config.borderRad || (config.borderRad = {});
-  config.borderRad.card = rad;
-  saveConfig(config);
+  myConfig.borderRad || (myConfig.borderRad = {});
+  myConfig.borderRad.card = rad;
 
   setRange && ($id("border-radius-cards").value = rad);
 }
@@ -423,52 +421,51 @@ function setCardBorderRad(
 function setBtnBorderRad(
   setRange = true,
   rad = defConfig.borderRad.btn,
-  config = getConfig()
+  myConfig = config
 ) {
-  $$(".btn,.dropdown").forEach((btn) =>
-    btn.style.setProperty("border-radius", rad + "px")
-  );
+  setProp("--btn-border-rad", `${rad}px`);
 
-  config.borderRad || (config.borderRad = {});
-  config.borderRad.btn = rad;
-  saveConfig(config);
+  myConfig.borderRad.btn = rad;
 
   setRange && ($id("border-radius-btns").value = rad);
 }
 
 function setBgClr(
-  setInps = true,
+  setClrChooser = true,
   clr = defConfig.bgClr.clr,
-  opacity = defConfig.bgClr.opacity,
-  config = getConfig()
+  myConfig = config
 ) {
-  const bgClr = typeof clr == "string" ? clr : `${clr.r}, ${clr.g}, ${clr.b}`;
-  const html = $("html");
+  setProp("--elem-bg-clr", clr);
 
-  html.style.setProperty("--elem-bg-clr", bgClr);
-  html.style.setProperty("--opacity", opacity / 100);
+  myConfig.bgClr.clr = clr;
 
-  config.bgClr || (config.bgClr = {});
-  config.bgClr.clr = bgClr;
-  config.bgClr.opacity = opacity;
-  saveConfig(config);
+  setClrChooser && ($id("bg-clr").value = rgbToHex(clr));
+}
 
-  if (setInps) {
-    $id("bg-clr").value = rgbToHex(bgClr);
-    $id("bg-clr-opacity").value = opacity;
-  }
+function setBgClrOpacity(
+  setRange = true,
+  opacity = defConfig.bgClr.opacity,
+  myConfig = config
+) {
+  setProp("--opacity", opacity / 100);
+
+  myConfig.bgClr.opacity = opacity;
+
+  setRange && ($id("bg-clr-opacity").value = opacity);
+}
+
+function ensureFont(myConfig = config) {
+  myConfig.font || (myConfig.font = {});
 }
 
 function setNormFont(
   setChooser = true,
   clr = defConfig.font.norm,
-  config = getConfig()
+  myConfig = config
 ) {
-  $("html").style.setProperty("--norm-font-clr", clr);
+  setProp("--norm-font-clr", clr);
 
-  config.font || (config.font = {});
-  config.font.norm = clr;
-  saveConfig(config);
+  myConfig.font.norm = clr;
 
   setChooser && ($id("norm-font-clr").value = clr);
 }
@@ -476,13 +473,11 @@ function setNormFont(
 function setThemeFont(
   setChooser = true,
   clr = defConfig.font.theme,
-  config = getConfig()
+  myConfig = config
 ) {
-  $("html").style.setProperty("--theme-font-clr", clr);
+  setProp("--theme-font-clr", clr);
 
-  config.font || (config.font = {});
-  config.font.theme = clr;
-  saveConfig(config);
+  myConfig.font.theme = clr;
 
   setChooser && ($id("theme-font-clr").value = clr);
 }
@@ -491,42 +486,33 @@ function setBtnBgClr(
   setInps = true,
   clr = defConfig.bgClr.btn.clr,
   opacity = defConfig.bgClr.btn.opacity,
-  config = getConfig()
+  myConfig = config
 ) {
-  const bgClr = typeof clr == "string" ? clr : `${clr.r}, ${clr.g}, ${clr.b}`;
-  const forCSS = `rgba(${bgClr}, ${opacity / 100})`;
+  setProp("--btn-bg-clr", `rgba(${clr}, ${opacity / 100})`);
 
-  $$(".btn,.dropdown").forEach((btn) =>
-    btn.style.setProperty("background-color", forCSS)
-  );
-
-  config.bgClr || (config.bgClr = {});
-  config.bgClr.btn || (config.bgClr.btn = {});
-  config.bgClr.btn.clr = bgClr;
-  config.bgClr.btn.opacity = opacity;
-  saveConfig(config);
+  myConfig.bgClr.btn || (myConfig.bgClr.btn = {});
+  myConfig.bgClr.btn.clr = clr;
+  myConfig.bgClr.btn.opacity = opacity;
 
   if (setInps) {
-    $id("bg-clr-btn").value = rgbToHex(bgClr);
+    $id("bg-clr-btn").value = rgbToHex(clr);
     $id("bg-clr-btn-opacity").value = opacity;
   }
 }
 
-function setBgImg(file, config = getConfig()) {
+function setBgImg(file, myConfig = config) {
   const reader = new FileReader();
   reader.onerror = () => {
-    alert(`${reader.error} error occured`);
+    alert(
+      `${reader.error} error occured while reading the uploaded background image.`
+    );
   };
 
   reader.onload = () => {
-    const html = $t("html");
+    loadBg(false, reader.result, null, myConfig);
 
-    loadBg(false, reader.result, null, config);
-
-    config.bgImg || (config.bgImg = {});
-    config.bgImg[1080] = reader.result;
-    config.bgImg.changed = true;
-    saveConfig(config);
+    myConfig.bgImg[1080] = reader.result;
+    myConfig.bgImg.changed = true;
   };
 
   reader.readAsDataURL(file);
@@ -536,32 +522,20 @@ function loadBg(
   reset = true,
   bg1080 = defConfig.bgImg[1080],
   bg768 = defConfig.bgImg[768],
-  config = getConfig()
+  myConfig = config
 ) {
-  const html = $t("html");
+  setProp("--bg-1080", `url(${bg1080})`);
+  setProp("--bg-768", bg768 ? `url(${bg768})` : "var(--bg-1080)");
 
-  html.style.setProperty("--bg-1080", `url(${bg1080})`);
-  html.style.setProperty(
-    "--bg-768",
-    bg768 ? `url(${bg768})` : "var(--bg-1080)"
-  );
-
-  config.bgImg || (config.bgImg = {});
-  if (reset) {
-    config.bgImg = defConfig.bgImg;
-    saveConfig(config);
-  }
+  reset && (myConfig.bgImg = defConfig.bgImg);
 }
 
 function hexToRGB(hex) {
-  hex = hex.slice(1, hex.length);
-  color = {
-    r: parseInt(hex.slice(0, 2), 16),
-    g: parseInt(hex.slice(2, 4), 16),
-    b: parseInt(hex.slice(4, hex.length), 16),
-  };
-
-  return color;
+  hex = hex.slice(1, hex.length); // Remove the #
+  return `${parseInt(hex.slice(0, 2), 16)}, ${parseInt(
+    hex.slice(2, 4),
+    16
+  )}, ${parseInt(hex.slice(4, hex.length), 16)}`;
 }
 
 function rgbToHex(rgbStr) {
@@ -575,20 +549,12 @@ function rgbToHex(rgbStr) {
 }
 
 function getConfig() {
-  return (
-    JSON.parse(localStorage.getItem("config")) ||
-    (() => {
-      const config = defConfig;
-
-      saveConfig(config);
-
-      return config;
-    })()
-  );
+  return JSON.parse(localStorage.getItem("config")) || saveConfig();
 }
 
-function saveConfig(config) {
+function saveConfig(config = defConfig) {
   localStorage.setItem("config", JSON.stringify(config));
+  return config;
 }
 
 function resetAll() {
@@ -596,6 +562,7 @@ function resetAll() {
   setCardBorderRad();
   setBtnBorderRad();
   setBgClr();
+  setBgClrOpacity();
   setNormFont();
   setThemeFont();
   setBtnBgClr();
@@ -646,52 +613,58 @@ Array.from($$cl("go-btn")) // Get all 3rd language buttons
     )
   );
 
-const config = getConfig();
-
 if ($cl("menu-content")) {
+  for (val in defConfig) config[val] ?? (config[val] = defConfig[val]);
+
   setMainClr(true, config.mainClr || defConfig.mainClr, config);
   setCardBorderRad(
     true,
-    config?.borderRad?.card || defConfig.borderRad.card,
+    config.borderRad.card || defConfig.borderRad.card,
     config
   );
-  setBtnBorderRad(
-    true,
-    config?.borderRad?.btn || defConfig.borderRad.btn,
-    config
-  );
-  setBgClr(
-    true,
-    config?.bgClr?.clr || defConfig.bgClr.clr,
-    config?.bgClr?.opacity || defConfig.bgClr.opacity,
-    config
-  );
-  setNormFont(true, config?.font?.norm || defConfig.font.norm, config);
-  setThemeFont(true, config?.font?.theme || defConfig.font.theme, config);
-  setBtnBgClr(
-    true,
-    config?.bgClr?.btn?.clr || defConfig.bgClr.btn.clr,
-    config?.bgClr?.btn?.opacity || defConfig.bgClr.btn.opacity,
-    config
-  );
-  setBorderThickness(
-    true,
-    config?.borderThickness || defConfig.borderThickness,
-    config
-  );
-  setCardBlur(true, config?.blur?.cards || defConfig.blur.cards, config);
-  setNavBlur(true, config?.blur?.nav || defConfig.blur.nav, config);
+  setBtnBorderRad(true, config.borderRad.btn, config);
+  setBgClr(true, config.bgClr.clr, config);
+  setBgClrOpacity(true, config.bgClr.opacity, config);
+  setNormFont(true, config.font.norm, config);
+  setThemeFont(true, config.font.theme, config);
+  setBtnBgClr(true, config.bgClr.btn.clr, config.bgClr.btn.opacity, config);
+  setBorderThickness(true, config.borderThickness, config);
+  setCardBlur(true, config.blur.cards, config);
+  setNavBlur(true, config.blur.nav, config);
 
   if (config.bgImg && config.bgImg.changed)
-    loadBg(false, config?.bgImg?.[1080] || defConfig.bgImg[1080], null, config);
+    loadBg(false, config.bgImg[1080], null, config);
 }
 
 const exportBtn = $id("export-btn");
 exportBtn &&
   exportBtn.addEventListener("click", (e) => {
+    saveConfig(config);
     const fileData = encodeURIComponent(localStorage.getItem("config"));
     const a = $add("a");
     a.setAttribute("href", "data:application/json;charset=utf-8," + fileData);
     a.setAttribute("download", "config.json");
     a.click();
   });
+
+const importInp = $id("import-inp");
+importInp &&
+  importInp.addEventListener("input", (e) => {
+    const reader = new FileReader();
+
+    reader.onerror = () => {
+      alert(`${reader.error} occured while importing config`);
+    };
+
+    reader.onload = () => {
+      config = JSON.parse(reader.result);
+      saveConfig(config);
+      window.location.reload();
+    };
+
+    reader.readAsText(importInp.files[0]);
+  });
+
+window.onunload = () => {
+  saveConfig(config);
+};
