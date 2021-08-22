@@ -643,7 +643,7 @@ exportBtn &&
     const fileData = encodeURIComponent(localStorage.getItem("config"));
     const a = $add("a");
     a.setAttribute("href", "data:application/json;charset=utf-8," + fileData);
-    a.setAttribute("download", "config.json");
+    a.setAttribute("download", `TimetableConf${(date = newDate())}.json`);
     a.click();
   });
 
