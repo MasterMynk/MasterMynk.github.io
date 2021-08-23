@@ -669,20 +669,24 @@ window.onunload = () => {
 };
 
 $id("share-btn").addEventListener("click", async () => {
-  const configFile = new File([getConfDataURI()], getConfName(), {
-    type: "application/json",
-  });
+  const myFiles = [
+    new File([getConfDataURI()], getConfName(), {
+      type: "application/json",
+    }),
+  ];
+  Object.freeze(myFiles);
 
-  const fileArr = [configFile];
-  Object.freeze(fileArr);
-
-  if (navigator.canShare && navigator.canShare({ files: fileArr })) {
-    navigator.share({
-      url: location.href,
-      title: "My settings for Google Meet timetable",
-      text: "This are my settings for the timetable. To use them share this file and select timetable in the prompt that comes up. You must have installed the timetable website as an app first",
-      files: fileArr,
-    });
+  if (navigator.canShare && navigator.canShare({ files: myFiles })) {
+    try {
+      await navigator.share({
+        url: location.href,
+        title: "My settings for Google Meet timetable",
+        text: "This are my settings for the timetable. To use them share this file and select timetable in the prompt that comes up. You must have installed the timetable website as an app first",
+        files: myFiles,
+      });
+    } catch (err) {
+      alert(err);
+    }
   } else
     alert(
       "Your browser doesn't support File Sharing yet. But don't worry I'll be adding a fallback very soon :)"
