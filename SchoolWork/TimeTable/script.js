@@ -676,7 +676,7 @@ $id("share-btn").addEventListener("click", async () => {
   const fileArr = [configFile];
   Object.freeze(fileArr);
 
-  if (navigator.canShare && navigator.canShare({ file: fileArr })) {
+  if (navigator.canShare && navigator.canShare({ files: fileArr })) {
     navigator.share({
       url: location.href,
       title: "My settings for Google Meet timetable",
