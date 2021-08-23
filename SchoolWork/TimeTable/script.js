@@ -668,33 +668,8 @@ window.onunload = () => {
   saveConfig(config);
 };
 
-// $id("share-btn").addEventListener("click", async () => {
-//   const myFiles = [
-//     new File([getConfDataURI()], getConfName(), {
-//       type: "application/json",
-//     }),
-//   ];
-//   Object.freeze(myFiles);
-
-//   if (navigator.canShare && navigator.canShare({ files: myFiles })) {
-//     try {
-//       await navigator.share({
-//         url: location.href,
-//         title: "My settings for Google Meet timetable",
-//         text: "This are my settings for the timetable. To use them share this file and select timetable in the prompt that comes up. You must have installed the timetable website as an app first",
-//         files: myFiles,
-//       });
-//     } catch (err) {
-//       console.log(err.name, err.message);
-//     }
-//   } else
-//     alert(
-//       "Your browser doesn't support File Sharing yet. But don't worry I'll be adding a fallback very soon :)"
-//     );
-// });
-
 if ("canShare" in navigator) {
-  document.querySelector("#share-btn").addEventListener("click", () => {
+  $id("share-btn").addEventListener("click", () => {
     const file = new File([localStorage.getItem("config")], "config.txt", {
       type: "text/plain",
     });
@@ -708,4 +683,13 @@ if ("canShare" in navigator) {
       })
       .catch((err) => alert(`${err} occured while sharing.`));
   });
+} else {
+  const shareBtn = $id("share-btn");
+  shareBtn.classList.add("greyed");
+  shareBtn.disabled = true;
+
+  const statusText = $id("share-status-text");
+
+  statusText.innerText = "Your browser doesn't support File Sharing";
+  statusText.classList.add("prob");
 }

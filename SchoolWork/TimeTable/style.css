@@ -125,6 +125,10 @@
   font-size: .75em;
 }
 
+.menu-content .item p {
+  font-size: .6em;
+}
+
 .menu-item-radio:checked + .item {
   clip-path: circle(100%);
 }
@@ -300,11 +304,11 @@ td .go-btn {
   color: yellow;
 }
 
-.status.prob {
+.prob {
   color: crimson;
 }
 
-.status.prob::before {
+.prob::before {
   content: "!";
   border: 2px solid;
   padding: 0.05em 0.5em;
