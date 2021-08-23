@@ -626,14 +626,24 @@ if ($cl("menu-content")) {
     loadBg(false, config.bgImg[1080], null, config);
 }
 
+function getConfDataURI() {
+  saveConfig(config);
+  return encodeURIComponent(localStorage.getItem("config"));
+}
+
+function getConfName() {
+  return `TimetableConf${(date = newDate())}.json`;
+}
+
 const exportBtn = $id("export-btn");
 exportBtn &&
   exportBtn.addEventListener("click", (e) => {
-    saveConfig(config);
-    const fileData = encodeURIComponent(localStorage.getItem("config"));
     const a = $add("a");
-    a.setAttribute("href", "data:application/json;charset=utf-8," + fileData);
-    a.setAttribute("download", `TimetableConf${(date = newDate())}.json`);
+    a.setAttribute(
+      "href",
+      "data:application/json;charset=utf-8," + getConfDataURI()
+    );
+    a.setAttribute("download", getConfName());
     a.click();
   });
 
@@ -658,3 +668,23 @@ window.onunload = () => {
   saveConfig(config);
 };
 
+$id("share-btn").addEventListener("click", async () => {
+  const configFile = new File([getConfDataURI()], getConfName(), {
+    type: "application/json",
+  });
+
+  const fileArr = [configFile];
+  Object.freeze(fileArr);
+
+  if (navigator.canShare && navigator.canShare({ file: fileArr })) {
+    navigator.share({
+      url: location.href,
+      title: "My settings for Google Meet timetable",
+      text: "This are my settings for the timetable. To use them share this file and select timetable in the prompt that comes up. You must have installed the timetable website as an app first",
+      files: fileArr,
+    });
+  } else
+    alert(
+      "Your browser doesn't support File Sharing yet. But don't worry I'll be adding a fallback very soon :)"
+    );
+});
