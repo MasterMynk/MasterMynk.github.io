@@ -23,5 +23,18 @@
       "sizes": "192x192"
     }
   ],
-  "desciption": "Interactive timetable for standard 10 live classes of The Rosary High School"
+  "desciption": "Interactive timetable for standard 10 live classes of The Rosary High School",
+  "share_target": {
+    "action": "/SchoolWork/TimeTable/",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "files": [
+        {
+          "name": "config",
+          "accept": ["application/json", ".json", "text/plain", ".txt"]
+        }
+      ]
+    }
+  }
 }

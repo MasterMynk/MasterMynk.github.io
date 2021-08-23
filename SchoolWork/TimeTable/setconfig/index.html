@@ -1,0 +1,8 @@
+<script>
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker.register("/SchoolWork/TimeTable/sw.js");
+    navigator.serviceWorker.addEventListener("message", ({ data }) => {
+      alert(data);
+    });
+  }
+</script>
