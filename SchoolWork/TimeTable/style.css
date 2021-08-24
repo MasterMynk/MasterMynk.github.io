@@ -63,11 +63,13 @@
 .menu-content {
   z-index: -1;
   width: min(95vw, 20em);
+  max-height: 100vh;
   padding-top: 6vh;
   border-radius: 15px;
   clip-path: circle(0 at top left);
   background-color: rgba(var(--elem-bg-clr), 0.95);
   box-shadow: 0.5em 0.5em 0.5em rgba(25, 25, 25, 0.6);
+  overflow-y: auto;
   position: fixed;
   top: calc(var(--nav-y-padding) - 0.5em);
   left: calc(var(--nav-x-padding) - 1em);
