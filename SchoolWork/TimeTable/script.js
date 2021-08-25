@@ -42,6 +42,29 @@ const linkCardLiTemplate = (() => {
   return li;
 })();
 
+if ($cl("menu-content")) {
+  for (val in defConfig) config[val] ?? (config[val] = defConfig[val]);
+
+  setMainClr(true, config.mainClr || defConfig.mainClr, config);
+  setCardBorderRad(
+    true,
+    config.borderRad.card || defConfig.borderRad.card,
+    config
+  );
+  setBtnBorderRad(true, config.borderRad.btn, config);
+  setBgClr(true, config.bgClr.clr, config);
+  setBgClrOpacity(true, config.bgClr.opacity, config);
+  setNormFont(true, config.font.norm, config);
+  setThemeFont(true, config.font.theme, config);
+  setBtnBgClr(true, config.bgClr.btn.clr, config.bgClr.btn.opacity, config);
+  setBorderThickness(true, config.borderThickness, config);
+  setCardBlur(true, config.blur.cards, config);
+  setNavBlur(true, config.blur.nav, config);
+
+  if (config.bgImg && config.bgImg.changed)
+    loadBg(false, config.bgImg[1080], null, config);
+}
+
 function $(elem) {
   return document.querySelector(elem);
 }
@@ -602,29 +625,6 @@ Array.from($$cl("go-btn")) // Get all 3rd language buttons
       }
     )
   );
-
-if ($cl("menu-content")) {
-  for (val in defConfig) config[val] ?? (config[val] = defConfig[val]);
-
-  setMainClr(true, config.mainClr || defConfig.mainClr, config);
-  setCardBorderRad(
-    true,
-    config.borderRad.card || defConfig.borderRad.card,
-    config
-  );
-  setBtnBorderRad(true, config.borderRad.btn, config);
-  setBgClr(true, config.bgClr.clr, config);
-  setBgClrOpacity(true, config.bgClr.opacity, config);
-  setNormFont(true, config.font.norm, config);
-  setThemeFont(true, config.font.theme, config);
-  setBtnBgClr(true, config.bgClr.btn.clr, config.bgClr.btn.opacity, config);
-  setBorderThickness(true, config.borderThickness, config);
-  setCardBlur(true, config.blur.cards, config);
-  setNavBlur(true, config.blur.nav, config);
-
-  if (config.bgImg && config.bgImg.changed)
-    loadBg(false, config.bgImg[1080], null, config);
-}
 
 function getConfDataURI() {
   saveConfig(config);
