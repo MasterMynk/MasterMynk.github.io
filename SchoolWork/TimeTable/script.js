@@ -75,60 +75,94 @@ function $add(tagName) {
 }
 
 function swInit() {
-  // Service worker
-  if ("serviceWorker" in navigator && $('link[rel="manifest"]'))
-    navigator.serviceWorker.register("/SchoolWork/TimeTable/sw.js");
+  return new Promise((resolve) => {
+    // Service worker
+    if ("serviceWorker" in navigator && $('link[rel="manifest"]'))
+      navigator.serviceWorker.register("/SchoolWork/TimeTable/sw.js");
+    resolve();
+  });
 }
 
 function installBtnInit() {
-  const installBtn = $(".install.btn");
+  return new Promise((resolve) => {
+    const installBtn = $(".install.btn");
 
-  // Get the prompt which usually shows up and save it
-  window.addEventListener("beforeinstallprompt", (e) => {
-    installPrompt = e;
-    e.preventDefault();
-    installBtn && (installBtn.style.display = "block");
-  });
-
-  // When the install button is clicked show the previously saved prompt
-  installBtn &&
-    installBtn.addEventListener("click", async (ev) => {
-      if (installPrompt) {
-        installPrompt.prompt();
-        const { outcome } = await installPrompt.userChoice;
-
-        if (outcome === "accepted") {
-          // That means the user installed the website
-          installPrompt = false; // So we dont need this button to work anymore
-          ev.target.display = "none";
-        }
-      }
+    // Get the prompt which usually shows up and save it
+    window.addEventListener("beforeinstallprompt", (e) => {
+      installPrompt = e;
+      e.preventDefault();
+      installBtn && (installBtn.style.display = "block");
     });
+
+    // When the install button is clicked show the previously saved prompt
+    installBtn &&
+      installBtn.addEventListener("click", async (ev) => {
+        if (installPrompt) {
+          installPrompt.prompt();
+          const { outcome } = await installPrompt.userChoice;
+
+          if (outcome === "accepted") {
+            // That means the user installed the website
+            installPrompt = false; // So we dont need this button to work anymore
+            ev.target.display = "none";
+          }
+        }
+      });
+    resolve();
+  });
 }
 
 function navInit() {
-  if ($("nav")) {
-    const division = localStorage.getItem("division");
+  return new Promise((resolve) => {
+    if ($("nav")) {
+      const division = localStorage.getItem("division");
 
-    if (
-      division &&
-      $id(division) &&
-      $(".ind > div:last-child > label").innerText <= division
-    )
-      $id(division).checked = true;
-    else $('input[name="div"]').checked = true;
-  }
+      if (
+        division &&
+        $id(division) &&
+        $(".ind > div:last-child > label").innerText <= division
+      )
+        $id(division).checked = true;
+      else $('input[name="div"]').checked = true;
+    }
+    resolve();
+  });
 }
 
 function thirdLangInit() {
-  if ($('[name="third-lang"].dropdown')) {
-    const prefLang = localStorage.getItem("thirdLang");
+  return new Promise((resolve) => {
+    if ($('[name="third-lang"].dropdown')) {
+      const prefLang = localStorage.getItem("thirdLang");
 
-    prefLang &&
-      $$('[name="third-lang"].dropdown > option').forEach(
-        (opt) => (opt.selected = opt.innerText.trim() === prefLang)
+      prefLang &&
+        $$('[name="third-lang"].dropdown > option').forEach(
+          (opt) => (opt.selected = opt.innerText.trim() === prefLang)
+        );
+    }
+
+    Array.from($$cl("go-btn")) // Get all 3rd language buttons
+      .forEach((goBtns) =>
+        goBtns.addEventListener(
+          "click", // For each button add a click event listener
+          (ev) => {
+            const goBtn = ev.target;
+
+            // Set the clicked go button's link to
+            // the value of the select element of the button
+            goBtn.setAttribute("href", goBtn.previousElementSibling.value);
+
+            // Set this as the default language now
+            localStorage.setItem(
+              "thirdLang",
+              $(
+                `option[value="${goBtn.previousElementSibling.value}"]`
+              ).innerText.trim()
+            );
+          }
+        )
       );
-  }
+    resolve();
+  });
 }
 
 function setDataTime(mobile = false) {
@@ -261,20 +295,23 @@ function update() {
 }
 
 function radioChange(callUpdate = true) {
-  Array.from($$(".ind input")).every((btn) => {
-    if (btn.checked) {
-      const currClass =
-        $("h1").innerText.slice(0, $("h1").innerText.length - 1) +
-        btn.nextElementSibling.innerText;
-      localStorage.setItem("division", btn.id);
+  return new Promise((resolve) => {
+    Array.from($$(".ind input")).every(async (btn) => {
+      if (btn.checked) {
+        const currClass =
+          $("h1").innerText.slice(0, $("h1").innerText.length - 1) +
+          btn.nextElementSibling.innerText;
+        localStorage.setItem("division", btn.id);
 
-      $("h1").innerText = currClass;
-      $id("curr").removeAttribute("id");
-      $(`.${currClass.toLowerCase()}`).setAttribute("id", "curr");
-      callUpdate && update();
-      return false;
-    }
-    return true;
+        $("h1").innerText = currClass;
+        $id("curr").removeAttribute("id");
+        $(`.${currClass.toLowerCase()}`).setAttribute("id", "curr");
+        if (callUpdate) callUpdate && (await update());
+        return false;
+      }
+      return true;
+    });
+    resolve();
   });
 }
 
@@ -577,11 +614,10 @@ localStorage.setItem("lastVisitedPage", window.location.pathname);
 
 swInit();
 installBtnInit();
-navInit();
+navInit()
+  .then(() => radioChange(false))
+  .then(update);
 thirdLangInit();
-
-radioChange(false);
-update();
 
 window
   .matchMedia("(max-width: 770px)")
@@ -590,28 +626,6 @@ window
 if (date.getDay())
   // If today isn't sunday
   setInterval(statusUpdate, 1 * 1000);
-
-Array.from($$cl("go-btn")) // Get all 3rd language buttons
-  .forEach((goBtns) =>
-    goBtns.addEventListener(
-      "click", // For each button add a click event listener
-      (ev) => {
-        const goBtn = ev.target;
-
-        // Set the clicked go button's link to
-        // the value of the select element of the button
-        goBtn.setAttribute("href", goBtn.previousElementSibling.value);
-
-        // Set this as the default language now
-        localStorage.setItem(
-          "thirdLang",
-          $(
-            `option[value="${goBtn.previousElementSibling.value}"]`
-          ).innerText.trim()
-        );
-      }
-    )
-  );
 
 if ($cl("menu-content")) {
   for (val in defConfig) config[val] ?? (config[val] = defConfig[val]);
@@ -678,28 +692,31 @@ window.onunload = () => {
   saveConfig(config);
 };
 
-if ("canShare" in navigator) {
-  $id("share-btn").addEventListener("click", () => {
-    const file = new File([localStorage.getItem("config")], "config.txt", {
-      type: "text/plain",
+const shareBtn = $id("share-btn");
+
+if (shareBtn) {
+  if ("canShare" in navigator) {
+    $id("share-btn").addEventListener("click", () => {
+      const file = new File([localStorage.getItem("config")], "config.txt", {
+        type: "text/plain",
+      });
+
+      navigator
+        .share({
+          url: location.href,
+          title: "My settings for Google Meet timetable",
+          text: "This are my settings for the timetable. To use them share this file and select timetable in the prompt that comes up. You must have installed the timetable website as an app first",
+          files: [file],
+        })
+        .catch((err) => alert(`${err} occured while sharing.`));
     });
+  } else {
+    shareBtn.classList.add("greyed");
+    shareBtn.disabled = true;
 
-    navigator
-      .share({
-        url: location.href,
-        title: "My settings for Google Meet timetable",
-        text: "This are my settings for the timetable. To use them share this file and select timetable in the prompt that comes up. You must have installed the timetable website as an app first",
-        files: [file],
-      })
-      .catch((err) => alert(`${err} occured while sharing.`));
-  });
-} else {
-  const shareBtn = $id("share-btn");
-  shareBtn.classList.add("greyed");
-  shareBtn.disabled = true;
+    const statusText = $id("share-status-text");
 
-  const statusText = $id("share-status-text");
-
-  statusText.innerText = "Your browser doesn't support File Sharing";
-  statusText.classList.add("prob");
+    statusText.innerText = "Your browser doesn't support File Sharing";
+    statusText.classList.add("prob");
+  }
 }
