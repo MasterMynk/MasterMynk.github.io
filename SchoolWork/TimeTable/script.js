@@ -42,29 +42,6 @@ const linkCardLiTemplate = (() => {
   return li;
 })();
 
-if ($cl("menu-content")) {
-  for (val in defConfig) config[val] ?? (config[val] = defConfig[val]);
-
-  setMainClr(true, config.mainClr || defConfig.mainClr, config);
-  setCardBorderRad(
-    true,
-    config.borderRad.card || defConfig.borderRad.card,
-    config
-  );
-  setBtnBorderRad(true, config.borderRad.btn, config);
-  setBgClr(true, config.bgClr.clr, config);
-  setBgClrOpacity(true, config.bgClr.opacity, config);
-  setNormFont(true, config.font.norm, config);
-  setThemeFont(true, config.font.theme, config);
-  setBtnBgClr(true, config.bgClr.btn.clr, config.bgClr.btn.opacity, config);
-  setBorderThickness(true, config.borderThickness, config);
-  setCardBlur(true, config.blur.cards, config);
-  setNavBlur(true, config.blur.nav, config);
-
-  if (config.bgImg && config.bgImg.changed)
-    loadBg(false, config.bgImg[1080], null, config);
-}
-
 function $(elem) {
   return document.querySelector(elem);
 }
@@ -155,38 +132,45 @@ function thirdLangInit() {
 }
 
 function setDataTime(mobile = false) {
-  const timings = $$(".resp-table#curr tr > th:not(:first-child)");
-  const tds = $$(".resp-table#curr tr > td:not(:first-child)");
+  return new Promise((resolve) => {
+    const timings = $$(".resp-table#curr tr > th:not(:first-child)");
+    const tds = $$(".resp-table#curr tr > td:not(:first-child)");
 
-  if (
-    tds.length &&
-    (mobile || window.matchMedia("(max-width: 770px)").matches) &&
-    !("time" in tds[0].dataset)
-  )
-    tds.forEach((td, i) =>
-      td.setAttribute("data-time", timings[i % 2].innerText)
-    );
+    if (
+      tds.length &&
+      (mobile || window.matchMedia("(max-width: 770px)").matches) &&
+      !("time" in tds[0].dataset)
+    )
+      tds.forEach((td, i) =>
+        td.setAttribute("data-time", timings[i % 2].innerText)
+      );
+    resolve();
+  });
 }
 
 function setCancelled() {
-  date = newDate();
+  return new Promise((resolve) => {
+    date = newDate();
 
-  const tds = $$(".resp-table#curr tr > td:not(:first-child)");
+    const tds = $$(".resp-table#curr tr > td:not(:first-child)");
 
-  tds.forEach((td) => {
-    if ("cancelled" in td.dataset) {
-      const datesAsStr = td.dataset.cancelled;
+    tds.forEach((td) => {
+      if ("cancelled" in td.dataset) {
+        const datesAsStr = td.dataset.cancelled;
 
-      datesAsStr.split(", ").forEach((dateAsStr) => {
-        const cancelledDateStrArr = dateAsStr.split("-");
-        const cancelledDate = new Date(
-          parseInt(cancelledDateStrArr[2]),
-          parseInt(cancelledDateStrArr[1]),
-          parseInt(cancelledDateStrArr[0]) + 6
-        );
-        if (cancelledDate >= date) td.firstElementChild.classList.add("greyed");
-      });
-    }
+        datesAsStr.split(", ").forEach((dateAsStr) => {
+          const cancelledDateStrArr = dateAsStr.split("-");
+          const cancelledDate = new Date(
+            parseInt(cancelledDateStrArr[2]),
+            parseInt(cancelledDateStrArr[1]),
+            parseInt(cancelledDateStrArr[0]) + 6
+          );
+          if (cancelledDate >= date)
+            td.firstElementChild.classList.add("greyed");
+        });
+      }
+    });
+    resolve();
   });
 }
 
@@ -232,45 +216,48 @@ function setNavBlur(
 }
 
 function update() {
-  date = newDate();
+  return new Promise((resolve) => {
+    date = newDate();
 
-  setDataTime();
-  setCancelled();
+    setDataTime();
+    setCancelled();
 
-  if (date.getDay()) {
-    // If today isn't Sunday
-    removeExistingOl();
+    if (date.getDay()) {
+      // If today isn't Sunday
+      removeExistingOl();
 
-    const todaysRow = $$(
-      `#curr tr:nth-child(${date.getDay() + 1}) > td:not(:first-child)`
-    );
-    const ol = document.createElement("ol");
+      const todaysRow = $$(
+        `#curr tr:nth-child(${date.getDay() + 1}) > td:not(:first-child)`
+      );
+      const ol = document.createElement("ol");
 
-    todaysRow.forEach(({ firstElementChild: btn }, i) => {
-      if (btn)
-        ol.appendChild(
-          (() => {
-            // Adds an li
-            const li = linkCardLiTemplate.cloneNode(true);
-            const timingAndStatus = li.firstElementChild;
-            const timeDetails = timeInRange(
-              addTime(
-                $(`#curr tr > th:nth-child(${i + 2})`).innerText,
-                timingAndStatus.firstElementChild
-              ).innerText
-            );
+      todaysRow.forEach(({ firstElementChild: btn }, i) => {
+        if (btn)
+          ol.appendChild(
+            (() => {
+              // Adds an li
+              const li = linkCardLiTemplate.cloneNode(true);
+              const timingAndStatus = li.firstElementChild;
+              const timeDetails = timeInRange(
+                addTime(
+                  $(`#curr tr > th:nth-child(${i + 2})`).innerText,
+                  timingAndStatus.firstElementChild
+                ).innerText
+              );
 
-            statusLogic(timeDetails, timingAndStatus.children[1], btn);
+              statusLogic(timeDetails, timingAndStatus.children[1], btn);
 
-            li.appendChild(btn.cloneNode(true));
+              li.appendChild(btn.cloneNode(true));
 
-            return li;
-          })()
-        );
-    });
+              return li;
+            })()
+          );
+      });
 
-    $cl("link-card").appendChild(ol);
-  }
+      $cl("link-card").appendChild(ol);
+    }
+    resolve();
+  });
 }
 
 function radioChange(callUpdate = true) {
@@ -625,6 +612,29 @@ Array.from($$cl("go-btn")) // Get all 3rd language buttons
       }
     )
   );
+
+if ($cl("menu-content")) {
+  for (val in defConfig) config[val] ?? (config[val] = defConfig[val]);
+
+  setMainClr(true, config.mainClr || defConfig.mainClr, config);
+  setCardBorderRad(
+    true,
+    config.borderRad.card || defConfig.borderRad.card,
+    config
+  );
+  setBtnBorderRad(true, config.borderRad.btn, config);
+  setBgClr(true, config.bgClr.clr, config);
+  setBgClrOpacity(true, config.bgClr.opacity, config);
+  setNormFont(true, config.font.norm, config);
+  setThemeFont(true, config.font.theme, config);
+  setBtnBgClr(true, config.bgClr.btn.clr, config.bgClr.btn.opacity, config);
+  setBorderThickness(true, config.borderThickness, config);
+  setCardBlur(true, config.blur.cards, config);
+  setNavBlur(true, config.blur.nav, config);
+
+  if (config.bgImg && config.bgImg.changed)
+    loadBg(false, config.bgImg[1080], null, config);
+}
 
 function getConfDataURI() {
   saveConfig(config);
