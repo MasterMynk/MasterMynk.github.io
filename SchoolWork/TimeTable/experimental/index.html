@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-C7462QX2RR"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-C7462QX2RR");
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="This is the Live class timetable for The Rosary High School"
+    />
+    <meta
+      name="keywords"
+      content="Timetable, Live classes, Google meets, meets, meet, The Rosary High School"
+    />
+    <meta author="author" content="Mayank Shigaonker" />
+    <meta name="theme-color" content="#D35400" />
+
+    <title>Live class Time Table</title>
+    <link rel="stylesheet" href="/SchoolWork/general.css" />
+    <link rel="stylesheet" href="/SchoolWork/TimeTable/style.css" />
+
+    <link rel="manifest" href="/SchoolWork/TimeTable/manifest.json" />
+    <link
+      rel="apple-touch-icon"
+      href="/SchoolWork/TimeTable/icons/logo192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/SchoolWork/TimeTable/icons/logo192.svg"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="/SchoolWork/TimeTable/icons/logo512.svg"
+    />
+
+    <script src="/SchoolWork/TimeTable/script.js" defer></script>
+
+    <style>
+      .thank-you-text {
+        font-size: 0.7em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <div class="menu-container">
+        <input type="checkbox" class="menu" id="menu" />
+        <label for="menu"></label>
+        <div class="menu-content">
+          <!-- This second container is so that I dont have to set an offset to all
+          absolutely positioned elements due to the top padding -->
+          <div class="menu-content-container">
+            <input
+              type="radio"
+              name="menu-items"
+              id="def-menu-item"
+              class="menu-item-radio"
+            />
+
+            <div class="slide-down-parent">
+              <input type="checkbox" id="clr-slider" class="slide-down" />
+              <label for="clr-slider" class="name" style="--offset: 3.5em"
+                >Color</label
+              >
+              <div class="stuff-to-slide">
+                <input
+                  type="radio"
+                  name="menu-items"
+                  id="main-clr-chooser-radio"
+                  class="menu-item-radio"
+                />
+                <label
+                  for="def-menu-item"
+                  class="item"
+                  id="main-clr-chooser-content"
+                >
+                  <input
+                    type="color"
+                    id="main-clr-chooser"
+                    value="#D35400"
+                    oninput="setMainClr(false, hexToRGB($('#main-clr-chooser').value));"
+                  />
+                  <button class="btn" onclick="setMainClr();">Reset</button>
+                </label>
+                <label for="main-clr-chooser-radio" class="name">Theme</label>
+
+                <input
+                  type="radio"
+                  name="menu-items"
+                  id="font-clr-radio"
+                  class="menu-item-radio"
+                />
+                <label
+                  for="def-menu-item"
+                  class="item centered-vertical"
+                  id="font-clr-content"
+                >
+                  <div>
+                    <label for="norm-font-clr" style="font-size: 0.8em"
+                      >Normal Font:</label
+                    >
+                    <input
+                      type="color"
+                      id="norm-font-clr"
+                      value="#eeeeee"
+                      oninput="setNormFont(false, $id('norm-font-clr').value);"
+                    />
+                  </div>
+                  <div>
+                    <label for="theme-font-clr" style="font-size: 0.8em"
+                      >Font on theme:
+                    </label>
+                    <input
+                      type="color"
+                      id="theme-font-clr"
+                      value="#111111"
+                      oninput="setThemeFont(false, $id('theme-font-clr').value);"
+                    />
+                  </div>
+                  <button class="btn" onclick="setNormFont(); setThemeFont();">
+                    Reset
+                  </button>
+                </label>
+                <label for="font-clr-radio" class="name">Font</label>
+              </div>
+            </div>
+
+            <div class="slide-down-parent">
+              <input type="checkbox" id="border-slider" class="slide-down" />
+              <label for="border-slider" class="name" style="--offset: 4.25em"
+                >Border</label
+              >
+              <div class="stuff-to-slide" style="--height: 14em">
+                <div class="slide-down-parent">
+                  <input
+                    type="checkbox"
+                    id="border-radius-slider"
+                    class="slide-down"
+                  />
+                  <label
+                    for="border-radius-slider"
+                    class="name"
+                    style="--offset: 3.8em"
+                    >Curve</label
+                  >
+                  <div class="stuff-to-slide">
+                    <input
+                      type="radio"
+                      name="menu-items"
+                      id="border-radius-cards-radio"
+                      class="menu-item-radio"
+                    />
+                    <label
+                      for="def-menu-item"
+                      class="item"
+                      id="border-radius-cards-content"
+                    >
+                      <input
+                        type="range"
+                        id="border-radius-cards"
+                        value="15"
+                        min="0"
+                        max="100"
+                        oninput="setCardBorderRad(false, $id('border-radius-cards').value);"
+                      />
+                      <button class="btn" onclick="setCardBorderRad();">
+                        Reset
+                      </button>
+                    </label>
+                    <label for="border-radius-cards-radio" class="name"
+                      >Cards</label
+                    >
+
+                    <input
+                      type="radio"
+                      name="menu-items"
+                      id="border-radius-btns-radio"
+                      class="menu-item-radio"
+                    />
+                    <label
+                      for="def-menu-item"
+                      class="item"
+                      id="border-radius-btns-content"
+                    >
+                      <input
+                        type="range"
+                        id="border-radius-btns"
+                        value="50"
+                        min="0"
+                        max="30"
+                        oninput="setBtnBorderRad(false, $id('border-radius-btns').value);"
+                      />
+                      <button class="btn" onclick="setBtnBorderRad();">
+                        Reset
+                      </button>
+                    </label>
+                    <label for="border-radius-btns-radio" class="name"
+                      >Button</label
+                    >
+                  </div>
+                </div>
+
+                <input
+                  type="radio"
+                  name="menu-items"
+                  id="border-thickness-radio"
+                  class="menu-item-radio"
+                />
+                <label
+                  for="def-menu-item"
+                  class="item"
+                  id="border-thickness-content"
+                >
+                  <input
+                    type="range"
+                    id="border-thickness"
+                    min="0"
+                    max="30"
+                    value="2"
+                    oninput="setBorderThickness(false, $id('border-thickness').value);"
+                  />
+                  <button class="btn" onclick="setBorderThickness();">
+                    Reset
+                  </button>
+                </label>
+                <label for="border-thickness-radio" class="name"
+                  >Thickness</label
+                >
+              </div>
+            </div>
+
+            <input
+              type="radio"
+              name="menu-items"
+              id="def-menu-item"
+              class="menu-item-radio"
+            />
+
+            <div class="slide-down-parent">
+              <input type="checkbox" id="bg-slider" class="slide-down" />
+              <label for="bg-slider" class="name" style="--offset: 7em"
+                >Background</label
+              >
+              <div class="stuff-to-slide" style="--height: 24em">
+                <div class="slide-down-parent">
+                  <input
+                    type="checkbox"
+                    id="bg-clr-slider"
+                    class="slide-down"
+                  />
+                  <label
+                    for="bg-clr-slider"
+                    class="name"
+                    style="--offset: 3.5em"
+                    >Color</label
+                  >
+                  <div class="stuff-to-slide">
+                    <input
+                      type="radio"
+                      name="menu-items"
+                      class="menu-item-radio"
+                      id="bg-clr-btn-radio"
+                    />
+                    <label
+                      for="def-menu-item"
+                      class="item"
+                      id="bg-clr-btn-content"
+                    >
+                      <div class="centered-vertical">
+                        <input
+                          type="color"
+                          id="bg-clr-btn"
+                          value="#0a0a0a"
+                          id="bg-clr-btn-radio"
+                          oninput="setBtnBgClr(false, hexToRGB($id('bg-clr-btn').value), $id('bg-clr-btn-opacity').value);"
+                        />
+                        <div>
+                          <label for="bg-clr-opacity" class="range-label"
+                            >Opacity:
+                          </label>
+                          <input
+                            type="range"
+                            id="bg-clr-btn-opacity"
+                            min="0"
+                            max="100"
+                            value="50"
+                            oninput="setBtnBgClr(false, hexToRGB($id('bg-clr-btn').value), $id('bg-clr-btn-opacity').value);"
+                          />
+                        </div>
+                      </div>
+                      <button class="btn" onclick="setBtnBgClr();">
+                        Reset
+                      </button>
+                    </label>
+                    <label for="bg-clr-btn-radio" class="name">Buttons</label>
+
+                    <input
+                      type="radio"
+                      name="menu-items"
+                      id="bg-clr-radio"
+                      class="menu-item-radio"
+                    />
+                    <label for="def-menu-item" class="item" id="bg-clr-content">
+                      <div class="centered-vertical">
+                        <input
+                          type="color"
+                          id="bg-clr"
+                          value="#191919"
+                          oninput="setBgClr(false, hexToRGB($id('bg-clr').value));"
+                        />
+                        <div>
+                          <label for="bg-clr-opacity" class="range-label"
+                            >Opacity:
+                          </label>
+                          <input
+                            type="range"
+                            id="bg-clr-opacity"
+                            min="0"
+                            max="100"
+                            value="70"
+                            oninput="setBgClrOpacity(false, $id('bg-clr-opacity').value);"
+                          />
+                        </div>
+                      </div>
+                      <button
+                        class="btn"
+                        onclick="setBgClr(); setBgClrOpacity();"
+                      >
+                        Reset
+                      </button>
+                    </label>
+                    <label for="bg-clr-radio" class="name"
+                      >Everything else</label
+                    >
+                  </div>
+                </div>
+
+                <div class="slide-down-parent">
+                  <input
+                    type="checkbox"
+                    id="bg-blur-slider"
+                    class="slide-down"
+                  />
+                  <label for="bg-blur-slider" class="name" style="--offset: 3em"
+                    >Blur</label
+                  >
+                  <div class="stuff-to-slide">
+                    <input
+                      type="radio"
+                      name="menu-items"
+                      class="menu-item-radio"
+                      id="bg-blur-cards-radio"
+                    />
+                    <label
+                      for="def-menu-item"
+                      class="item"
+                      id="bg-blur-cards-content"
+                    >
+                      <input
+                        type="range"
+                        id="bg-blur-cards"
+                        min="0"
+                        max="20"
+                        value="8"
+                        oninput="setCardBlur(false, $id('bg-blur-cards').value);"
+                      />
+                      <button class="btn" onclick="setCardBlur();">
+                        Reset
+                      </button>
+                    </label>
+                    <label for="bg-blur-cards-radio" class="name">Cards</label>
+
+                    <input
+                      type="radio"
+                      name="menu-items"
+                      class="menu-item-radio"
+                      id="bg-blur-nav-radio"
+                    />
+                    <label
+                      for="def-menu-item"
+                      class="item"
+                      id="bg-blur-nav-content"
+                    >
+                      <input
+                        type="range"
+                        id="bg-blur-nav"
+                        min="0"
+                        max="20"
+                        value="2"
+                        oninput="setNavBlur(false, $id('bg-blur-nav').value);"
+                      />
+                      <button class="btn" onclick="setNavBlur();">Reset</button>
+                    </label>
+                    <label for="bg-blur-nav-radio" class="name"
+                      >Top Panel</label
+                    >
+                  </div>
+                </div>
+
+                <input
+                  type="radio"
+                  name="menu-items"
+                  id="bg-img-radio"
+                  class="menu-item-radio"
+                />
+                <label for="def-menu-item" class="item" id="bg-img-content">
+                  <input
+                    type="file"
+                    id="bg-img"
+                    onchange="setBgImg($id('bg-img').files?.[0]);"
+                    accept="image/*"
+                  />
+                  <label for="bg-img" class="btn">Choose a 📸 (Experimental ☠)️</label>
+                  <button class="btn" onclick="loadBg();">Reset</button>
+                </label>
+                <label for="bg-img-radio" class="name">Image</label>
+              </div>
+            </div>
+
+            <div class="slide-down-parent">
+              <input
+                type="checkbox"
+                id="other-slide-down"
+                class="slide-down"
+              /><label
+                for="other-slide-down"
+                class="name"
+                style="--offset: 3.65em"
+                >Other</label
+              >
+              <div class="stuff-to-slide" style="--height: 8.5em">
+                <input
+                  type="radio"
+                  name="menu-items"
+                  id="share-radio"
+                  class="menu-item-radio"
+                />
+                <label
+                  for="def-menu-item"
+                  class="item centered-vertical"
+                  id="save-content"
+                >
+                  <div>
+                    <button class="btn" id="export-btn">Export</button>
+                    <input
+                      type="file"
+                      id="import-inp"
+                      accept="application/json"
+                    />
+                    <label for="import-inp" class="btn">Import</label>
+                  </div>
+
+                  <button class="btn" id="share-btn">Share</button>
+                  <p id="share-status-text"></p>
+                </label>
+                <label for="share-radio" class="name"
+                  >Share (Experimental ☠)️</label
+                >
+
+                <input
+                  type="radio"
+                  name="menu-items"
+                  id="reset-radio"
+                  class="menu-item-radio"
+                />
+                <label
+                  for="def-menu-item"
+                  class="item centered-vertical"
+                  id="reset-content"
+                >
+                  Are you sure you want to do this?
+                  <button class="btn" onclick="resetAll();">
+                    I have thought twice before doing this and I'm sure that
+                    that I want to reset all my configs.
+                  </button>
+                </label>
+                <label for="reset-radio" class="name">Reset</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ind">
+        <div>
+          <input type="radio" name="div" id="a" onchange="radioChange();" />
+          <label for="a" class="btn">A</label>
+        </div>
+
+        <div>
+          <input type="radio" name="div" id="b" onchange="radioChange();" />
+          <label for="b" class="btn">B</label>
+        </div>
+
+        <div>
+          <input type="radio" name="div" id="c" onchange="radioChange();" />
+          <label for="c" class="btn">C</label>
+        </div>
+      </div>
+    </nav>
+
+    <header>
+      <h1>XA</h1>
+    </header>
+
+    <main>
+      <ol class="cards">
+        <li class="card link-card">
+          <h2>Today:</h2>
+          <ol>
+            <li>😴</li>
+          </ol>
+        </li>
+
+        <li class="card ind-card">
+          <table class="xa resp-table" id="curr">
+            <tr>
+              <th></th>
+              <th>8:05 - 8:45</th>
+              <th>8:50 - 9:20</th>
+              <th>9:30 - 10:00</th>
+              <th>11:00 - 12:00</th>
+            </tr>
+
+            <tr>
+              <td>Mon</td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/ba3dphyuef" class="btn"
+                  >Hindi</a
+                >
+              </td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/csbo4txlho" class="btn"
+                  >English</a
+                >
+              </td>
+            </tr>
+
+            <tr>
+              <td>Tues</td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/ghjj26z6b2" class="btn"
+                  >Geography</a
+                >
+              </td>
+
+              <td>
+                <form>
+                  <select name="third-lang" class="dropdown">
+                    <option value="https://meet.google.com/lookup/d43bb5nwzr">
+                      French
+                    </option>
+                    <option value="https://meet.google.com/sjd-kwxc-fpz">
+                      Konkani
+                    </option>
+                    <option value="https://meet.google.com/lookup/dsccugmofj">
+                      Marathi
+                    </option>
+                    <option value="https://meet.google.com/cpd-qptt-evr">
+                      Portuguese
+                    </option>
+                    <option value="https://meet.google.com/lookup/d3eyhavblw">
+                      Sanskrit
+                    </option>
+                  </select>
+                  <a href="#" class="btn go-btn">Join</a>
+                </form>
+              </td>
+
+              <td>
+                <a href="https://meet.google.com/afo-epwg-pin" class="btn"
+                  >Theatre Art</a
+                >
+              </td>
+
+              <td>
+                <a href="https://meet.google.com/cpd-qptt-evr" class="btn"
+                  >Portuguese</a
+                >
+              </td>
+            </tr>
+
+            <tr>
+              <td>Wed</td>
+              <td>
+                <a href="https://meet.google.com/lookup/f3agfhr5us" class="btn"
+                  >Science</a
+                >
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/amy2ejmjly" class="btn"
+                  >Maths</a
+                >
+              </td>
+            </tr>
+
+            <tr>
+              <td>Thurs</td>
+              <td>
+                <a href="https://meet.google.com/lookup/bi5amy3nrm" class="btn"
+                  >History</a
+                >
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/csbo4txlho" class="btn"
+                  >English</a
+                >
+              </td>
+              <td></td>
+              <td>
+                <a href="https://meet.google.com/cpd-qptt-evr" class="btn"
+                  >Portuguese</a
+                >
+              </td>
+            </tr>
+
+            <tr>
+              <td>Fri</td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/fzictox2lr" class="btn"
+                  >Computers</a
+                >
+              </td>
+
+              <td>
+                <form>
+                  <select name="third-lang" class="dropdown">
+                    <option value="https://meet.google.com/lookup/d43bb5nwzr">
+                      French
+                    </option>
+                    <option value="https://meet.google.com/sjd-kwxc-fpz">
+                      Konkani
+                    </option>
+                    <option value="https://meet.google.com/lookup/dsccugmofj">
+                      Marathi
+                    </option>
+                    <option value="https://meet.google.com/cpd-qptt-evr">
+                      Portuguese
+                    </option>
+                    <option value="https://meet.google.com/lookup/d3eyhavblw">
+                      Sanskrit
+                    </option>
+                  </select>
+                  <a href="#" class="btn go-btn">Join</a>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Sat</td>
+              <td>
+                <a href="https://meet.google.com/lookup/amy2ejmjly" class="btn"
+                  >Maths</a
+                >
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/f3agfhr5us" class="btn"
+                  >Science</a
+                >
+              </td>
+              <td></td>
+              <td>
+                <a href="https://meet.google.com/cpd-qptt-evr" class="btn"
+                  >Portuguese</a
+                >
+              </td>
+            </tr>
+          </table>
+
+          <table class="xb resp-table">
+            <tr>
+              <th></th>
+              <th>8:05 - 8:45</th>
+              <th>8:50 - 9:20</th>
+              <th>11:00 - 12:00</th>
+            </tr>
+
+            <tr>
+              <td>Mon</td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/heazi36273" class="btn"
+                  >Science</a
+                >
+              </td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/a3n6nzygjg" class="btn"
+                  >Maths</a
+                >
+              </td>
+            </tr>
+
+            <tr>
+              <td>Tues</td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/fdqw6zuxxb" class="btn"
+                  >English</a
+                >
+              </td>
+
+              <td>
+                <form>
+                  <select name="third-lang" class="dropdown">
+                    <option value="https://meet.google.com/lookup/d43bb5nwzr">
+                      French
+                    </option>
+                    <option value="https://meet.google.com/sjd-kwxc-fpz">
+                      Konkani
+                    </option>
+                    <option value="https://meet.google.com/lookup/dsccugmofj">
+                      Marathi
+                    </option>
+                    <option value="https://meet.google.com/cpd-qptt-evr">
+                      Portuguese
+                    </option>
+                    <option value="https://meet.google.com/lookup/d3eyhavblw">
+                      Sanskrit
+                    </option>
+                  </select>
+                  <a href="#" class="btn go-btn">Join</a>
+                </form>
+              </td>
+
+              <td>
+                <a href="https://meet.google.com/cpd-qptt-evr" class="btn"
+                  >Portuguese</a
+                >
+              </td>
+            </tr>
+
+            <tr>
+              <td>Wed</td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/exdkrn5vqr" class="btn"
+                  >Hindi</a
+                >
+              </td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/dkyzzsy37t" class="btn"
+                  >Computers</a
+                >
+              </td>
+            </tr>
+
+            <tr>
+              <td>Thurs</td>
+              <td>
+                <a href="https://meet.google.com/lookup/crltrgkyd2" class="btn"
+                  >Geography</a
+                >
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/a3n6nzygjg" class="btn"
+                  >Maths</a
+                >
+              </td>
+              <td>
+                <a href="https://meet.google.com/cpd-qptt-evr" class="btn"
+                  >Portuguese</a
+                >
+              </td>
+            </tr>
+
+            <tr>
+              <td>Fri</td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/heazi36273" class="btn"
+                  >Science</a
+                >
+              </td>
+
+              <td>
+                <form>
+                  <select name="third-lang" class="dropdown">
+                    <option value="https://meet.google.com/lookup/d43bb5nwzr">
+                      French
+                    </option>
+                    <option value="https://meet.google.com/sjd-kwxc-fpz">
+                      Konkani
+                    </option>
+                    <option value="https://meet.google.com/lookup/dsccugmofj">
+                      Marathi
+                    </option>
+                    <option value="https://meet.google.com/cpd-qptt-evr">
+                      Portuguese
+                    </option>
+                    <option value="https://meet.google.com/lookup/d3eyhavblw">
+                      Sanskrit
+                    </option>
+                  </select>
+                  <a href="#" class="btn go-btn">Join</a>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Sat</td>
+              <td>
+                <a href="https://meet.google.com/lookup/fdqw6zuxxb" class="btn"
+                  >English</a
+                >
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/c2tq3lhb73" class="btn"
+                  >History</a
+                >
+              </td>
+              <td>
+                <a href="https://meet.google.com/cpd-qptt-evr" class="btn"
+                  >Portuguese</a
+                >
+              </td>
+            </tr>
+          </table>
+
+          <table class="xc resp-table">
+            <tr>
+              <th></th>
+              <th>8:05 - 8:45</th>
+              <th>8:50 - 9:20</th>
+              <th>9:30 - 10:00</th>
+              <th>11:00 - 12:00</th>
+            </tr>
+
+            <tr>
+              <td>Mon</td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/dhhdbljw7p" class="btn"
+                  >Maths</a
+                >
+              </td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/athm2fgbi4" class="btn"
+                  >Geography</a
+                >
+              </td>
+            </tr>
+
+            <tr>
+              <td>Tues</td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/brikqaardn" class="btn"
+                  >History</a
+                >
+              </td>
+
+              <td>
+                <form>
+                  <select name="third-lang" class="dropdown">
+                    <option value="https://meet.google.com/lookup/d43bb5nwzr">
+                      French
+                    </option>
+                    <option value="https://meet.google.com/sjd-kwxc-fpz">
+                      Konkani
+                    </option>
+                    <option value="https://meet.google.com/lookup/dsccugmofj">
+                      Marathi
+                    </option>
+                    <option value="https://meet.google.com/cpd-qptt-evr">
+                      Portuguese
+                    </option>
+                    <option value="https://meet.google.com/lookup/d3eyhavblw">
+                      Sanskrit
+                    </option>
+                  </select>
+                  <a href="#" class="btn go-btn">Join</a>
+                </form>
+              </td>
+
+              <td>
+                <a href="https://meet.google.com/afo-epwg-pin" class="btn"
+                  >Theatre Art</a
+                >
+              </td>
+
+              <td>
+                <a href="https://meet.google.com/cpd-qptt-evr" class="btn"
+                  >Portuguese</a
+                >
+              </td>
+            </tr>
+
+            <tr>
+              <td>Wed</td>
+              <td>
+                <a href="https://meet.google.com/lookup/cmr6jiktk6" class="btn"
+                  >English</a
+                >
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/fhoqwyuoe3" class="btn"
+                  >Science</a
+                >
+              </td>
+            </tr>
+
+            <tr>
+              <td>Thurs</td>
+              <td>
+                <a href="https://meet.google.com/lookup/ddtdieyng3" class="btn"
+                  >Hindi</a
+                >
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/bvlsanlolu" class="btn"
+                  >Computers</a
+                >
+              </td>
+              <td></td>
+              <td>
+                <a href="https://meet.google.com/cpd-qptt-evr" class="btn"
+                  >Portuguese</a
+                >
+              </td>
+            </tr>
+
+            <tr>
+              <td>Fri</td>
+
+              <td>
+                <a href="https://meet.google.com/lookup/dhhdbljw7p" class="btn"
+                  >Maths</a
+                >
+              </td>
+
+              <td>
+                <form>
+                  <select name="third-lang" class="dropdown">
+                    <option value="https://meet.google.com/lookup/d43bb5nwzr">
+                      French
+                    </option>
+                    <option value="https://meet.google.com/sjd-kwxc-fpz">
+                      Konkani
+                    </option>
+                    <option value="https://meet.google.com/lookup/dsccugmofj">
+                      Marathi
+                    </option>
+                    <option value="https://meet.google.com/cpd-qptt-evr">
+                      Portuguese
+                    </option>
+                    <option value="https://meet.google.com/lookup/d3eyhavblw">
+                      Sanskrit
+                    </option>
+                  </select>
+                  <a href="#" class="btn go-btn">Join</a>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Sat</td>
+              <td>
+                <a href="https://meet.google.com/lookup/fhoqwyuoe3" class="btn"
+                  >Science</a
+                >
+              </td>
+              <td>
+                <a href="https://meet.google.com/lookup/cmr6jiktk6" class="btn"
+                  >English</a
+                >
+              </td>
+              <td></td>
+              <td>
+                <a href="https://meet.google.com/cpd-qptt-evr" class="btn"
+                  >Portuguese</a
+                >
+              </td>
+            </tr>
+          </table>
+        </li>
+      </ol>
+    </main>
+
+    <button class="install btn active">Install</button>
+
+    <footer>
+      <section>
+        Creator: Mayank Shigaonker -
+        <a
+          href="mailto:shigoankerMayank@gmail.com"
+          target="_blank"
+          rel="noopener"
+          >shigoankerMayank@gmail.com</a
+        >
+      </section>
+
+      <section>
+        Credits:
+        <ul class="indented-list">
+          <li>Advait Kerkar - XC timetable.</li>
+          <li>Dhruv Dalgalkar - Konkani link.</li>
+          <li>Harinand Vaikathukattil Biju - French link.</li>
+          <li>Mayuresh Fadte - XC links and Marathi link.</li>
+          <li>
+            Sam Afonso - XA timetable and links, Portuguese link and Theatre Art
+            link.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        This project is open source and code can be found on
+        <a
+          href="https://github.com/MasterMynk/SchoolWork"
+          target="_blank"
+          rel="noopener"
+          >Github</a
+        >
+        <br />
+        Email
+        <a
+          href="mailto:shigaonkerMayank@gmail.com"
+          target="_blank"
+          rel="noopener"
+          >me</a
+        >
+        for any feature ideas or queries.
+      </section>
+    </footer>
+
+    <a href="https://meet.google.com/kaq-rshg-tmz" class="btn">Test</a>
+  </body>
+</html>
