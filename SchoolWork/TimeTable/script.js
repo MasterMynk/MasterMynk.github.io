@@ -129,40 +129,32 @@ function navInit() {
   });
 }
 
-function thirdLangInit() {
-  return new Promise((resolve) => {
-    if ($('[name="third-lang"].dropdown')) {
-      const prefLang = localStorage.getItem("thirdLang");
+function goBtnUpdate() {
+  $$("#curr .go-btn, .link-card .go-btn").forEach((btn) =>
+    btn.addEventListener("mousedown", () =>
+      Array.from(btn.previousElementSibling.children).every((opt) => {
+        if (opt.selected) {
+          btn.href = opt.value;
+          localStorage.setItem("thirdLang", opt.innerText.trim());
+          return false;
+        }
+        return true;
+      })
+    )
+  );
+}
 
-      prefLang &&
-        $$('[name="third-lang"].dropdown > option').forEach(
-          (opt) => (opt.selected = opt.innerText.trim() === prefLang)
-        );
-    }
+function thirdLangDefSet() {
+  if ($('[name="third-lang"].dropdown')) {
+    const prefLang = localStorage.getItem("thirdLang");
 
-    Array.from($$cl("go-btn")) // Get all 3rd language buttons
-      .forEach((goBtns) =>
-        goBtns.addEventListener(
-          "click", // For each button add a click event listener
-          (ev) => {
-            const goBtn = ev.target;
+    prefLang &&
+      $$(
+        ':is(#curr, .link-card) [name="third-lang"].dropdown > option'
+      ).forEach((opt) => (opt.selected = opt.innerText.trim() === prefLang));
+  }
 
-            // Set the clicked go button's link to
-            // the value of the select element of the button
-            goBtn.setAttribute("href", goBtn.previousElementSibling.value);
-
-            // Set this as the default language now
-            localStorage.setItem(
-              "thirdLang",
-              $(
-                `option[value="${goBtn.previousElementSibling.value}"]`
-              ).innerText.trim()
-            );
-          }
-        )
-      );
-    resolve();
-  });
+  console.log("Thirdlang finished");
 }
 
 function setDataTime(mobile = false) {
@@ -280,7 +272,8 @@ function update() {
               );
 
               statusLogic(timeDetails, timingAndStatus.children[1], btn);
-
+              // console.dir(btn.firstElementChild?.children[2]);
+              // console.dir(btn.cloneNode(true).firstElementChild?.children[2]);
               li.appendChild(btn.cloneNode(true));
 
               return li;
@@ -289,7 +282,10 @@ function update() {
       });
 
       $cl("link-card").appendChild(ol);
+      goBtnUpdate();
+      thirdLangDefSet();
     }
+    console.log("Update finisehd");
     resolve();
   });
 }
@@ -306,7 +302,7 @@ function radioChange(callUpdate = true) {
         $("h1").innerText = currClass;
         $id("curr").removeAttribute("id");
         $(`.${currClass.toLowerCase()}`).setAttribute("id", "curr");
-        if (callUpdate) callUpdate && (await update());
+        callUpdate && (await update());
         return false;
       }
       return true;
@@ -617,7 +613,6 @@ installBtnInit();
 navInit()
   .then(() => radioChange(false))
   .then(update);
-thirdLangInit();
 
 window
   .matchMedia("(max-width: 770px)")
