@@ -133,7 +133,7 @@ nav {
 }
 
 .btn:is(:hover, :focus, .active),
-.active.btn > .go-btn,
+:is(.active.btn, form.active) > .go-btn,
 ul.active .btn {
   border-color: rgb(var(--main-clr)) !important;
   background-color: rgb(var(--main-clr)) !important;
