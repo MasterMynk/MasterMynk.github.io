@@ -422,7 +422,7 @@ window.onload = async () => {
         changed: false,
       },
     };
-    let config = JSON.parse(localStorage.getItem("config")) || saveConfig();
+    let config;
     const app = initializeApp({
       apiKey: "AIzaSyBq1PAXNffXeRF4D4oz_8nQrtSOOxj5aJM",
       authDomain: "timetable-323817.firebaseapp.com",
@@ -434,7 +434,7 @@ window.onload = async () => {
     });
     const db = getFirestore();
 
-    await checkAndLoadNewConfig();
+    await setConfig();
 
     for (const val in defConfig) config[val] ?? (config[val] = defConfig[val]);
 
@@ -508,11 +508,15 @@ window.onload = async () => {
       return `TimetableConf${(date = newDate())}.json`;
     }
 
-    async function checkAndLoadNewConfig() {
+    async function setConfig() {
+      const getConf = () =>
+        JSON.parse(localStorage.getItem("config")) || saveConfig();
+
       const configName = new URL(location).searchParams.get("configName");
-      if (configName)
+      if (!configName) config = getConf();
+      else
         config =
-          (await getDoc(doc(db, "configs", configName))).data() || config;
+          (await getDoc(doc(db, "configs", configName))).data() || getConf();
     }
 
     function mainClrInit() {
