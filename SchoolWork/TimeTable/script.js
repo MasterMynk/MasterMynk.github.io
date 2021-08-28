@@ -725,11 +725,15 @@ if (shareBtn) {
     shareThrobber.style.display = "unset";
 
     // If that name already exists
-    if ((await getDoc(doc(db, "configs", configName))).exists())
-      problem(`Alredy a config named "${configName}"`);
-    else {
-      problem("", false);
-      await setDoc(doc(db, "configs", configName), config);
+    try {
+      if ((await getDoc(doc(db, "configs", configName))).exists())
+        problem(`Alredy a config named "${configName}"`);
+      else {
+        problem("", false);
+        await setDoc(doc(db, "configs", configName), config);
+      }
+    } catch (e) {
+      problem(`I failed :( -- The problem: "${e.message}"`);
     }
     shareThrobber.style.display = "none";
   });
