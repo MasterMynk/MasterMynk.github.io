@@ -21,6 +21,7 @@ html {
   --card-border-rad: 15px;
   --btn-border-rad: 30px;
   --btn-bg-clr: rgba(10, 10, 10, 0.5);
+  --nav-bg-blur: 2px;
 
   scroll-padding: 6vh;
   scroll-behavior: smooth;
@@ -56,7 +57,7 @@ nav {
   padding: var(--nav-y-padding) var(--nav-x-padding);
   align-items: center;
   justify-content: space-between;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(var(--nav-bg-blur));
   background-color: rgb(30, 30, 30);
   position: sticky;
   top: 0;
