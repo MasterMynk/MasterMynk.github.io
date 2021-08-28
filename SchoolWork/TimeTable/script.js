@@ -849,7 +849,7 @@ window.onload = async () => {
           // If that name already exists
           if ((await getDoc(doc(db, "configs", configName))).exists()) {
             shareStatus(
-              `${configName} already exists. Do you want to share this?`
+              `${configName} already exists. Do you want to use this instead?`
             );
 
             applyBtn.style.setProperty("display", "unset");

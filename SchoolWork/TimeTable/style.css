@@ -338,6 +338,7 @@ td .go-btn {
 
 .prob {
   color: crimson;
+  text-align: center;
 }
 
 .prob::before {
