@@ -432,7 +432,7 @@ window.onload = async () => {
         changed: false,
       },
     };
-    let config = await setConfig();
+    let config = await getConf();
 
     for (const val in defConfig) config[val] ?? (config[val] = defConfig[val]);
 
@@ -506,17 +506,17 @@ window.onload = async () => {
       return `TimetableConf${(date = newDate())}.json`;
     }
 
-    async function setConfig() {
-      const getConf = () =>
+    async function getConf() {
+      const getConf_impl = () =>
         JSON.parse(localStorage.getItem("config")) || saveConfig();
 
       const configName = new URL(location).searchParams.get("configName");
-      if (!configName) return getConf();
+      if (!configName) return getConf_impl();
       else {
         const data = (await getDoc(doc(db, "configs", configName))).data();
 
         console.log(data);
-        return data || getConf();
+        return saveConfig(data) || getConf_impl();
       }
     }
 
