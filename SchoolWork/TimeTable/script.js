@@ -393,6 +393,16 @@ window.onload = async () => {
   divRadioInit();
 
   if ($cl("menu-content")) {
+    const app = initializeApp({
+      apiKey: "AIzaSyBq1PAXNffXeRF4D4oz_8nQrtSOOxj5aJM",
+      authDomain: "timetable-323817.firebaseapp.com",
+      projectId: "timetable-323817",
+      storageBucket: "timetable-323817.appspot.com",
+      messagingSenderId: "1046463361656",
+      appId: "1:1046463361656:web:4e319d0cdee68bcc43738d",
+      measurementId: "G-CMVGLKFCF6",
+    });
+    const db = getFirestore();
     const defConfig = {
       mainClr: "211, 84, 0",
       borderRad: {
@@ -422,19 +432,7 @@ window.onload = async () => {
         changed: false,
       },
     };
-    let config;
-    const app = initializeApp({
-      apiKey: "AIzaSyBq1PAXNffXeRF4D4oz_8nQrtSOOxj5aJM",
-      authDomain: "timetable-323817.firebaseapp.com",
-      projectId: "timetable-323817",
-      storageBucket: "timetable-323817.appspot.com",
-      messagingSenderId: "1046463361656",
-      appId: "1:1046463361656:web:4e319d0cdee68bcc43738d",
-      measurementId: "G-CMVGLKFCF6",
-    });
-    const db = getFirestore();
-
-    await setConfig();
+    let config = await setConfig();
 
     for (const val in defConfig) config[val] ?? (config[val] = defConfig[val]);
 
@@ -513,10 +511,13 @@ window.onload = async () => {
         JSON.parse(localStorage.getItem("config")) || saveConfig();
 
       const configName = new URL(location).searchParams.get("configName");
-      if (!configName) config = getConf();
-      else
-        config =
-          (await getDoc(doc(db, "configs", configName))).data() || getConf();
+      if (!configName) return getConf();
+      else {
+        const data = (await getDoc(doc(db, "configs", configName))).data();
+
+        console.log(data);
+        return data || getConf();
+      }
     }
 
     function mainClrInit() {
@@ -824,7 +825,7 @@ window.onload = async () => {
       configNameInp.addEventListener("input", () => shareStatus("", "go"));
 
       $id("create-link-btn").addEventListener("click", async () => {
-        let configName = configNameInp.value;
+        const configName = configNameInp.value;
 
         // If nothing is entered
         if (!configName) return shareStatus("Name is compulsory");
@@ -832,12 +833,11 @@ window.onload = async () => {
         const shareThrobber = $id("share-throbber");
         shareThrobber.style.display = "unset";
 
-        configName = encodeURIComponent(configName);
         const shareURL = `${
           location.href.includes("?")
             ? location.href.slice(0, location.href.indexOf("?"))
             : location.href
-        }?configName=${configName}`;
+        }?configName=${encodeURIComponent(configName)}`;
         try {
           shareStatus("Checking name availability", "wait");
           // If that name already exists
@@ -847,6 +847,7 @@ window.onload = async () => {
             );
           } else {
             shareStatus("Uploading config", "wait");
+            console.log(config.mainClr);
             await setDoc(doc(db, "configs", configName), config);
             shareStatus("✓ Ready to Share", "go");
           }
