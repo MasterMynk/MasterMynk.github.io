@@ -824,6 +824,12 @@ window.onload = async () => {
       const configNameInp = $id("share-config-name");
       configNameInp.addEventListener("input", () => shareStatus("", "go"));
 
+      const applyBtn = $id("apply-btn");
+      applyBtn.addEventListener("click", async () => {
+        config = (await getDoc(doc(db, "configs", configNameInp.value))).data();
+        location.reload();
+      });
+
       $id("create-link-btn").addEventListener("click", async () => {
         const configName = configNameInp.value;
 
@@ -845,9 +851,12 @@ window.onload = async () => {
             shareStatus(
               `${configName} already exists. Do you want to share this?`
             );
+
+            applyBtn.style.setProperty("display", "unset");
           } else {
+            applyBtn.style.setProperty("display", "none");
+
             shareStatus("Uploading config", "wait");
-            console.log(config.mainClr);
             await setDoc(doc(db, "configs", configName), config);
             shareStatus("✓ Ready to Share", "go");
           }
