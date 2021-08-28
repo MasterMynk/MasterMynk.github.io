@@ -818,78 +818,74 @@ window.onload = async () => {
     }
 
     async function shareBtnInit() {
-            const errorText = $id("share-status-text");
+      const errorText = $id("share-status-text");
 
-            const configNameInp = $id("share-config-name");
-            configNameInp.addEventListener("input", () =>
-              shareStatus("", "go")
+      const configNameInp = $id("share-config-name");
+      configNameInp.addEventListener("input", () => shareStatus("", "go"));
+
+      $id("create-link-btn").addEventListener("click", async () => {
+        let configName = configNameInp.value;
+
+        // If nothing is entered
+        if (!configName) return shareStatus("Name is compulsory");
+
+        const shareThrobber = $id("share-throbber");
+        shareThrobber.style.display = "unset";
+
+        configName = encodeURIComponent(configName);
+        const shareURL = `${
+          location.href.includes("?")
+            ? location.href.slice(0, location.href.indexOf("?"))
+            : location.href
+        }?configName=${configName}`;
+        try {
+          shareStatus("Checking name availability", "wait");
+          // If that name already exists
+          if ((await getDoc(doc(db, "configs", configName))).exists()) {
+            shareStatus(
+              `${configName} already exists. Do you want to share this?`
             );
+          } else {
+            shareStatus("Uploading config", "wait");
+            await setDoc(doc(db, "configs", configName), config);
+            shareStatus("✓ Ready to Share", "go");
+          }
+        } catch (e) {
+          shareStatus(`I failed :( -- The problem: "${e.message}"`);
+        }
+        activateShareBtn(shareURL);
 
-            $id("create-link-btn").addEventListener("click", async () => {
-              let configName = configNameInp.value;
+        shareThrobber.style.display = "none";
+      });
 
-              // If nothing is entered
-              if (!configName) return shareStatus("Name is compulsory");
+      function shareStatus(error, className = "prob") {
+        errorText.innerText = error;
 
-              const shareThrobber = $id("share-throbber");
-              shareThrobber.style.display = "unset";
+        errorText.removeAttribute("class");
+        errorText.classList.add(className);
+        errorText.style.setProperty("display", error ? "unset" : "none");
+      }
 
-              configName = encodeURIComponent(configName);
-              const shareURL = `${
-                location.href.includes("?")
-                  ? location.href.slice(0, location.href.indexOf("?"))
-                  : location.href
-              }?configName=${configName}`;
-              try {
-                shareStatus("Checking name availability", "wait");
-                // If that name already exists
-                if ((await getDoc(doc(db, "configs", configName))).exists()) {
-                  shareStatus(
-                    `${configName} already exists. Do you want to share it?`
-                  );
-                } else {
-                  shareStatus("Uploading config", "wait");
-                  await setDoc(doc(db, "configs", configName), config);
-                }
-              } catch (e) {
-                shareStatus(`I failed :( -- The problem: "${e.message}"`);
+      function activateShareBtn(shareURL = location.pathname) {
+        const shareBtn = $id("share-btn");
+
+        shareBtn.style.setProperty("display", "unset");
+        shareBtn.addEventListener(
+          "click",
+          "canShare" in navigator
+            ? () => {
+                shareStatus("✓ Upload successful", "go");
+                navigator.share({
+                  text: "Click me!!",
+                  url: shareURL,
+                });
               }
-              activateShareBtn(shareURL);
-
-              shareThrobber.style.display = "none";
-            });
-
-            function shareStatus(error, className = "prob") {
-              errorText.innerText = error;
-
-              errorText.removeAttribute("class");
-              errorText.classList.add(className);
-              errorText.style.setProperty("display", error ? "unset" : "none");
-            }
-
-            function activateShareBtn(shareURL = location.pathname) {
-              const shareBtn = $id("share-btn");
-
-              shareBtn.style.setProperty("display", "unset");
-              shareBtn.addEventListener(
-                "click",
-                "canShare" in navigator
-                  ? () => {
-                      shareStatus("✓ Upload successful", "go");
-                      navigator.share({
-                        text: "Click me!!",
-                        url: shareURL,
-                      });
-                    }
-                  : async () => {
-                      await navigator.clipboard.writeText(shareURL);
-                      shareStatus(
-                        "✓ Share the link copied to your clipboard",
-                        "go"
-                      );
-                    }
-              );
-            }
+            : async () => {
+                await navigator.clipboard.writeText(shareURL);
+                shareStatus("✓ Share the link copied to your clipboard", "go");
+              }
+        );
+      }
     }
   }
 };
