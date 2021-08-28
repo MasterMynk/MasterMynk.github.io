@@ -814,56 +814,78 @@ window.onload = async () => {
     }
 
     async function shareBtnInit() {
-      const errorText = $id("share-status-text");
-      function shareStatus(error, className = "prob") {
-        errorText.innerText = error;
+            const errorText = $id("share-status-text");
 
-        errorText.removeAttribute("class");
-        errorText.classList.add(className);
-      }
+            const configNameInp = $id("share-config-name");
+            configNameInp.addEventListener("input", () =>
+              shareStatus("", "go")
+            );
 
-      const configNameInp = $id("share-config-name");
-      configNameInp.addEventListener("input", () => shareStatus("", "go"));
+            $id("create-link-btn").addEventListener("click", async () => {
+              let configName = configNameInp.value;
 
-      $id("share-btn").addEventListener("click", async () => {
-        let configName = configNameInp.value;
+              // If nothing is entered
+              if (!configName) return shareStatus("Name is compulsory");
 
-        // If nothing is entered
-        if (!configName) return shareStatus("Name is compulsory");
+              const shareThrobber = $id("share-throbber");
+              shareThrobber.style.display = "unset";
 
-        const shareThrobber = $id("share-throbber");
-        shareThrobber.style.display = "unset";
+              configName = encodeURIComponent(configName);
+              const shareURL = `${
+                location.href.includes("?")
+                  ? location.href.slice(0, location.href.indexOf("?"))
+                  : location.href
+              }?configName=${configName}`;
+              try {
+                shareStatus("Checking name availability", "wait");
+                // If that name already exists
+                if ((await getDoc(doc(db, "configs", configName))).exists()) {
+                  shareStatus(
+                    `${configName} already exists. Do you want to share it?`
+                  );
+                } else {
+                  shareStatus("Uploading config", "wait");
+                  await setDoc(doc(db, "configs", configName), config);
+                }
+              } catch (e) {
+                shareStatus(`I failed :( -- The problem: "${e.message}"`);
+              }
+              activateShareBtn(shareURL);
 
-        configName = encodeURIComponent(configName);
-        try {
-          shareStatus("Checking name availability", "wait");
-          // If that name already exists
-          if ((await getDoc(doc(db, "configs", configName))).exists())
-            shareStatus(`Alredy a config named "${configName}"`);
-          else {
-            shareStatus("Uploading config", "wait");
-            await setDoc(doc(db, "configs", configName), config);
+              shareThrobber.style.display = "none";
+            });
 
-            const shareURL = `${location.href}?configName=${configName}`;
+            function shareStatus(error, className = "prob") {
+              errorText.innerText = error;
 
-            if ("canShare" in navigator) {
-              shareStatus("✓ Upload successful", "go");
-              navigator
-                .share({
-                  text: "Click me!!",
-                  url: shareURL,
-                })
-                .catch((e) => alert(e.message));
-            } else {
-              await navigator.clipboard.writeText(shareURL);
-              shareStatus("✓ Share the link copied to your clipboard", "go");
+              errorText.removeAttribute("class");
+              errorText.classList.add(className);
+              errorText.style.setProperty("display", error ? "unset" : "none");
             }
-          }
-        } catch (e) {
-          shareStatus(`I failed :( -- The problem: "${e.message}"`);
-        }
-        shareThrobber.style.display = "none";
-      });
+
+            function activateShareBtn(shareURL = location.pathname) {
+              const shareBtn = $id("share-btn");
+
+              shareBtn.style.setProperty("display", "unset");
+              shareBtn.addEventListener(
+                "click",
+                "canShare" in navigator
+                  ? () => {
+                      shareStatus("✓ Upload successful", "go");
+                      navigator.share({
+                        text: "Click me!!",
+                        url: shareURL,
+                      });
+                    }
+                  : async () => {
+                      await navigator.clipboard.writeText(shareURL);
+                      shareStatus(
+                        "✓ Share the link copied to your clipboard",
+                        "go"
+                      );
+                    }
+              );
+            }
     }
   }
 };
