@@ -693,12 +693,12 @@ window.onunload = () => {
 const shareBtn = $id("share-btn");
 
 if (shareBtn) {
-  const errorText = $id("share-error-text");
-  function problem(error, isThere = true) {
+  const errorText = $id("share-status-text");
+  function shareStatus(error, className = "prob") {
     errorText.innerText = error;
-    isThere
-      ? errorText.classList.add("prob")
-      : errorText.classList.remove("prob");
+
+    errorText.removeAttribute("class");
+    errorText.classList.add(className);
   }
 
   const app = initializeApp({
@@ -713,27 +713,41 @@ if (shareBtn) {
   const db = getFirestore();
 
   const configNameInp = $id("share-config-name");
-  configNameInp.addEventListener("input", () => problem("", false));
+  configNameInp.addEventListener("input", () => shareStatus("", "go"));
 
   shareBtn.addEventListener("click", async () => {
     const configName = configNameInp.value;
 
     // If nothing is entered
-    if (!configName) return problem("Name is compulsory");
+    if (!configName) return shareStatus("Name is compulsory");
 
     const shareThrobber = $id("share-throbber");
     shareThrobber.style.display = "unset";
 
     // If that name already exists
     try {
+      shareStatus("Checking name availability", "wait");
       if ((await getDoc(doc(db, "configs", configName))).exists())
-        problem(`Alredy a config named "${configName}"`);
+        shareStatus(`Alredy a config named "${configName}"`);
       else {
-        problem("", false);
+        shareStatus("Uploading config", "wait");
         await setDoc(doc(db, "configs", configName), config);
+
+        const shareURL = `${location.href}?configName=${configName}`;
+
+        if ("canShare" in navigator) {
+          shareStatus("✓ Upload successful", "go");
+          navigator.share({
+            text: "Click me!!",
+            url: shareURL,
+          });
+        } else {
+          await navigator.clipboard.writeText(shareURL);
+          shareStatus("✓ Share the link copied to your clipboard", "go");
+        }
       }
     } catch (e) {
-      problem(`I failed :( -- The problem: "${e.message}"`);
+      shareStatus(`I failed :( -- The problem: "${e.message}"`);
     }
     shareThrobber.style.display = "none";
   });

@@ -328,11 +328,11 @@ td .go-btn {
   font-weight: 700;
 }
 
-.status.go {
+.go {
   color: limegreen;
 }
 
-.status.wait {
+.wait {
   color: yellow;
 }
 

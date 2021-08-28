@@ -24,7 +24,7 @@ self.addEventListener("fetch", (ev) => {
     ev.request.method == "GET" &&
     toCache.some((elem) => ev.request.url.includes(elem))
   ) {
-    console.log(`${ev.request.method} Request for ${ev.request.url}`);
+    // console.log(`${ev.request.method} Request for ${ev.request.url}`);
     ev.respondWith(
       get(ev.request).then((stuff) =>
         stuff
