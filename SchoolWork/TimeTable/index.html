@@ -52,13 +52,7 @@
       href="/SchoolWork/TimeTable/icons/logo512.svg"
     />
 
-    <script src="/SchoolWork/TimeTable/script.js" defer></script>
-
-    <style>
-      .thank-you-text {
-        font-size: 0.7em;
-      }
-    </style>
+    <script src="/SchoolWork/TimeTable/script.js" defer type="module"></script>
   </head>
 
   <body>
@@ -448,11 +442,11 @@
                 style="--offset: 3.65em"
                 >Other</label
               >
-              <div class="stuff-to-slide" style="--height: 8.5em">
+              <div class="stuff-to-slide" style="--height: 10.5em">
                 <input
                   type="radio"
                   name="menu-items"
-                  id="share-radio"
+                  id="import-export-radio"
                   class="menu-item-radio"
                 />
                 <label
@@ -469,8 +463,28 @@
                     />
                     <label for="import-inp" class="btn">Import</label>
                   </div>
+                </label>
+                <label for="import-export-radio" class="name"
+                  >Import/Export</label
+                >
 
-                  <button class="btn" id="share-btn">Share</button>
+                <input
+                  type="radio"
+                  name="menu-items"
+                  id="share-radio"
+                  class="menu-item-radio"
+                />
+                <label
+                  for="def-menu-item"
+                  class="item centered-vertical"
+                  id="save-content"
+                >
+                  <p id="share-error-text"></p>
+                  <div>
+                    <input type="text" id="share-config-name" placeholder="Name">
+                    <button class="btn" id="share-btn">Share</button>
+                  </div>
+                  <div class="back-and-forth-throbber" id="share-throbber" style="display: none;"></div>
                   <p id="share-status-text"></p>
                 </label>
                 <label for="share-radio" class="name"

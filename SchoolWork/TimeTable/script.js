@@ -1,3 +1,11 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+import {
+  getFirestore,
+  setDoc,
+  getDoc,
+  doc,
+} from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+
 const defConfig = {
   mainClr: "211, 84, 0",
   borderRad: {
@@ -153,8 +161,6 @@ function thirdLangDefSet() {
         ':is(#curr, .link-card) [name="third-lang"].dropdown > option'
       ).forEach((opt) => (opt.selected = opt.innerText.trim() === prefLang));
   }
-
-  console.log("Thirdlang finished");
 }
 
 function setDataTime(mobile = false) {
@@ -272,8 +278,6 @@ function update() {
               );
 
               statusLogic(timeDetails, timingAndStatus.children[1], btn);
-              // console.dir(btn.firstElementChild?.children[2]);
-              // console.dir(btn.cloneNode(true).firstElementChild?.children[2]);
               li.appendChild(btn.cloneNode(true));
 
               return li;
@@ -285,7 +289,6 @@ function update() {
       goBtnUpdate();
       thirdLangDefSet();
     }
-    console.log("Update finisehd");
     resolve();
   });
 }
@@ -623,7 +626,7 @@ if (date.getDay())
   setInterval(statusUpdate, 1 * 1000);
 
 if ($cl("menu-content")) {
-  for (val in defConfig) config[val] ?? (config[val] = defConfig[val]);
+  for (const val in defConfig) config[val] ?? (config[val] = defConfig[val]);
 
   setMainClr(true, config.mainClr || defConfig.mainClr, config);
   setCardBorderRad(
@@ -690,28 +693,44 @@ window.onunload = () => {
 const shareBtn = $id("share-btn");
 
 if (shareBtn) {
-  if ("canShare" in navigator) {
-    $id("share-btn").addEventListener("click", () => {
-      const file = new File([localStorage.getItem("config")], "config.txt", {
-        type: "text/plain",
-      });
-
-      navigator
-        .share({
-          url: location.href,
-          title: "My settings for Google Meet timetable",
-          text: "This are my settings for the timetable. To use them share this file and select timetable in the prompt that comes up. You must have installed the timetable website as an app first",
-          files: [file],
-        })
-        .catch((err) => alert(`${err} occured while sharing.`));
-    });
-  } else {
-    shareBtn.classList.add("greyed");
-    shareBtn.disabled = true;
-
-    const statusText = $id("share-status-text");
-
-    statusText.innerText = "Your browser doesn't support File Sharing";
-    statusText.classList.add("prob");
+  const errorText = $id("share-error-text");
+  function problem(error, isThere = true) {
+    errorText.innerText = error;
+    isThere
+      ? errorText.classList.add("prob")
+      : errorText.classList.remove("prob");
   }
+
+  const app = initializeApp({
+    apiKey: "AIzaSyBq1PAXNffXeRF4D4oz_8nQrtSOOxj5aJM",
+    authDomain: "timetable-323817.firebaseapp.com",
+    projectId: "timetable-323817",
+    storageBucket: "timetable-323817.appspot.com",
+    messagingSenderId: "1046463361656",
+    appId: "1:1046463361656:web:4e319d0cdee68bcc43738d",
+    measurementId: "G-CMVGLKFCF6",
+  });
+  const db = getFirestore();
+
+  const configNameInp = $id("share-config-name");
+  configNameInp.addEventListener("input", () => problem("", false));
+
+  shareBtn.addEventListener("click", async () => {
+    const configName = configNameInp.value;
+
+    // If nothing is entered
+    if (!configName) return problem("Name is compulsory");
+
+    const shareThrobber = $id("share-throbber");
+    shareThrobber.style.display = "unset";
+
+    // If that name already exists
+    if ((await getDoc(doc(db, "configs", configName))).exists())
+      problem(`Alredy a config named "${configName}"`);
+    else {
+      problem("", false);
+      await setDoc(doc(db, "configs", configName), config);
+    }
+    shareThrobber.style.display = "none";
+  });
 }
