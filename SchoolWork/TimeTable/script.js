@@ -494,9 +494,9 @@ window.onload = async () => {
       return rgbStr.join("");
     }
 
-    function saveConfig(config = defConfig) {
-      localStorage.setItem("config", JSON.stringify(config));
-      return config;
+    function saveConfig(configToSave = defConfig) {
+      localStorage.setItem("config", JSON.stringify(configToSave));
+      return configToSave;
     }
 
     function getConfDataURI() {
@@ -511,7 +511,8 @@ window.onload = async () => {
     async function checkAndLoadNewConfig() {
       const configName = new URL(location).searchParams.get("configName");
       if (configName)
-        config = (await getDoc(doc(db, "configs", configName))).data();
+        config =
+          (await getDoc(doc(db, "configs", configName))).data() || config;
     }
 
     function mainClrInit() {
@@ -846,6 +847,7 @@ window.onload = async () => {
             const shareURL = `${location.href}?configName=${configName}`;
 
             if ("canShare" in navigator) {
+              alert("Testing");
               shareStatus("✓ Upload successful", "go");
               navigator.share({
                 text: "Click me!!",
