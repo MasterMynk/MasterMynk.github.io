@@ -626,6 +626,21 @@ if (date.getDay())
   setInterval(statusUpdate, 1 * 1000);
 
 if ($cl("menu-content")) {
+  const app = initializeApp({
+    apiKey: "AIzaSyBq1PAXNffXeRF4D4oz_8nQrtSOOxj5aJM",
+    authDomain: "timetable-323817.firebaseapp.com",
+    projectId: "timetable-323817",
+    storageBucket: "timetable-323817.appspot.com",
+    messagingSenderId: "1046463361656",
+    appId: "1:1046463361656:web:4e319d0cdee68bcc43738d",
+    measurementId: "G-CMVGLKFCF6",
+  });
+  const db = getFirestore();
+
+  const configName = new URL(location).searchParams.get("configName");
+  if (configName)
+    config = (await getDoc(doc(db, "configs", configName))).data();
+
   for (const val in defConfig) config[val] ?? (config[val] = defConfig[val]);
 
   setMainClr(true, config.mainClr || defConfig.mainClr, config);
@@ -646,6 +661,58 @@ if ($cl("menu-content")) {
 
   if (config.bgImg && config.bgImg.changed)
     loadBg(false, config.bgImg[1080], null, config);
+
+  const shareBtn = $id("share-btn");
+
+  if (shareBtn) {
+    const errorText = $id("share-status-text");
+    function shareStatus(error, className = "prob") {
+      errorText.innerText = error;
+
+      errorText.removeAttribute("class");
+      errorText.classList.add(className);
+    }
+
+    const configNameInp = $id("share-config-name");
+    configNameInp.addEventListener("input", () => shareStatus("", "go"));
+
+    shareBtn.addEventListener("click", async () => {
+      const configName = configNameInp.value;
+
+      // If nothing is entered
+      if (!configName) return shareStatus("Name is compulsory");
+
+      const shareThrobber = $id("share-throbber");
+      shareThrobber.style.display = "unset";
+
+      // If that name already exists
+      try {
+        shareStatus("Checking name availability", "wait");
+        if ((await getDoc(doc(db, "configs", configName))).exists())
+          shareStatus(`Alredy a config named "${configName}"`);
+        else {
+          shareStatus("Uploading config", "wait");
+          await setDoc(doc(db, "configs", configName), config);
+
+          const shareURL = `${location.href}?configName=${configName}`;
+
+          if ("canShare" in navigator) {
+            shareStatus("✓ Upload successful", "go");
+            navigator.share({
+              text: "Click me!!",
+              url: shareURL,
+            });
+          } else {
+            await navigator.clipboard.writeText(shareURL);
+            shareStatus("✓ Share the link copied to your clipboard", "go");
+          }
+        }
+      } catch (e) {
+        shareStatus(`I failed :( -- The problem: "${e.message}"`);
+      }
+      shareThrobber.style.display = "none";
+    });
+  }
 }
 
 function getConfDataURI() {
@@ -689,66 +756,3 @@ importInp &&
 window.onunload = () => {
   saveConfig(config);
 };
-
-const shareBtn = $id("share-btn");
-
-if (shareBtn) {
-  const errorText = $id("share-status-text");
-  function shareStatus(error, className = "prob") {
-    errorText.innerText = error;
-
-    errorText.removeAttribute("class");
-    errorText.classList.add(className);
-  }
-
-  const app = initializeApp({
-    apiKey: "AIzaSyBq1PAXNffXeRF4D4oz_8nQrtSOOxj5aJM",
-    authDomain: "timetable-323817.firebaseapp.com",
-    projectId: "timetable-323817",
-    storageBucket: "timetable-323817.appspot.com",
-    messagingSenderId: "1046463361656",
-    appId: "1:1046463361656:web:4e319d0cdee68bcc43738d",
-    measurementId: "G-CMVGLKFCF6",
-  });
-  const db = getFirestore();
-
-  const configNameInp = $id("share-config-name");
-  configNameInp.addEventListener("input", () => shareStatus("", "go"));
-
-  shareBtn.addEventListener("click", async () => {
-    const configName = configNameInp.value;
-
-    // If nothing is entered
-    if (!configName) return shareStatus("Name is compulsory");
-
-    const shareThrobber = $id("share-throbber");
-    shareThrobber.style.display = "unset";
-
-    // If that name already exists
-    try {
-      shareStatus("Checking name availability", "wait");
-      if ((await getDoc(doc(db, "configs", configName))).exists())
-        shareStatus(`Alredy a config named "${configName}"`);
-      else {
-        shareStatus("Uploading config", "wait");
-        await setDoc(doc(db, "configs", configName), config);
-
-        const shareURL = `${location.href}?configName=${configName}`;
-
-        if ("canShare" in navigator) {
-          shareStatus("✓ Upload successful", "go");
-          navigator.share({
-            text: "Click me!!",
-            url: shareURL,
-          });
-        } else {
-          await navigator.clipboard.writeText(shareURL);
-          shareStatus("✓ Share the link copied to your clipboard", "go");
-        }
-      }
-    } catch (e) {
-      shareStatus(`I failed :( -- The problem: "${e.message}"`);
-    }
-    shareThrobber.style.display = "none";
-  });
-}
