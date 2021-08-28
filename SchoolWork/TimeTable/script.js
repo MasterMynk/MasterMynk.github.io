@@ -375,7 +375,7 @@ function divRadioInit() {
 
 window.onload = async () => {
   // This is used by redirect.html
-  localStorage.setItem("lastVisitedPage", window.location.pathname);
+  localStorage.setItem("lastVisitedPage", location.pathname);
 
   swInit();
   installBtnInit();
@@ -847,12 +847,13 @@ window.onload = async () => {
             const shareURL = `${location.href}?configName=${configName}`;
 
             if ("canShare" in navigator) {
-              alert("Testing");
               shareStatus("✓ Upload successful", "go");
-              navigator.share({
-                text: "Click me!!",
-                url: shareURL,
-              });
+              navigator
+                .share({
+                  text: "Click me!!",
+                  url: shareURL,
+                })
+                .catch((e) => alert(e.message));
             } else {
               await navigator.clipboard.writeText(shareURL);
               shareStatus("✓ Share the link copied to your clipboard", "go");
