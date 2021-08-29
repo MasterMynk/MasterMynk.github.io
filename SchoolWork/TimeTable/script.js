@@ -447,10 +447,7 @@ window.onload = async () => {
     cardBlurInit();
     navBlurInit();
 
-    $id("reset-all-btn").addEventListener("click", () => {
-      config = defConfig;
-      window.location.reload();
-    });
+    $id("reset-all-btn").addEventListener("click", setConf);
 
     shareBtnInit();
     exportBtnInit();
@@ -818,6 +815,11 @@ window.onload = async () => {
       });
     }
 
+    function setConf(newConf = defConfig) {
+      config = newConf;
+      location.reload();
+    }
+
     async function shareBtnInit() {
       const errorText = $id("share-status-text");
 
@@ -825,10 +827,9 @@ window.onload = async () => {
       configNameInp.addEventListener("input", () => shareStatus("", "go"));
 
       const applyBtn = $id("apply-btn");
-      applyBtn.addEventListener("click", async () => {
-        config = (await getDoc(doc(db, "configs", configNameInp.value))).data();
-        location.reload();
-      });
+      applyBtn.addEventListener("click", async () =>
+        setConf((await getDoc(doc(db, "configs", configNameInp.value))).data())
+      );
 
       $id("create-link-btn").addEventListener("click", async () => {
         const configName = configNameInp.value;
