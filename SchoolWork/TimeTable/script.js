@@ -90,20 +90,17 @@ function installBtnInit() {
 }
 
 function navInit() {
-  return new Promise((resolve) => {
-    if ($("nav")) {
-      const division = localStorage.getItem("division");
+  if ($("nav")) {
+    const division = localStorage.getItem("division");
 
-      if (
-        division &&
-        $id(division) &&
-        $(".ind > div:last-child > label").innerText <= division
-      )
-        $id(division).checked = true;
-      else $('input[name="div"]').checked = true;
-    }
-    resolve();
-  });
+    if (
+      division &&
+      $id(division) &&
+      $(".ind > div:last-child > label").innerText <= division
+    )
+      $id(division).checked = true;
+    else $('input[name="div"]').checked = true;
+  }
 }
 
 function goBtnUpdate() {
@@ -133,112 +130,99 @@ function thirdLangDefSet() {
 }
 
 function setDataTime(mobile = false) {
-  return new Promise((resolve) => {
-    const timings = $$(".resp-table#curr tr > th:not(:first-child)");
-    const tds = $$(".resp-table#curr tr > td:not(:first-child)");
+  const timings = $$(".resp-table#curr tr > th:not(:first-child)");
+  const tds = $$(".resp-table#curr tr > td:not(:first-child)");
 
-    if (
-      tds.length &&
-      (mobile || window.matchMedia("(max-width: 770px)").matches) &&
-      !("time" in tds[0].dataset)
-    )
-      tds.forEach((td, i) =>
-        td.setAttribute("data-time", timings[i % 2].innerText)
-      );
-    resolve();
-  });
+  if (
+    tds.length &&
+    (mobile || window.matchMedia("(max-width: 900px)").matches) &&
+    !("time" in tds[0].dataset)
+  )
+    tds.forEach((td, i) =>
+      td.setAttribute("data-time", timings[i % 2].innerText)
+    );
 }
 
 function setCancelled() {
-  return new Promise((resolve) => {
-    date = newDate();
+  date = newDate();
 
-    const tds = $$(".resp-table#curr tr > td:not(:first-child)");
+  const tds = $$(".resp-table#curr tr > td:not(:first-child)");
 
-    tds.forEach((td) => {
-      if ("cancelled" in td.dataset) {
-        const datesAsStr = td.dataset.cancelled;
+  tds.forEach((td) => {
+    if ("cancelled" in td.dataset) {
+      const datesAsStr = td.dataset.cancelled;
 
-        datesAsStr.split(", ").forEach((dateAsStr) => {
-          const cancelledDateStrArr = dateAsStr.split("-");
-          const cancelledDate = new Date(
-            parseInt(cancelledDateStrArr[2]),
-            parseInt(cancelledDateStrArr[1]),
-            parseInt(cancelledDateStrArr[0]) + 6
-          );
-          if (cancelledDate >= date)
-            td.firstElementChild.classList.add("greyed");
-        });
-      }
-    });
-    resolve();
+      datesAsStr.split(", ").forEach((dateAsStr) => {
+        const cancelledDateStrArr = dateAsStr.split("-");
+        const cancelledDate = new Date(
+          parseInt(cancelledDateStrArr[2]),
+          parseInt(cancelledDateStrArr[1]),
+          parseInt(cancelledDateStrArr[0]) + 6
+        );
+        if (cancelledDate >= date) td.firstElementChild.classList.add("greyed");
+      });
+    }
   });
 }
 
 function update() {
-  return new Promise((resolve) => {
-    date = newDate();
+  date = newDate();
 
-    setDataTime();
-    setCancelled();
+  setDataTime();
+  setCancelled();
 
-    if (date.getDay()) {
-      // If today isn't Sunday
-      removeExistingOl();
+  if (date.getDay()) {
+    // If today isn't Sunday
+    removeExistingOl();
 
-      const todaysRow = $$(
-        `#curr tr:nth-child(${date.getDay() + 1}) > td:not(:first-child)`
-      );
-      const ol = document.createElement("ol");
+    const todaysRow = $$(
+      `#curr tr:nth-child(${date.getDay() + 1}) > td:not(:first-child)`
+    );
+    const ol = document.createElement("ol");
 
-      todaysRow.forEach(({ firstElementChild: btn }, i) => {
-        if (btn)
-          ol.appendChild(
-            (() => {
-              // Adds an li
-              const li = linkCardLiTemplate.cloneNode(true);
-              const timingAndStatus = li.firstElementChild;
-              const timeDetails = timeInRange(
-                addTime(
-                  $(`#curr tr > th:nth-child(${i + 2})`).innerText,
-                  timingAndStatus.firstElementChild
-                ).innerText
-              );
+    todaysRow.forEach(({ firstElementChild: btn }, i) => {
+      if (btn)
+        ol.appendChild(
+          (() => {
+            // Adds an li
+            const li = linkCardLiTemplate.cloneNode(true);
+            const timingAndStatus = li.firstElementChild;
+            const timeDetails = timeInRange(
+              addTime(
+                $(`#curr tr > th:nth-child(${i + 2})`).innerText,
+                timingAndStatus.firstElementChild
+              ).innerText
+            );
 
-              statusLogic(timeDetails, timingAndStatus.children[1], btn);
-              li.appendChild(btn.cloneNode(true));
+            statusLogic(timeDetails, timingAndStatus.children[1], btn);
+            li.appendChild(btn.cloneNode(true));
 
-              return li;
-            })()
-          );
-      });
+            return li;
+          })()
+        );
+    });
 
-      $cl("link-card").appendChild(ol);
-      goBtnUpdate();
-      thirdLangDefSet();
-    }
-    resolve();
-  });
+    $cl("link-card").appendChild(ol);
+    goBtnUpdate();
+    thirdLangDefSet();
+  }
 }
 
 function radioChange(callUpdate = true) {
-  return new Promise((resolve) => {
-    Array.from($$(".ind input")).every(async (btn) => {
-      if (btn.checked) {
-        const currClass =
-          $("h1").innerText.slice(0, $("h1").innerText.length - 1) +
-          btn.nextElementSibling.innerText;
-        localStorage.setItem("division", btn.id);
+  Array.from($$(".ind input")).every(async (btn) => {
+    if (btn.checked) {
+      const currClass =
+        $("h1").innerText.slice(0, $("h1").innerText.length - 1) +
+        btn.nextElementSibling.innerText;
+      localStorage.setItem("division", btn.id);
 
-        $("h1").innerText = currClass;
-        $id("curr").removeAttribute("id");
-        $(`.${currClass.toLowerCase()}`).setAttribute("id", "curr");
-        callUpdate && (await update());
-        return false;
-      }
-      return true;
-    });
-    resolve();
+      $("h1").innerText = currClass;
+      $id("curr").removeAttribute("id");
+      $(`.${currClass.toLowerCase()}`).setAttribute("id", "curr");
+      callUpdate && (await update());
+      return false;
+    }
+    return true;
   });
 }
 
@@ -378,10 +362,12 @@ localStorage.setItem("lastVisitedPage", location.pathname);
 
 swInit();
 
-installBtnInit();
-navInit()
-  .then(() => radioChange(false))
-  .then(update);
+window.onload = () => {
+  installBtnInit();
+  navInit();
+  radioChange(false);
+  update();
+};
 
 window
   .matchMedia("(max-width: 770px)")
