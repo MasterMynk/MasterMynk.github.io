@@ -125,7 +125,6 @@ async function getConf() {
   else {
     const data = (await getDoc(doc(db, "configs", configName))).data();
 
-    console.log(data);
     return saveConfig(data) || getConf_impl();
   }
 }
