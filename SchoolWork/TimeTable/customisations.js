@@ -190,7 +190,7 @@ function cardBorderRadInit() {
     config
   );
   inp.addEventListener("input", () => setCardBorderRad(false, inp.value));
-  $id("cards-border-radius-reset", setCardBorderRad);
+  $id("cards-border-radius-reset").addEventListener("click", setCardBorderRad);
 
   function setCardBorderRad(
     setRange = true,
