@@ -66,7 +66,6 @@ async function fallbackFile(url) {
 }
 
 async function get(toGet) {
-  console.log(toGet.url);
   return caches.open(cacheName).then(async (cache) => {
     return cache.add(toGet.url).then(() =>
       fromCache(toGet.url, {
@@ -74,6 +73,4 @@ async function get(toGet) {
       })
     );
   });
-  addToCache(toGet.url);
-  return;
 }
