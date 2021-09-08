@@ -135,33 +135,10 @@ function setDataTime(mobile = false) {
     );
 }
 
-function setCancelled() {
-  date = newDate();
-
-  const tds = $$(".resp-table#curr tr > td:not(:first-child)");
-
-  tds.forEach((td) => {
-    if ("cancelled" in td.dataset) {
-      const datesAsStr = td.dataset.cancelled;
-
-      datesAsStr.split(", ").forEach((dateAsStr) => {
-        const cancelledDateStrArr = dateAsStr.split("-");
-        const cancelledDate = new Date(
-          parseInt(cancelledDateStrArr[2]),
-          parseInt(cancelledDateStrArr[1]),
-          parseInt(cancelledDateStrArr[0]) + 6
-        );
-        if (cancelledDate >= date) td.firstElementChild.classList.add("greyed");
-      });
-    }
-  });
-}
-
 function update() {
   date = newDate();
 
   setDataTime();
-  setCancelled();
 
   if (date.getDay()) {
     // If today isn't Sunday

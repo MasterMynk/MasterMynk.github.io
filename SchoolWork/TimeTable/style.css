@@ -206,9 +206,14 @@
   display: block;
 }
 
+input {
+  accent-color: rgb(var(--main-clr));
+}
+
 input[type="file"] {
   display: none;
 }
+
 
 .back-and-forth-throbber {
   height: .5em;
