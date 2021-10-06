@@ -275,7 +275,7 @@ table:not(#curr) {
   margin-bottom: 1em;
 }
 
-.link-card .btn {
+.link-card.btn {
   display: block;
 }
 

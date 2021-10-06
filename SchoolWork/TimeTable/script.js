@@ -2,6 +2,36 @@ let installPrompt;
 let date = newDate();
 const html = $t("html");
 
+class Message {
+  constructor(from, to, message = "", classes = [""]) {
+    let fromDate = newDate();
+    fromDate.setDate(from);
+    fromDate.setHours(0, 0, 0, 0);
+
+    let toDate = newDate();
+    toDate.setDate(to);
+    toDate.setHours(23, 59, 59);
+
+    this.toShow = fromDate <= toDate;
+    this.message = message;
+    this.classes = classes;
+  }
+
+  isApplicableTo(realClass) {
+    return this.classes.includes(realClass);
+  }
+}
+
+const messages = [
+  // All class names should be in capitals. This is because they are checked with the heading of the class.
+  // new Message(
+  //   6,
+  //   7,
+  //   `No Science class today. <a href="https://classroom.google.com/c/MzM1Njk2NTUzMzcy/p/NDA2MTE1NzU2ODI0/details" class="btn">Why?</a>`,
+  //   ["XB"]
+  // ),
+];
+
 const linkCardLiTemplate = (() => {
   const li = document.createElement("li");
   const timingAndStatus = addTimingAndStatus(li);
@@ -139,10 +169,11 @@ function update() {
   date = newDate();
 
   setDataTime();
+  const linkCard = $cl("link-card");
 
+  // If today isn't Sunday
   if (date.getDay()) {
-    // If today isn't Sunday
-    removeExistingOl();
+    remExistingOl();
 
     const todaysRow = $$(
       `#curr tr:nth-child(${date.getDay() + 1}) > td:not(:first-child)`
@@ -164,17 +195,49 @@ function update() {
             );
 
             statusLogic(timeDetails, timingAndStatus.children[1], btn);
-            li.appendChild(btn.cloneNode(true));
+
+            const appendBtn = btn.cloneNode(true);
+            appendBtn.classList.add("link-card");
+            li.appendChild(appendBtn);
 
             return li;
           })()
         );
     });
 
-    $cl("link-card").appendChild(ol);
+    linkCard.appendChild(ol);
     goBtnUpdate();
     thirdLangDefSet();
   }
+
+  let messageCard = $cl("message-card");
+  messageCard && messageCard.parentElement.removeChild(messageCard);
+
+  messages.forEach((message) => {
+    if (message.toShow && message.classes.includes($t(`h1`).innerText)) {
+      if (!messageCard) {
+        const cards = $cl("cards");
+        const toAdd = document.createElement("li");
+
+        toAdd.classList.add("card", "message-card");
+
+        {
+          // Adding the heading
+          const heading = document.createElement("h2");
+          heading.innerText = "Messages:";
+          toAdd.appendChild(heading);
+        }
+
+        cards.insertBefore(toAdd, cards.children[1]);
+        messageCard = $cl("message-card");
+      }
+
+      // Actually adding the message in the card
+      const toAddMessage = document.createElement("p");
+      toAddMessage.innerHTML = message.message;
+      messageCard.appendChild(toAddMessage);
+    }
+  });
 }
 
 function radioChange(callUpdate = true) {
@@ -195,9 +258,11 @@ function radioChange(callUpdate = true) {
   });
 }
 
-function removeExistingOl() {
-  const ol = $(".link-card ol");
-  ol && $cl("link-card").removeChild(ol);
+function remExistingOl() {
+  const linkCard = $(".link-card");
+  Array.from(linkCard.children).forEach(
+    (child, ind) => ind && linkCard.removeChild(child)
+  );
 }
 
 function addTimingAndStatus(parent) {
