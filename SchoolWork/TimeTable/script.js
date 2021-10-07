@@ -24,12 +24,12 @@ class Message {
 
 const messages = [
   // All class names should be in capitals. This is because they are checked with the heading of the class.
-  // new Message(
-  //   6,
-  //   7,
-  //   `No Science class today. <a href="https://classroom.google.com/c/MzM1Njk2NTUzMzcy/p/NDA2MTE1NzU2ODI0/details" class="btn">Why?</a>`,
-  //   ["XB"]
-  // ),
+  new Message(
+    7,
+    7,
+    `We have a PE class today. <a href="https://classroom.google.com/c/MzY0OTkwOTkwMzU3/p/NDA5NDIyODMzMjI2/details" class="btn">Why?</a>`,
+    ["XB", "XA", "XC"]
+  ),
 ];
 
 const linkCardLiTemplate = (() => {
