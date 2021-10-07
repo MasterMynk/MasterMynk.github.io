@@ -74,3 +74,5 @@
 //     );
 //   });
 // }
+
+self.addEventListener("fetch", (e) => {});
