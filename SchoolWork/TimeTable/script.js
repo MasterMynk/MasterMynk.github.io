@@ -3,7 +3,12 @@ let date = newDate();
 const html = $t("html");
 
 class Message {
-  constructor(from, to, message = "", classes = [""]) {
+  constructor(
+    from = newDate().getDate(),
+    to = newDate().getDate(),
+    message = "",
+    classes = [""]
+  ) {
     let fromDate = newDate();
     fromDate.setDate(from);
     fromDate.setHours(0, 0, 0, 0);
@@ -12,7 +17,7 @@ class Message {
     toDate.setDate(to);
     toDate.setHours(23, 59, 59);
 
-    this.toShow = fromDate <= toDate;
+    this.toShow = newDate() >= fromDate && newDate() <= toDate;
     this.message = message;
     this.classes = classes;
   }
@@ -29,6 +34,17 @@ const messages = [
     7,
     `We have a PE class today. <a href="https://classroom.google.com/c/MzY0OTkwOTkwMzU3/p/NDA5NDIyODMzMjI2/details" class="btn">Why?</a>`,
     ["XB", "XA", "XC"]
+  ),
+  new Message(8, 8, `We have PE exam today from 10:00-10:30. All the best!!`, [
+    "XA",
+    "XB",
+    "XC",
+  ]),
+  new Message(
+    8,
+    8,
+    `We have a typing exam today for which you have to go to school. <a href="https://drive.google.com/file/d/1GaESha5nSuPPp3DI0EdWv6WH25HhbrLM/view?usp=sharing" class="btn">When?</a>`,
+    ["XB"]
   ),
 ];
 
