@@ -210,26 +210,29 @@ function update() {
     thirdLangDefSet();
   }
 
-  let messageCard = $cl("message-card");
-  messageCard && messageCard.parentElement.removeChild(messageCard);
+  {
+    // Remove existing messageCard
+    const messageCard = $(".message.card");
+    messageCard && messageCard.parentElement.removeChild(messageCard);
+  }
 
   messages.forEach((message) => {
     if (message.toShow && message.classes.includes($t(`h1`).innerText)) {
+      let messageCard = $(".message.card");
       if (!messageCard) {
         const cards = $cl("cards");
-        const toAdd = document.createElement("li");
+        messageCard = document.createElement("li");
 
-        toAdd.classList.add("card", "message-card");
+        messageCard.classList.add("card", "message");
 
         {
           // Adding the heading
           const heading = document.createElement("h2");
           heading.innerText = "Messages:";
-          toAdd.appendChild(heading);
+          messageCard.appendChild(heading);
         }
 
-        cards.insertBefore(toAdd, cards.children[1]);
-        messageCard = $cl("message-card");
+        cards.insertBefore(messageCard, cards.children[0]);
       }
 
       // Actually adding the message in the card

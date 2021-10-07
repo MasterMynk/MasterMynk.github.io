@@ -206,19 +206,13 @@
   display: block;
 }
 
-input {
-  accent-color: rgb(var(--main-clr));
-}
-
 input[type="file"] {
   display: none;
 }
 
-
 .back-and-forth-throbber {
   height: .5em;
   width: 2em;
-  /* background-color: white; */
 }
 
 .back-and-forth-throbber::before {
@@ -250,6 +244,10 @@ input[type="file"] {
   max-width: 450px;
 }
 
+.message.card {
+  justify-content: flex-start;
+}
+
 td {
   font-size: 0.9em;
 }
@@ -275,7 +273,8 @@ table:not(#curr) {
   margin-bottom: 1em;
 }
 
-.link-card.btn {
+.link-card.btn,
+.btn-list.link-card .btn {
   display: block;
 }
 
