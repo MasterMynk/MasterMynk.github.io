@@ -248,6 +248,14 @@ input[type="file"] {
   justify-content: flex-start;
 }
 
+.message.card > ol {
+  font-size: .8em;
+}
+
+.message.card li {
+  margin-bottom: 1em;
+}
+
 td {
   font-size: 0.9em;
 }

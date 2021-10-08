@@ -242,14 +242,16 @@ function update() {
           heading.innerText = "Messages:";
           messageCard.appendChild(heading);
         }
+        // Adding an ol
+        messageCard.appendChild(document.createElement("ol"));
 
         cards.insertBefore(messageCard, cards.children[0]);
       }
 
       // Actually adding the message in the card
-      const toAddMessage = document.createElement("p");
-      toAddMessage.innerHTML = message.message;
-      messageCard.appendChild(toAddMessage);
+      const messageElem = document.createElement("li");
+      messageElem.innerHTML = message.message;
+      messageCard.getElementsByTagName("ol")[0].appendChild(messageElem);
     }
   });
 }
