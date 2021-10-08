@@ -34,13 +34,18 @@ const messages = [
     "XB",
     "XC",
   ]),
+  new Message(9, 9, `Computer exam today from 10:00-10:30. All the best!!`, [
+    "XA",
+    "XB",
+    "XC",
+  ]),
   new Message(
     8,
     8,
     `Offline typing exam today. <a href="https://drive.google.com/file/d/1GaESha5nSuPPp3DI0EdWv6WH25HhbrLM/view?usp=sharing" class="btn">When?</a>`,
     ["XB"]
   ),
-  new Message(8, 8, `ALL GMEETS ARE STILL THERE.`, ["XA", "XB", "XC"]),
+  new Message(8, 9, `NO GMEETS HAVE BEEN CANCELLED!`, ["XA", "XB", "XC"]),
 ];
 
 const linkCardLiTemplate = (() => {
