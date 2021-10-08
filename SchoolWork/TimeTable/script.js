@@ -29,13 +29,7 @@ class Message {
 
 const messages = [
   // All class names should be in capitals. This is because they are checked with the heading of the class.
-  new Message(
-    7,
-    7,
-    `We have a PE class today. <a href="https://classroom.google.com/c/MzY0OTkwOTkwMzU3/p/NDA5NDIyODMzMjI2/details" class="btn">Why?</a>`,
-    ["XB", "XA", "XC"]
-  ),
-  new Message(8, 8, `We have PE exam today from 10:00-10:30. All the best!!`, [
+  new Message(8, 8, `PE exam today from 10:00-10:30. All the best!!`, [
     "XA",
     "XB",
     "XC",
@@ -43,9 +37,10 @@ const messages = [
   new Message(
     8,
     8,
-    `We have a typing exam today for which you have to go to school. <a href="https://drive.google.com/file/d/1GaESha5nSuPPp3DI0EdWv6WH25HhbrLM/view?usp=sharing" class="btn">When?</a>`,
+    `Offline typing exam today. <a href="https://drive.google.com/file/d/1GaESha5nSuPPp3DI0EdWv6WH25HhbrLM/view?usp=sharing" class="btn">When?</a>`,
     ["XB"]
   ),
+  new Message(8, 8, `ALL GMEETS ARE STILL THERE.`, ["XA", "XB", "XC"]),
 ];
 
 const linkCardLiTemplate = (() => {
