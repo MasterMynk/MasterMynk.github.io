@@ -29,12 +29,7 @@ class Message {
 
 const messages = [
   // All class names should be in capitals. This is because they are checked with the heading of the class.
-  new Message(9, 9, `Computer exam today from 10:00-10:30. All the best!!`, [
-    "XA",
-    "XB",
-    "XC",
-  ]),
-  new Message(8, 9, `GMEETS HAVE NOT BEEN CANCELLED!`, ["XA", "XB", "XC"]),
+  new Message(11, 11, `Computer practicals -- 9:30-10:30`, ["XA", "XB", "XC"]),
 ];
 
 const linkCardLiTemplate = (() => {
