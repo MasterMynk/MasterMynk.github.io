@@ -388,6 +388,14 @@ div.pop-up > .btn {
   text-align: center;
 }
 
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1em;
+  text-decoration: none;
+}
+
 #report-options {
   width: 100%;
 }
