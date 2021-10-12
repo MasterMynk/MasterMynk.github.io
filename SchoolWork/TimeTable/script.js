@@ -409,62 +409,64 @@ if (date.getDay()) setInterval(statusUpdate, 1 * 1000);
 
 divRadioInit();
 
-$("#report-prompt.btn").onclick = () => {
-  const reportList = $id("report-options");
-  reportList.innerHTML = "";
+try {
+  $("#report-prompt.btn").onclick = () => {
+    const reportList = $id("report-options");
+    reportList.innerHTML = "";
 
-  const reportCandidates = $$(".todays-btns > li > *:last-child");
+    const reportCandidates = $$(".todays-btns > li > *:last-child");
 
-  reportCandidates.forEach((candidate) => {
-    const toAdd = candidate.cloneNode(true);
-    let btnsToModify = [];
+    reportCandidates.forEach((candidate) => {
+      const toAdd = candidate.cloneNode(true);
+      let btnsToModify = [];
 
-    if (toAdd.nodeName === "FORM") {
-      btnsToModify.push(toAdd.getElementsByClassName("go-btn")[0]);
-      btnsToModify[0].classList.remove("go-btn");
-    } else if (toAdd.classList.contains("btn-list"))
-      btnsToModify = toAdd.getElementsByClassName("btn");
-    else btnsToModify.push(toAdd);
+      if (toAdd.nodeName === "FORM") {
+        btnsToModify.push(toAdd.getElementsByClassName("go-btn")[0]);
+        btnsToModify[0].classList.remove("go-btn");
+      } else if (toAdd.classList.contains("btn-list"))
+        btnsToModify = toAdd.getElementsByClassName("btn");
+      else btnsToModify.push(toAdd);
 
-    btnsToModify.forEach((btn) => btn.setAttribute("href", "#report-pop-up"));
+      btnsToModify.forEach((btn) => btn.setAttribute("href", "#report-pop-up"));
 
-    const label = $new("label");
-    label.innerHTML = `<input type="checkbox">`;
-    label.appendChild(toAdd);
-    label.classList.add("report");
+      const label = $new("label");
+      label.innerHTML = `<input type="checkbox">`;
+      label.appendChild(toAdd);
+      label.classList.add("report");
 
-    reportList.appendChild(label);
-  });
-};
+      reportList.appendChild(label);
+    });
+  };
 
-$("#report.btn").onclick = () =>
-  open(
-    `mailto:mayankshigaonker.2965@rosaryhighschool.org?subject=1 or more links in ${
-      $t("h1").innerText
-    } aren't working&body=${Array.from(
-      $$('#report-options input[type="checkbox"]:checked')
-    ).reduce((str, checkbox, ind, arr) => {
-      const workingElem = checkbox.nextElementSibling;
-      let selectedName = "";
+  $("#report.btn").onclick = () =>
+    open(
+      `mailto:mayankshigaonker.2965@rosaryhighschool.org?subject=1 or more links in ${
+        $t("h1").innerText
+      } aren't working&body=${Array.from(
+        $$('#report-options input[type="checkbox"]:checked')
+      ).reduce((str, checkbox, ind, arr) => {
+        const workingElem = checkbox.nextElementSibling;
+        let selectedName = "";
 
-      if (workingElem.nodeName === "FORM") {
-        const dropdown = workingElem.querySelector(".dropdown");
-        selectedName =
-          dropdown.children[dropdown.selectedIndex].innerText.trim();
-      } else if (workingElem.classList.contains("btn-list"))
-        selectedName = workingElem.children.reduce((str, btn, ind, arr) => {
-          const retStr = str + btn.innerText.trim();
+        if (workingElem.nodeName === "FORM") {
+          const dropdown = workingElem.querySelector(".dropdown");
+          selectedName =
+            dropdown.children[dropdown.selectedIndex].innerText.trim();
+        } else if (workingElem.classList.contains("btn-list"))
+          selectedName = workingElem.children.reduce((str, btn, ind, arr) => {
+            const retStr = str + btn.innerText.trim();
 
-          if (ind === arr.length - 1) retStr += " or ";
+            if (ind === arr.length - 1) retStr += " or ";
 
-          return retStr;
-        }, "");
-      else selectedName = workingElem.innerText.trim();
+            return retStr;
+          }, "");
+        else selectedName = workingElem.innerText.trim();
 
-      let retStr = str + selectedName;
+        let retStr = str + selectedName;
 
-      if (ind < arr.length - 1) retStr += ", ";
+        if (ind < arr.length - 1) retStr += ", ";
 
-      return retStr;
-    }, "")}`
-  );
+        return retStr;
+      }, "")}`
+    );
+} catch {}
