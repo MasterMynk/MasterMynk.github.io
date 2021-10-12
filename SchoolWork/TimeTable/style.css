@@ -366,7 +366,7 @@ td .go-btn {
 }
 
 div.pop-up {
-  display: none;
+  display: flex;
   position: fixed;
   top: 0;
   left: 50%;
@@ -380,10 +380,12 @@ div.pop-up {
   padding-right: 0;
   overflow-y: auto;
   background-color: rgba(var(--elem-bg-clr), 0.5);
+  clip-path: circle(0 at center center);
+  transition: clip-path 250ms ease-in;
 }
 
 div:target.pop-up {
-  display: flex;
+  clip-path: circle(100% at center center);
 }
 
 div.pop-up > h2,
@@ -397,6 +399,7 @@ div.pop-up > .btn {
   right: 0;
   padding: 1em;
   text-decoration: none;
+  font-size: 1.25em;
 }
 
 #report-options {
