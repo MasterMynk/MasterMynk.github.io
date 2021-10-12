@@ -370,6 +370,7 @@ div.pop-up {
   position: fixed;
   top: 0;
   left: 50%;
+  max-height: 95vh;
   transform: translateX(-50%);
   z-index: 100;
   width: 80vw;
@@ -377,6 +378,7 @@ div.pop-up {
   align-items: center;
   padding-left: 0;
   padding-right: 0;
+  overflow-y: auto;
 }
 
 div:target.pop-up {

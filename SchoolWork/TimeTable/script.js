@@ -389,6 +389,8 @@ function divRadioInit() {
     );
 }
 
+if (location.href.includes("#report-pop-up"))
+  location.replace(location.pathname);
 // This is used by redirect.html
 localStorage.setItem("lastVisitedPage", location.pathname);
 
@@ -409,6 +411,7 @@ divRadioInit();
 
 $("#report-prompt.btn").onclick = () => {
   const reportList = $id("report-options");
+  reportList.innerHTML = "";
 
   const reportCandidates = $$(".todays-btns > li > *:last-child");
 
@@ -435,7 +438,7 @@ $("#report-prompt.btn").onclick = () => {
 };
 
 $("#report.btn").onclick = () =>
-  window.open(
+  open(
     `mailto:mayankshigaonker.2965@rosaryhighschool.org?subject=1 or more links in ${
       $t("h1").innerText
     } aren't working&body=${Array.from(
