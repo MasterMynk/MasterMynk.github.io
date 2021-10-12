@@ -379,6 +379,7 @@ div.pop-up {
   padding-left: 0;
   padding-right: 0;
   overflow-y: auto;
+  background-color: rgba(var(--elem-bg-clr), 0.5);
 }
 
 div:target.pop-up {
