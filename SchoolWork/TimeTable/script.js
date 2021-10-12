@@ -29,7 +29,7 @@ class Message {
 
 const messages = [
   // All class names should be in capitals. This is because they are checked with the heading of the class.
-  // new Message(11, 11, `Computer practicals -- 9:30-10:30`, ["XA", "XB", "XC"]),
+  new Message(19, 19, `No Geography class today.`, ["XA"]),
 ];
 
 const linkCardLiTemplate = (() => {
@@ -169,20 +169,19 @@ function update() {
   date = newDate();
 
   setDataTime();
-  const linkCard = $cl("link-card");
 
   // If today isn't Sunday
   if (date.getDay()) {
-    remExistingOl();
-
     const todaysRow = $$(
       `#curr tr:nth-child(${date.getDay() + 1}) > td:not(:first-child)`
     );
-    const ol = document.createElement("ol");
+
+    const todaysBtns = $cl("todays-btns");
+    todaysBtns.innerHTML = "";
 
     todaysRow.forEach(({ firstElementChild: btn }, i) => {
       if (btn)
-        ol.appendChild(
+        todaysBtns.appendChild(
           (() => {
             // Adds an li
             const li = linkCardLiTemplate.cloneNode(true);
@@ -205,7 +204,7 @@ function update() {
         );
     });
 
-    linkCard.appendChild(ol);
+    // linkCard.appendChild(todayBtns);
     goBtnUpdate();
     thirdLangDefSet();
   }
@@ -261,13 +260,6 @@ function radioChange(callUpdate = true) {
     }
     return true;
   });
-}
-
-function remExistingOl() {
-  const linkCard = $(".link-card");
-  Array.from(linkCard.children).forEach(
-    (child, ind) => ind && linkCard.removeChild(child)
-  );
 }
 
 function addTimingAndStatus(parent) {
@@ -400,7 +392,6 @@ function divRadioInit() {
 localStorage.setItem("lastVisitedPage", location.pathname);
 
 swInit();
-
 installBtnInit();
 navInit();
 radioChange(false);
