@@ -374,15 +374,36 @@ div.pop-up {
   z-index: 100;
   width: 80vw;
   margin: 2vh 0 0 0;
+  align-items: center;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 div:target.pop-up {
-  display: unset;
+  display: flex;
 }
 
 div.pop-up > h2,
 div.pop-up > .btn {
   text-align: center;
+}
+
+#report-options {
+  width: 100%;
+}
+
+label.report {
+  display: block;
+  transition: background-color 250ms ease-in;
+  padding: 1em;
+}
+
+label.report:hover {
+  background-color: rgba(var(--elem-bg-clr), 0.7);
+}
+
+input[type="checkbox"] {
+  font-size: 1.2em;
 }
 
 table {

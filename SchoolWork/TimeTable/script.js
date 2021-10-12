@@ -34,9 +34,9 @@ const messages = [
 ];
 
 const linkCardLiTemplate = (() => {
-  const li = document.createElement("li");
+  const li = $new("li");
   const timingAndStatus = addTimingAndStatus(li);
-  timingAndStatus.appendChild(document.createElement("div"));
+  timingAndStatus.appendChild($new("div"));
   addStatus(timingAndStatus);
 
   return li;
@@ -70,7 +70,7 @@ function $$t(elem) {
   return document.getElementsByTagName(elem);
 }
 
-function $add(tagName) {
+function $new(tagName) {
   return document.createElement(tagName);
 }
 
@@ -221,24 +221,24 @@ function update() {
       let messageCard = $(".message.card");
       if (!messageCard) {
         const cards = $cl("cards");
-        messageCard = document.createElement("li");
+        messageCard = $new("li");
 
         messageCard.classList.add("card", "message");
 
         {
           // Adding the heading
-          const heading = document.createElement("h2");
+          const heading = $new("h2");
           heading.innerText = "Messages:";
           messageCard.appendChild(heading);
         }
         // Adding an ol
-        messageCard.appendChild(document.createElement("ol"));
+        messageCard.appendChild($new("ol"));
 
         cards.insertBefore(messageCard, cards.children[0]);
       }
 
       // Actually adding the message in the card
-      const messageElem = document.createElement("li");
+      const messageElem = $new("li");
       messageElem.innerHTML = message.message;
       messageCard.getElementsByTagName("ol")[0].appendChild(messageElem);
     }
@@ -264,7 +264,7 @@ function radioChange(callUpdate = true) {
 }
 
 function addTimingAndStatus(parent) {
-  const timingAndStatus = document.createElement("div");
+  const timingAndStatus = $new("div");
 
   timingAndStatus.classList.add("timing-and-status");
   parent.appendChild(timingAndStatus);
@@ -278,7 +278,7 @@ function addTime(timeFrameText, whereTo) {
 }
 
 function addStatus(parent) {
-  const status = document.createElement("div");
+  const status = $new("div");
 
   status.classList.add("status");
   parent.appendChild(status);
@@ -406,3 +406,62 @@ window
 if (date.getDay()) setInterval(statusUpdate, 1 * 1000);
 
 divRadioInit();
+
+$("#report-prompt.btn").onclick = () => {
+  const reportList = $id("report-options");
+
+  const reportCandidates = $$(".todays-btns > li > *:last-child");
+
+  reportCandidates.forEach((candidate) => {
+    const toAdd = candidate.cloneNode(true);
+    let btnsToModify = [];
+
+    if (toAdd.nodeName === "FORM") {
+      btnsToModify.push(toAdd.getElementsByClassName("go-btn")[0]);
+      btnsToModify[0].classList.remove("go-btn");
+    } else if (toAdd.classList.contains("btn-list"))
+      btnsToModify = toAdd.getElementsByClassName("btn");
+    else btnsToModify.push(toAdd);
+
+    btnsToModify.forEach((btn) => btn.setAttribute("href", "#report-pop-up"));
+
+    const label = $new("label");
+    label.innerHTML = `<input type="checkbox">`;
+    label.appendChild(toAdd);
+    label.classList.add("report");
+
+    reportList.appendChild(label);
+  });
+};
+
+$("#report.btn").onclick = () =>
+  window.open(
+    `mailto:mayankshigaonker.2965@rosaryhighschool.org?subject=1 or more links in ${
+      $t("h1").innerText
+    } aren't working&body=${Array.from(
+      $$('#report-options input[type="checkbox"]:checked')
+    ).reduce((str, checkbox, ind, arr) => {
+      const workingElem = checkbox.nextElementSibling;
+      let selectedName = "";
+
+      if (workingElem.nodeName === "FORM") {
+        const dropdown = workingElem.querySelector(".dropdown");
+        selectedName =
+          dropdown.children[dropdown.selectedIndex].innerText.trim();
+      } else if (workingElem.classList.contains("btn-list"))
+        selectedName = workingElem.children.reduce((str, btn, ind, arr) => {
+          const retStr = str + btn.innerText.trim();
+
+          if (ind === arr.length - 1) retStr += " or ";
+
+          return retStr;
+        }, "");
+      else selectedName = workingElem.innerText.trim();
+
+      let retStr = str + selectedName;
+
+      if (ind < arr.length - 1) retStr += ", ";
+
+      return retStr;
+    }, "")}`
+  );
