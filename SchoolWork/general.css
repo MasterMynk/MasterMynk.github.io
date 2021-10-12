@@ -161,7 +161,8 @@ nav + header > h1 {
   justify-content: center;
 }
 
-.card {
+.card,
+div.pop-up {
   gap: 1em;
   width: 100%;
   margin: 1.5em;
@@ -176,10 +177,6 @@ nav + header > h1 {
   border: var(--border-thickness) solid rgb(var(--main-clr));
   background-color: rgb(30, 30, 30);
   box-shadow: 0.5em 0.5em 0.5em rgba(10, 10, 10, 0.6);
-}
-
-.card,
-.pop-up {
   padding: 1em;
 }
 
@@ -231,7 +228,8 @@ nav + header > h1 {
 }
 
 @supports (backdrop-filter: blur(1em)) or (-webkit-backdrop-filter: blur(1em)) {
-  .card {
+  .card,
+  div.pop-up {
     background-color: rgba(var(--elem-bg-clr), var(--opacity));
   }
 

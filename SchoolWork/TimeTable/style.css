@@ -281,8 +281,8 @@ table:not(#curr) {
   margin-bottom: 1em;
 }
 
-.link-card.btn,
-.btn-list.link-card .btn {
+.todays.btn,
+.todays.btn-list .btn {
   display: block;
 }
 
@@ -303,6 +303,10 @@ td .go-btn {
   display: none;
   position: fixed;
   box-shadow: 0.5em 0.5em 0.5em rgba(10, 10, 10, 0.9);
+  font-size: .7em;
+}
+
+.small {
   font-size: .7em;
 }
 
@@ -359,6 +363,26 @@ td .go-btn {
   padding: 0.05em 0.5em;
   border-radius: 50%;
   margin-right: 0.2em;
+}
+
+div.pop-up {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: 80vw;
+  margin: 2vh 0 0 0;
+}
+
+div:target.pop-up {
+  display: unset;
+}
+
+div.pop-up > h2,
+div.pop-up > .btn {
+  text-align: center;
 }
 
 table {

@@ -29,6 +29,7 @@ class Message {
 
 const messages = [
   // All class names should be in capitals. This is because they are checked with the heading of the class.
+  new Message(13, 13, `Submit W.Exp assignment by today.`, ["XB"]),
   new Message(19, 19, `No Geography class today.`, ["XA"]),
 ];
 
@@ -196,7 +197,7 @@ function update() {
             statusLogic(timeDetails, timingAndStatus.children[1], btn);
 
             const appendBtn = btn.cloneNode(true);
-            appendBtn.classList.add("link-card");
+            appendBtn.classList.add("todays");
             li.appendChild(appendBtn);
 
             return li;
