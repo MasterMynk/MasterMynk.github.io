@@ -440,9 +440,9 @@ try {
 
   $("#report.btn").onclick = () =>
     open(
-      `mailto:mayankshigaonker.2965@rosaryhighschool.org?subject=1 or more links in ${
+      `mailto:mayankshigaonker.2965@rosaryhighschool.org?subject=Here are the links in ${
         $t("h1").innerText
-      } aren't working&body=${Array.from(
+      } that didn't work for me.&body=${Array.from(
         $$('#report-options input[type="checkbox"]:checked')
       ).reduce((str, checkbox, ind, arr) => {
         const workingElem = checkbox.nextElementSibling;
