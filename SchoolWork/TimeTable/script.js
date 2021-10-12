@@ -29,9 +29,34 @@ class Message {
 
 const messages = [
   // All class names should be in capitals. This is because they are checked with the heading of the class.
-  new Message(13, 13, `Submit W.Exp assignment by today.`, ["XB"]),
+  new Message(
+    13,
+    13,
+    `Submit W.Exp assignment by today. <a class="btn" href="https://classroom.google.com/c/MzY1MDE0MTc1MjY2/a/NDA2NDk0NTY5ODAw/details" target="_blank">Where?</a>`,
+    ["XB"]
+  ),
+  new Message(13, 13, `Submit W.Exp assignment by today.`, ["XA", "XC"]),
+  new Message(
+    13,
+    13,
+    `Typing practical exam today for those who haven't answered 10:30-12:00. <a class="btn" href="https://classroom.google.com/c/MzY2NjM0NDYzNjg0/p/NDEwOTQxMzAzNTg2/details" target="_blank">Why?</a>`,
+    ["XB"]
+  ),
+  new Message(
+    13,
+    13,
+    `Typing practical exam today for those who haven't answered 10:30-12:00.`,
+    ["XA", "XC"]
+  ),
+  new Message(13, 13, `Scouts/Guides talk today 11:45-12:15.`, [
+    "XA",
+    "XB",
+    "XC",
+  ]),
   new Message(19, 19, `No Geography class today.`, ["XA"]),
 ];
+
+const tempClasses = [];
 
 const linkCardLiTemplate = (() => {
   const li = $new("li");
