@@ -48,11 +48,12 @@ const messages = [
     `Typing practical exam today for those who haven't answered 10:30-12:00.`,
     ["XA", "XC"]
   ),
-  new Message(13, 13, `Scouts/Guides talk today 11:45-12:15.`, [
-    "XA",
-    "XB",
-    "XC",
-  ]),
+  new Message(
+    13,
+    13,
+    `Scouts/Guides talk today 11:45-12:15. <a class="btn" href="https://meet.google.com/tqi-iwyf-pvx" target="_blank">Join</a>`,
+    ["XA", "XB", "XC"]
+  ),
   new Message(19, 19, `No Geography class today.`, ["XA"]),
 ];
 
