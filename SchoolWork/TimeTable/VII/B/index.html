@@ -47,6 +47,12 @@
           <ol class="todays-btns">
             <li>😴</li>
           </ol>
+          <div class="small report-btn-container">
+            Link(s) not working?
+            <a href="#report-pop-up" id="report-prompt" class="pop-up btn"
+              >Report</a
+            >
+          </div>
         </li>
 
         <li class="card ind-card">
@@ -161,6 +167,15 @@
     </main>
 
     <button class="install btn active">Install</button>
+    <div class="pop-up" id="report-pop-up">
+      <a class="close" href="#">❌️</a>
+      <h2>Which one?</h2>
+      <form id="report-options"></form>
+      <button class="btn" id="report">Send email!</button>
+      <p style="display: none" class="prob small" id="report-prob">
+        Select atleast 1 subject to send an email
+      </p>
+    </div>
 
     <footer>
       <section>
