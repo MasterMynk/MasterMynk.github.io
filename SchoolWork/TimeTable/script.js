@@ -593,35 +593,41 @@ try {
     });
   };
 
-  $("#report.btn").onclick = () =>
-    open(
-      `mailto:mayankshigaonker.2965@rosaryhighschool.org?subject=Here are the links in ${
-        $t("h1").innerText
-      } that didn't work for me.&body=${Array.from(
-        $$('#report-options input[type="checkbox"]:checked')
-      ).reduce((str, checkbox, ind, arr) => {
-        const workingElem = checkbox.nextElementSibling;
-        let selectedName = "";
-
-        if (workingElem.nodeName === "FORM") {
-          const dropdown = workingElem.querySelector(".dropdown");
-          selectedName =
-            dropdown.children[dropdown.selectedIndex].innerText.trim();
-        } else if (workingElem.classList.contains("btn-list"))
-          selectedName = workingElem.children.reduce((str, btn, ind, arr) => {
-            const retStr = str + btn.innerText.trim();
-
-            if (ind === arr.length - 1) retStr += " or ";
-
-            return retStr;
-          }, "");
-        else selectedName = workingElem.innerText.trim();
-
-        let retStr = str + selectedName;
-
-        if (ind < arr.length - 1) retStr += ", ";
-
-        return retStr;
-      }, "")}`
+  $("#report.btn").onclick = () => {
+    const selectedCheckboxes = $$(
+      '#report-options input[type="checkbox"]:checked'
     );
+
+    selectedCheckboxes.length &&
+      open(
+        `mailto:mayankshigaonker.2965@rosaryhighschool.org?subject=Here are the names of the subjects in ${
+          $t("h1").innerText
+        } whose link didn't work for me.&body=${Array.from(
+          selectedCheckboxes
+        ).reduce((str, checkbox, ind, arr) => {
+          const workingElem = checkbox.nextElementSibling;
+          let selectedName = "";
+
+          if (workingElem.nodeName === "FORM") {
+            const dropdown = workingElem.querySelector(".dropdown");
+            selectedName =
+              dropdown.children[dropdown.selectedIndex].innerText.trim();
+          } else if (workingElem.classList.contains("btn-list"))
+            selectedName = workingElem.children.reduce((str, btn, ind, arr) => {
+              const retStr = str + btn.innerText.trim();
+
+              if (ind === arr.length - 1) retStr += " or ";
+
+              return retStr;
+            }, "");
+          else selectedName = workingElem.innerText.trim();
+
+          let retStr = str + selectedName;
+
+          if (ind < arr.length - 1) retStr += ", ";
+
+          return retStr;
+        }, "")}`
+      );
+  };
 } catch {}
