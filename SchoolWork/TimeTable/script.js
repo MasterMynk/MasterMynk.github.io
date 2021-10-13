@@ -598,7 +598,7 @@ try {
       '#report-options input[type="checkbox"]:checked'
     );
 
-    selectedCheckboxes.length &&
+    if (selectedCheckboxes.length) {
       open(
         `mailto:mayankshigaonker.2965@rosaryhighschool.org?subject=Here are the names of the subjects in ${
           $t("h1").innerText
@@ -629,5 +629,7 @@ try {
           return retStr;
         }, "")}`
       );
+      $id("report-prob").style.display = "none";
+    } else $id("report-prob").style.display = "unset";
   };
 } catch {}
