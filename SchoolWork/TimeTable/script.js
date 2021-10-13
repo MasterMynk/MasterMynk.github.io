@@ -579,7 +579,7 @@ try {
         btnsToModify.push(toAdd.getElementsByClassName("go-btn")[0]);
         btnsToModify[0].classList.remove("go-btn");
       } else if (toAdd.classList.contains("btn-list"))
-        btnsToModify = toAdd.getElementsByClassName("btn");
+        btnsToModify = Array.from(toAdd.getElementsByClassName("btn"));
       else btnsToModify.push(toAdd);
 
       btnsToModify.forEach((btn) => btn.setAttribute("href", "#report-pop-up"));
@@ -613,13 +613,14 @@ try {
             selectedName =
               dropdown.children[dropdown.selectedIndex].innerText.trim();
           } else if (workingElem.classList.contains("btn-list"))
-            selectedName = workingElem.children.reduce((str, btn, ind, arr) => {
-              const retStr = str + btn.innerText.trim();
-
-              if (ind === arr.length - 1) retStr += " or ";
-
-              return retStr;
-            }, "");
+            selectedName = Array.from(workingElem.children).reduce(
+              (str, btn, ind, arr) => {
+                let retStr = str + btn.innerText.trim();
+                if (ind < arr.length - 1) retStr += " or ";
+                return retStr;
+              },
+              ""
+            );
           else selectedName = workingElem.innerText.trim();
 
           let retStr = str + selectedName;
