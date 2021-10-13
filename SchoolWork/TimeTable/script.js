@@ -72,7 +72,7 @@ class LiveClass {
     if (
       newDate() >= from &&
       newDate() <= to &&
-      classes.some((str) => $t("h1").innerText.includes(str))
+      classes.some((str) => $t("h1").innerText === str)
     )
       this.toShow = true;
 
@@ -255,7 +255,17 @@ function update() {
             let range = timing.innerText.split(" ");
             range.splice(1, 1);
 
-            if (timeStrToDate(range[0]) > liveClass.startTime) {
+            const startTime_date = timeStrToDate(range[0]);
+
+            if (
+              startTime_date.setDate(
+                startTime_date.getDate() - (startTime_date.getDay() - 1)
+              ) >
+              new Date(liveClass.startTime).setDate(
+                liveClass.startTime.getDate() -
+                  (liveClass.startTime.getDay() - 1)
+              )
+            ) {
               // Reaching here meaning we have a class in the middle
               $$(`#curr tr > :is(td, th):nth-child(${ind + 2})`).forEach(
                 (tableElem, ind) =>
