@@ -56,7 +56,57 @@ const messages = [
   new Message(19, 19, `No Geography class today.`, ["XA"]),
 ];
 
-const tempClasses = [];
+class LiveClass {
+  constructor(
+    from = newDate(),
+    startTime = newDate(),
+    endTime = newDate(),
+    name = "",
+    link = "#",
+    classes = []
+  ) {
+    from.setHours(0, 0, 0, 0);
+    const to = new Date(from);
+    to.setDate(from.getDate() + 6);
+
+    if (
+      newDate() >= from &&
+      newDate() <= to &&
+      classes.some((str) => $t("h1").innerText.includes(str))
+    )
+      this.toShow = true;
+
+    this.elem = $new("a");
+    this.elem.href = link;
+    this.elem.innerText = name;
+    this.elem.classList.add("btn");
+
+    this.startTime = startTime;
+    const startMins = this.startTime.getMinutes();
+    this.startTimeStr = `${this.startTime.getHours()}:${
+      startMins < 10 ? 0 : ""
+    }${startMins}`;
+
+    this.endTime = endTime;
+    const endMins = this.endTime.getMinutes();
+    this.endTimeStr = `${this.endTime.getHours()}:${
+      endMins < 10 ? 0 : ""
+    }${this.endTime.getMinutes()}`;
+
+    this.range = `${this.startTimeStr} - ${this.endTimeStr}`;
+  }
+}
+
+const liveClasses = [
+  new LiveClass(
+    new Date(2021, 9, 11),
+    new Date(2021, 9, 13, 11, 45, 0, 0),
+    new Date(2021, 9, 13, 12, 15, 0, 0),
+    "Scouts/Guides",
+    "https://meet.google.com/tqi-iwyf-pvx",
+    ["XA", "XB", "XC"]
+  ),
+];
 
 const linkCardLiTemplate = (() => {
   const li = $new("li");
@@ -198,6 +248,58 @@ function update() {
 
   // If today isn't Sunday
   if (date.getDay()) {
+    liveClasses.forEach((liveClass) => {
+      if (liveClass.toShow) {
+        Array.from($$("#curr tr > th:not(:first-child)")).every(
+          (timing, ind, timings) => {
+            let range = timing.innerText.split(" ");
+            range.splice(1, 1);
+
+            if (timeStrToDate(range[0]) > liveClass.startTime) {
+              // Reaching here meaning we have a class in the middle
+              $$(`#curr tr > :is(td, th):nth-child(${ind + 2})`).forEach(
+                (tableElem, ind) =>
+                  tableElem.parentElement.insertBefore(
+                    dynamicTdCreationLogic(tableElem, ind, liveClass),
+                    tableElem
+                  )
+              );
+
+              return false;
+            }
+
+            if (
+              range[0] === liveClass.startTimeStr &&
+              range[1] === liveClass.endTimeStr
+            ) {
+              // Reaching here meaning some class is gonna get replaced
+              const td = $(
+                `#curr tr:nth-child(${
+                  liveClass.startTime.getDay() + 1
+                }) > td:nth-child(${ind + 2})`
+              );
+
+              td.innerHTML = "";
+              td.appendChild(liveClass.elem);
+              return false;
+            }
+
+            if (ind === timings.length - 1) {
+              // Reaching here means that this class is after all others
+              $$(`#curr tr > :is(td, th):nth-child(${ind + 2})`).forEach(
+                (tableElem, ind) =>
+                  tableElem.parentElement.appendChild(
+                    dynamicTdCreationLogic(tableElem, ind, liveClass)
+                  )
+              );
+            }
+
+            return true;
+          }
+        );
+      }
+    });
+
     const todaysRow = $$(
       `#curr tr:nth-child(${date.getDay() + 1}) > td:not(:first-child)`
     );
@@ -268,6 +370,19 @@ function update() {
       messageCard.getElementsByTagName("ol")[0].appendChild(messageElem);
     }
   });
+}
+
+function dynamicTdCreationLogic(refElem, ind, liveClass) {
+  let elemToAdd = document.createElement("td");
+
+  if (refElem.nodeName === "TH") {
+    // If we're working with the timing
+    elemToAdd = refElem.cloneNode(true);
+    elemToAdd.innerText = liveClass.range;
+  } else if (liveClass.startTime.getDay() === ind)
+    elemToAdd.appendChild(liveClass.elem);
+
+  return elemToAdd;
 }
 
 function radioChange(callUpdate = true) {
@@ -353,7 +468,7 @@ function timeInRange(strRange) {
   strRange = strRange.split(" ");
   strRange.splice(1, 1);
 
-  const range = makeDateFromStr(strRange);
+  const range = makeDatesFromStrArr(strRange);
   const incMinsBy = (time, offset) =>
     time.setMinutes(time.getMinutes() + offset);
 
@@ -365,14 +480,19 @@ function timeInRange(strRange) {
   return false;
 }
 
-function makeDateFromStr(range) {
+function timeStrToDate(str) {
+  const retDate = newDate();
+  const arr = str.split(":");
+
+  retDate.setHours(arr[0], arr[1], 0, 0);
+
+  return retDate;
+}
+
+function makeDatesFromStrArr(range) {
   const retTime = [];
 
-  range.forEach((time) => {
-    time = time.split(":");
-    retTime.push(newDate());
-    retTime[retTime.length - 1].setHours(time[0], time[1], 0, 0);
-  });
+  range.forEach((time) => retTime.push(timeStrToDate(time)));
 
   return retTime;
 }
