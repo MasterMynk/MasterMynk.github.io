@@ -624,10 +624,13 @@ try {
 
           let retStr = str + selectedName;
 
-          if (ind < arr.length - 1) retStr += ", ";
+          if (ind === arr.length - 2) retStr += " and ";
+          else if (ind < arr.length - 2) retStr += ", ";
 
           return retStr;
-        }, "")}`
+        }, "")} link${
+          selectedCheckboxes.length > 1 ? "s aren't" : " isn't"
+        } working`
       );
       $id("report-prob").style.display = "none";
     } else $id("report-prob").style.display = "unset";
