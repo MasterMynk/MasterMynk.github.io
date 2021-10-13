@@ -53,6 +53,12 @@ const messages = [
     "XB",
     "XC",
   ]),
+  new Message(
+    14,
+    14,
+    `Go and collect Iron & Folic acid tablets today from school during 10:00-11:30.`,
+    ["XA", "XB", "XC"]
+  ),
   new Message(19, 19, `No Geography class today.`, ["XA"]),
 ];
 
