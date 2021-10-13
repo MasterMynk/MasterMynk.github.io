@@ -53,7 +53,11 @@
     />
 
     <script src="/SchoolWork/TimeTable/script.js" defer></script>
-    <script src="/SchoolWork/TimeTable/customisations.js" defer type="module"></script>
+    <script
+      src="/SchoolWork/TimeTable/customisations.js"
+      defer
+      type="module"
+    ></script>
   </head>
 
   <body>
@@ -379,9 +383,7 @@
                 />
                 <label for="def-menu-item" class="item" id="bg-img-content">
                   <input type="file" id="bg-img" accept="image/*" />
-                  <label for="bg-img" class="btn"
-                    >Choose a 📸</label
-                  >
+                  <label for="bg-img" class="btn">Choose a 📸</label>
                   <button class="btn" id="bg-img-reset">Reset</button>
                 </label>
                 <label for="bg-img-radio" class="name">Image</label>
@@ -411,26 +413,32 @@
                   class="item centered-vertical"
                   id="save-content"
                 >
-                  <p id="share-status-text" style="display: none;"></p>
-                  <button class="btn" id="apply-btn" style="display: none;">Apply</button>
+                  <p id="share-status-text" style="display: none"></p>
+                  <button class="btn" id="apply-btn" style="display: none">
+                    Apply
+                  </button>
                   <div>
                     <input
-                    type="text"
-                    id="share-config-name"
-                    placeholder="Name"
+                      type="text"
+                      id="share-config-name"
+                      placeholder="Name"
                     />
                     <button class="btn" id="create-link-btn">Create 🔗</button>
                   </div>
-                  <button class="btn active" id="share-btn" style="display: none;">Share</button>
+                  <button
+                    class="btn active"
+                    id="share-btn"
+                    style="display: none"
+                  >
+                    Share
+                  </button>
                   <div
                     class="back-and-forth-throbber"
                     id="share-throbber"
                     style="display: none"
                   ></div>
                 </label>
-                <label for="share-radio" class="name"
-                  >Share</label
-                >
+                <label for="share-radio" class="name">Share</label>
 
                 <input
                   type="radio"
@@ -510,7 +518,12 @@
           <ol class="todays-btns">
             <li>😴</li>
           </ol>
-          <div class="small report-btn-container">Link(s) not working? <a href="#report-pop-up" id="report-prompt" class="pop-up btn">Report</a></div>
+          <div class="small report-btn-container">
+            Link(s) not working?
+            <a href="#report-pop-up" id="report-prompt" class="pop-up btn"
+              >Report</a
+            >
+          </div>
         </li>
 
         <li class="card ind-card">
@@ -1005,7 +1018,9 @@
       <h2>Which one?</h2>
       <form id="report-options"></form>
       <button class="btn" id="report">Send email!</button>
-      <p style="display: none;" class="prob small" id="report-prob">Select atleast 1 subject to send an email</p>
+      <p style="display: none" class="prob small" id="report-prob">
+        Select atleast 1 subject to send an email
+      </p>
     </div>
 
     <footer>
