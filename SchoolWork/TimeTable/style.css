@@ -124,11 +124,11 @@
 }
 
 .menu-content .item .btn {
-  font-size: .75em;
+  font-size: 0.75em;
 }
 
 .menu-content .item p {
-  font-size: .6em;
+  font-size: 0.6em;
 }
 
 .menu-item-radio:checked + .item {
@@ -202,7 +202,7 @@
 }
 
 .range-label {
-  font-size: .7em;
+  font-size: 0.7em;
   display: block;
 }
 
@@ -211,7 +211,7 @@ input[type="file"] {
 }
 
 .back-and-forth-throbber {
-  height: .5em;
+  height: 0.5em;
   width: 2em;
 }
 
@@ -249,7 +249,7 @@ input[type="file"] {
 }
 
 .message.card > ol {
-  font-size: .8em;
+  font-size: 0.8em;
 }
 
 .message.card li {
@@ -303,11 +303,11 @@ td .go-btn {
   display: none;
   position: fixed;
   box-shadow: 0.5em 0.5em 0.5em rgba(10, 10, 10, 0.9);
-  font-size: .7em;
+  font-size: 0.7em;
 }
 
 .small {
-  font-size: .7em;
+  font-size: 0.7em;
 }
 
 .greyed.btn,
@@ -407,9 +407,11 @@ div.pop-up > .btn {
 }
 
 label.report {
-  display: block;
   transition: background-color 250ms ease-in;
   padding: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 label.report:hover {

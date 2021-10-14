@@ -570,76 +570,76 @@ if (date.getDay()) setInterval(statusUpdate, 1 * 1000);
 
 divRadioInit();
 
-try {
-  $("#report-prompt.btn").onclick = () => {
-    const reportList = $id("report-options");
-    reportList.innerHTML = "";
+$("#report-prompt.btn").onclick = () => {
+  const reportList = $id("report-options");
+  reportList.innerHTML = "";
 
-    const reportCandidates = $$(".todays-btns > li > *:last-child");
+  const reportCandidates = $$(".todays-btns > li > *:last-child");
 
-    reportCandidates.forEach((candidate) => {
-      const toAdd = candidate.cloneNode(true);
-      let btnsToModify = [];
-
-      if (toAdd.nodeName === "FORM") {
-        btnsToModify.push(toAdd.getElementsByClassName("go-btn")[0]);
-        btnsToModify[0].classList.remove("go-btn");
-      } else if (toAdd.classList.contains("btn-list"))
-        btnsToModify = Array.from(toAdd.getElementsByClassName("btn"));
-      else btnsToModify.push(toAdd);
-
-      btnsToModify.forEach((btn) => btn.setAttribute("href", "#report-pop-up"));
-
+  reportCandidates.forEach((candidate) => {
+    function wrap(elem) {
       const label = $new("label");
+
       label.innerHTML = `<input type="checkbox">`;
-      label.appendChild(toAdd);
+      label.appendChild(elem);
       label.classList.add("report");
 
-      reportList.appendChild(label);
-    });
-  };
+      return label;
+    }
 
-  $("#report.btn").onclick = () => {
-    const selectedCheckboxes = $$(
-      '#report-options input[type="checkbox"]:checked'
-    );
+    const toAdd = candidate.cloneNode(true);
 
-    if (selectedCheckboxes.length) {
-      open(
-        `mailto:mayankshigaonker.2965@rosaryhighschool.org?subject=Here are the names of the subjects in ${
-          $t("h1").innerText
-        } whose link didn't work for me.&body=${Array.from(
-          selectedCheckboxes
-        ).reduce((str, checkbox, ind, arr) => {
-          const workingElem = checkbox.nextElementSibling;
-          let selectedName = "";
-
-          if (workingElem.nodeName === "FORM") {
-            const dropdown = workingElem.querySelector(".dropdown");
-            selectedName =
-              dropdown.children[dropdown.selectedIndex].innerText.trim();
-          } else if (workingElem.classList.contains("btn-list"))
-            selectedName = Array.from(workingElem.children).reduce(
-              (str, btn, ind, arr) => {
-                let retStr = str + btn.innerText.trim();
-                if (ind < arr.length - 1) retStr += " or ";
-                return retStr;
-              },
-              ""
-            );
-          else selectedName = workingElem.innerText.trim();
-
-          let retStr = str + selectedName;
-
-          if (ind === arr.length - 2) retStr += " and ";
-          else if (ind < arr.length - 2) retStr += ", ";
-
-          return retStr;
-        }, "")} link${
-          selectedCheckboxes.length > 1 ? "s aren't" : " isn't"
-        } working`
+    if (toAdd.classList.contains("btn")) toAdd.href = "#report-pop-up";
+    else
+      Array.from(toAdd.getElementsByClassName("btn")).forEach(
+        (btn) => (btn.href = "#report-pop-up")
       );
-      $id("report-prob").style.display = "none";
-    } else $id("report-prob").style.display = "unset";
-  };
-} catch {}
+
+    if (toAdd.classList.contains("btn-list")) {
+      Array.from(toAdd.getElementsByClassName("btn")).forEach((btn) =>
+        reportList.appendChild(wrap(btn))
+      );
+      return;
+    }
+
+    if (toAdd.nodeName === "FORM")
+      toAdd.getElementsByClassName("go-btn")[0].classList.remove("go-btn");
+
+    reportList.appendChild(wrap(toAdd));
+  });
+};
+
+$("#report.btn").onclick = () => {
+  const selectedCheckboxes = $$(
+    '#report-options input[type="checkbox"]:checked'
+  );
+
+  if (selectedCheckboxes.length) {
+    open(
+      `mailto:mayankshigaonker.2965@rosaryhighschool.org?subject=Here are the names of the subjects in ${
+        $t("h1").innerText
+      } whose link didn't work for me.&body=${Array.from(
+        selectedCheckboxes
+      ).reduce((str, checkbox, ind, arr) => {
+        const workingElem = checkbox.nextElementSibling;
+        let selectedName = "";
+
+        if (workingElem.nodeName === "FORM") {
+          const dropdown = workingElem.querySelector(".dropdown");
+          selectedName =
+            dropdown.children[dropdown.selectedIndex].innerText.trim();
+        } else selectedName = workingElem.innerText.trim();
+
+        let retStr = str + selectedName;
+
+        if (ind === arr.length - 2) retStr += " and ";
+        else if (ind < arr.length - 2) retStr += ", ";
+
+        return retStr;
+      }, "")} link${
+        selectedCheckboxes.length > 1 ? "s aren't" : " isn't"
+      } working`
+    );
+    $id("report-prob").style.display = "none";
+  } else $id("report-prob").style.display = "unset";
+};
