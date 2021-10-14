@@ -596,10 +596,9 @@ $("#report-prompt.btn").onclick = () => {
       );
 
     if (toAdd.classList.contains("btn-list")) {
-      Array.from(toAdd.getElementsByClassName("btn")).forEach((btn) => {
-        console.log(wrap(btn));
-        reportList.appendChild(wrap(btn));
-      });
+      Array.from(toAdd.getElementsByClassName("btn")).forEach((btn) =>
+        reportList.appendChild(wrap(btn))
+      );
       return;
     }
 
@@ -629,16 +628,7 @@ $("#report.btn").onclick = () => {
           const dropdown = workingElem.querySelector(".dropdown");
           selectedName =
             dropdown.children[dropdown.selectedIndex].innerText.trim();
-        } else if (workingElem.classList.contains("btn-list"))
-          selectedName = Array.from(workingElem.children).reduce(
-            (str, btn, ind, arr) => {
-              let retStr = str + btn.innerText.trim();
-              if (ind < arr.length - 1) retStr += " or ";
-              return retStr;
-            },
-            ""
-          );
-        else selectedName = workingElem.innerText.trim();
+        } else selectedName = workingElem.innerText.trim();
 
         let retStr = str + selectedName;
 
