@@ -29,12 +29,6 @@ class Message {
 
 const messages = [
   // All class names should be in capitals. This is because they are checked with the heading of the class.
-  new Message(
-    14,
-    14,
-    `Go and collect Iron & Folic acid tablets today from school during 10:00-11:30.`,
-    ["XA", "XB", "XC"]
-  ),
   new Message(15, 15, `Happy Dusshera ✨! No class today.`, ["All"]),
   new Message(19, 19, `Eid Mubaarak 🌕! No class today.`, ["All"]),
 ];
