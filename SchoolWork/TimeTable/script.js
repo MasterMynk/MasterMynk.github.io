@@ -29,9 +29,52 @@ class Message {
 
 const messages = [
   // All class names should be in capitals. This is because they are checked with the heading of the class.
-  new Message(18, 18, `No Maths Class today.`, ["XB"]),
-  new Message(15, 15, `Happy Dusshera ✨! No class today.`, ["All"]),
-  new Message(19, 19, `Eid Mubaarak 🌕! No class today.`, ["All"]),
+  new Message(21, 24, `No class today so that you can revise for FE`, [
+    "XA",
+    "XB",
+    "XC",
+  ]),
+  new Message(25, 25, `Good luck for Maths exam from 8:30-9:30`, [
+    "XA",
+    "XB",
+    "XC",
+  ]),
+  new Message(26, 26, `Good luck for Hindi exam from 8:30-9:30`, [
+    "XA",
+    "XB",
+    "XC",
+  ]),
+  new Message(
+    27,
+    27,
+    `Good luck for 3<sup>rd</sup> Language exam from 8:30-9:30`,
+    ["XA", "XB", "XC"]
+  ),
+  new Message(28, 28, `Good luck for Geography exam from 8:30-9:00`, [
+    "XA",
+    "XB",
+    "XC",
+  ]),
+  new Message(29, 29, `Good luck for English exam from 8:30-9:30`, [
+    "XA",
+    "XB",
+    "XC",
+  ]),
+  new Message(30, 30, `Good luck for History exam from 8:30-9:00`, [
+    "XA",
+    "XB",
+    "XC",
+  ]),
+  new Message(1, 1, `Good luck for Science exam from 8:30-9:30`, [
+    "XA",
+    "XB",
+    "XC",
+  ]),
+  new Message(2, 16, `No class today due to Diwali Holidays 😇.`, [
+    "XA",
+    "XB",
+    "XC",
+  ]),
 ];
 
 class LiveClass {
