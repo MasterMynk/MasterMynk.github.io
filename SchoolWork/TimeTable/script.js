@@ -6,7 +6,7 @@ class Message {
   constructor(
     from = newDate().getDate(),
     to = newDate().getDate(),
-    message = "",
+    messages = "",
     classes = [""]
   ) {
     let fromDate = newDate();
@@ -18,7 +18,7 @@ class Message {
     toDate.setHours(23, 59, 59);
 
     this.toShow = newDate() >= fromDate && newDate() <= toDate;
-    this.message = message;
+    this.messages = messages;
     this.classes = classes;
   }
 
@@ -29,52 +29,95 @@ class Message {
 
 const messages = [
   // All class names should be in capitals. This is because they are checked with the heading of the class.
-  new Message(21, 24, `No class today so that you can revise for FE`, [
-    "XA",
-    "XB",
-    "XC",
-  ]),
-  new Message(25, 25, `Good luck for Maths exam from 8:30-9:30`, [
-    "XA",
-    "XB",
-    "XC",
-  ]),
-  new Message(26, 26, `Good luck for Hindi exam from 8:30-9:30`, [
-    "XA",
-    "XB",
-    "XC",
-  ]),
+  new Message(
+    21,
+    23,
+    [`No class today so that you can revise for FE`],
+    ["XA", "XB", "XC"]
+  ),
+  new Message(
+    24,
+    24,
+    [`Good luck for Maths 🧮 exam tomorrow from 8:30-9:30`],
+    ["XA", "XB", "XC"]
+  ),
+  new Message(
+    25,
+    25,
+    [
+      `Good luck for Maths 🧮 exam from 8:30-9:30`,
+      `Good luck for Hindi अ exam tomorrow from 8:30-9:30`,
+    ],
+    ["XA", "XB", "XC"]
+  ),
+  new Message(
+    26,
+    26,
+    [
+      `Good luck for Hindi अ exam from 8:30-9:30`,
+      `Good luck for 3<sup>rd</sup> exam tomorrow from 8:30-9:30`,
+    ],
+    ["XA", "XB", "XC"]
+  ),
   new Message(
     27,
     27,
-    `Good luck for 3<sup>rd</sup> Language exam from 8:30-9:30`,
+    [
+      `Good luck for 3<sup>rd</sup> Language exam from 8:30-9:30`,
+      `Good luck for Geography ⛰️ exam tomorrow from 8:30-9:30`,
+    ],
     ["XA", "XB", "XC"]
   ),
-  new Message(28, 28, `Good luck for Geography exam from 8:30-9:00`, [
-    "XA",
-    "XB",
-    "XC",
-  ]),
-  new Message(29, 29, `Good luck for English exam from 8:30-9:30`, [
-    "XA",
-    "XB",
-    "XC",
-  ]),
-  new Message(30, 30, `Good luck for History exam from 8:30-9:00`, [
-    "XA",
-    "XB",
-    "XC",
-  ]),
-  new Message(1, 1, `Good luck for Science exam from 8:30-9:30`, [
-    "XA",
-    "XB",
-    "XC",
-  ]),
-  new Message(2, 16, `No class today due to Diwali Holidays 😇.`, [
-    "XA",
-    "XB",
-    "XC",
-  ]),
+  new Message(
+    28,
+    28,
+    [
+      `Good luck for Geography ⛰️ exam from 8:30-9:00`,
+      `Good luck for English exam tomorrow from 8:30-9:30`,
+    ],
+    ["XA", "XB", "XC"]
+  ),
+  new Message(
+    29,
+    29,
+    [
+      `Good luck for English exam from 8:30-9:30`,
+      `Good luck for History 🗿 exam tomorrow from 8:30-9:30`,
+    ],
+    ["XA", "XB", "XC"]
+  ),
+  new Message(
+    30,
+    30,
+    [
+      `Good luck for History 🗿 exam from 8:30-9:00`,
+      `Good luck for Science 🔬 exam on Monday from 8:30-9:30`,
+    ],
+    ["XA", "XB", "XC"]
+  ),
+  new Message(
+    31,
+    31,
+    [`Good luck for Science 🔬 exam tomorrow from 8:30-9:30`],
+    ["XA", "XB", "XC"]
+  ),
+  new Message(
+    1,
+    1,
+    [
+      `Good luck for Science 🔬 exam from 8:30-9:30`,
+      `Diwali ✨️ Holidays from tomorrow but homework will be posted in Google Classroom for Maths 🧮 and Science 🔬.`,
+    ],
+    ["XA", "XB", "XC"]
+  ),
+  new Message(
+    2,
+    16,
+    [
+      `No class today due to Diwali ✨️ Holidays but stuff will still be posted in Google Classroom of Maths 🧮 and Science 🔬.`,
+    ],
+    ["XA", "XB", "XC"]
+  ),
 ];
 
 class LiveClass {
@@ -374,11 +417,11 @@ function update() {
     messageCard && messageCard.parentElement.removeChild(messageCard);
   }
 
-  messages.forEach((message) => {
+  messages.forEach((messageObj) => {
     if (
-      message.toShow &&
-      (message.classes.includes("All") ||
-        message.classes.includes($t(`h1`).innerText))
+      messageObj.toShow &&
+      (messageObj.classes.includes("All") ||
+        messageObj.classes.includes($t(`h1`).innerText))
     ) {
       let messageCard = $(".message.card");
       if (!messageCard) {
@@ -400,9 +443,12 @@ function update() {
       }
 
       // Actually adding the message in the card
-      const messageElem = $new("li");
-      messageElem.innerHTML = message.message;
-      messageCard.getElementsByTagName("ol")[0].appendChild(messageElem);
+      console.log(messageObj);
+      messageObj.messages.forEach((message) => {
+        const messageElem = $new("li");
+        messageElem.innerHTML = message;
+        messageCard.getElementsByTagName("ol")[0].appendChild(messageElem);
+      });
     }
   });
 }
