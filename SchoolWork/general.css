@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Bitter:wght@700&family=Roboto+Slab:wght@400;700&display=swap");
+@import url(/SchoolWork/vars.css);
 
 *,
 *::before,
@@ -8,21 +9,6 @@
 }
 
 html {
-  --elem-bg-clr: 25, 25, 25;
-  --opacity: 0.7;
-  --norm-font-clr: #eee;
-  --theme-font-clr: #111; /* For fonts */
-  --main-clr: 211, 84, 0;
-  --accent-clr: royalblue;
-  --border-thickness: 2px;
-  --card-blur: 8px;
-  --bg-1080: url("/SchoolWork/bg1080.webp");
-  --bg-768: url("/SchoolWork/bg768.webp");
-  --card-border-rad: 15px;
-  --btn-border-rad: 30px;
-  --btn-bg-clr: rgba(10, 10, 10, 0.5);
-  --nav-bg-blur: 2px;
-
   scroll-padding: 6vh;
   scroll-behavior: smooth;
 }
