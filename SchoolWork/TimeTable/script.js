@@ -29,87 +29,7 @@ class Message {
 
 const messages = [
   // All class names should be in capitals. This is because they are checked with the heading of the class.
-  new Message(
-    21,
-    23,
-    [`No class today so that you can revise for FE`],
-    ["XA", "XB", "XC"]
-  ),
-  new Message(
-    24,
-    24,
-    [`Good luck for Maths 🧮 exam tomorrow from 8:30-9:30`],
-    ["XA", "XB", "XC"]
-  ),
-  new Message(
-    25,
-    25,
-    [
-      `Good luck for Maths 🧮 exam from 8:30-9:30`,
-      `Good luck for Hindi अ exam tomorrow from 8:30-9:30`,
-    ],
-    ["XA", "XB", "XC"]
-  ),
-  new Message(
-    26,
-    26,
-    [
-      `Good luck for Hindi अ exam from 8:30-9:30`,
-      `Good luck for 3<sup>rd</sup> exam tomorrow from 8:30-9:30`,
-    ],
-    ["XA", "XB", "XC"]
-  ),
-  new Message(
-    27,
-    27,
-    [
-      `Good luck for 3<sup>rd</sup> Language exam from 8:30-9:30`,
-      `Good luck for Geography ⛰️ exam tomorrow from 8:30-9:30`,
-    ],
-    ["XA", "XB", "XC"]
-  ),
-  new Message(
-    28,
-    28,
-    [
-      `Good luck for Geography ⛰️ exam from 8:30-9:00`,
-      `Good luck for English exam tomorrow from 8:30-9:30`,
-    ],
-    ["XA", "XB", "XC"]
-  ),
-  new Message(
-    29,
-    29,
-    [
-      `Good luck for English exam from 8:30-9:30`,
-      `Good luck for History 🗿 exam tomorrow from 8:30-9:30`,
-    ],
-    ["XA", "XB", "XC"]
-  ),
-  new Message(
-    30,
-    30,
-    [
-      `Good luck for History 🗿 exam from 8:30-9:00`,
-      `Good luck for Science 🔬 exam on Monday from 8:30-9:30`,
-    ],
-    ["XA", "XB", "XC"]
-  ),
-  new Message(
-    31,
-    31,
-    [`Good luck for Science 🔬 exam tomorrow from 8:30-9:30`],
-    ["XA", "XB", "XC"]
-  ),
-  new Message(
-    1,
-    1,
-    [
-      `Good luck for Science 🔬 exam from 8:30-9:30`,
-      `Diwali ✨️ Holidays from tomorrow but homework will be posted in Google Classroom for Maths 🧮 and Science 🔬.`,
-    ],
-    ["XA", "XB", "XC"]
-  ),
+  new Message(4, 4, [`Happy Diwali ✨️!`], ["All"]),
   new Message(
     2,
     16,
@@ -162,14 +82,14 @@ class LiveClass {
 }
 
 const liveClasses = [
-  new LiveClass(
-    new Date(2021, 9, 11),
-    new Date(2021, 9, 13, 11, 45, 0, 0),
-    new Date(2021, 9, 13, 12, 15, 0, 0),
-    "Scouts/Guides",
-    "https://meet.google.com/tqi-iwyf-pvx",
-    ["XA", "XB", "XC"]
-  ),
+  // new LiveClass(
+  //   new Date(2021, 9, 11),
+  //   new Date(2021, 9, 13, 11, 45, 0, 0),
+  //   new Date(2021, 9, 13, 12, 15, 0, 0),
+  //   "Scouts/Guides",
+  //   "https://meet.google.com/tqi-iwyf-pvx",
+  //   ["XA", "XB", "XC"]
+  // ),
 ];
 
 const linkCardLiTemplate = (() => {
