@@ -3,11 +3,17 @@ import Card from "/SchoolWork/Card.js";
 class AnsCard extends Card {
   constructor() {
     super();
+  }
 
-    this.root.innerHTML += `
-<style> 
-  .card::before { content: "∴ "; }
-</style>
+  get styles() {
+    return super.styles + `
+.card {
+  text-align: center;
+  font-size: 1.1em;
+  width: 100%;
+  max-width: 375px;
+}
+.card::before { content: "∴ "; }
     `;
   }
 

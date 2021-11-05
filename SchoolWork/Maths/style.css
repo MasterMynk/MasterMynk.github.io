@@ -1,9 +1,13 @@
+.soln-cards > li {
+  list-style: none;
+}
+
 .soln {
   padding-left: 2.5em;
 }
 
 .soln > li {
-  line-height: 2.2;
+  line-height: 2.5;
   list-style-type: "⇒ ";
 }
 

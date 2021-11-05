@@ -10,16 +10,12 @@ export default class Card extends HTMLElement {
     this.root = this.attachShadow({ mode: "open" });
 
     this.updBorderClr();
-    this.updRoot();
+    this.root.innerHTML = this.rootHTML;
   }
 
   attributeChangedCallback(name) {
     this.updBorderClr();
-    console.log(
-      `Reached Attr Changed Cb with border color ${this.borderClr}`,
-      name
-    );
-    this.updRoot();
+    this.root.innerHTML = this.rootHTML;
   }
 
   updBorderClr() {
@@ -28,10 +24,10 @@ export default class Card extends HTMLElement {
       : "rgb(var(--main-clr))";
   }
 
-  updRoot() {
-    this.root.innerHTML = `
+  get rootHTML() {
+    return `
 <style>
-  ${this.styleHTML}
+  ${this.styles}
 </style>
 
 <div class="card">
@@ -40,17 +36,20 @@ export default class Card extends HTMLElement {
     `;
   }
 
-  get styleHTML() {
+  get styles() {
     return `
-@import url(/SchoolWork/vars.css);
+@import url(/SchoolWork/global.css);
 
 .card {
-  padding: 0.25em;
-  font-size: 1.2em;
-  text-align: center;
+  padding: 1em;
+  backdrop-filter: blur(var(--card-blur));
+  background: rgba(var(--elem-bg-clr), var(--opacity));
+
+  height: 100%;
+
   border-radius: var(--card-border-rad);
-  border: 2px solid ${this.borderClr};
-  background-color: rgba(17, 17, 17, 0.3);
+  border: var(--border-thickness) solid ${this.borderClr};
+
   box-shadow: 0.5em 0.5em 0.5em rgba(10, 10, 10, 0.6);
 }`;
   }

@@ -1,3 +1,10 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  box-sizing: border-box;
+}
+
 html {
   --elem-bg-clr: 25, 25, 25;
   --opacity: 0.7;
