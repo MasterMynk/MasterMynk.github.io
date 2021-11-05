@@ -30,9 +30,9 @@ export default class Card extends HTMLElement {
   ${this.styles}
 </style>
 
-<div class="card">
+<main>
   <slot />
-</div>
+</main>
     `;
   }
 
@@ -40,7 +40,7 @@ export default class Card extends HTMLElement {
     return `
 @import url(/SchoolWork/global.css);
 
-.card {
+main {
   padding: 1em;
   backdrop-filter: blur(var(--card-blur));
   background: rgba(var(--elem-bg-clr), var(--opacity));

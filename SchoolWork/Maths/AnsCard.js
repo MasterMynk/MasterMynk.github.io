@@ -6,15 +6,16 @@ class AnsCard extends Card {
   }
 
   get styles() {
-    return super.styles + `
-.card {
+    return (
+      super.styles +
+      `
+main {
   text-align: center;
   font-size: 1.1em;
-  width: 100%;
-  max-width: 375px;
 }
-.card::before { content: "∴ "; }
-    `;
+main::before { content: "∴ "; }
+    `
+    );
   }
 
   connectedCallback() {

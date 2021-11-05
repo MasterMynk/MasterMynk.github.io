@@ -9,10 +9,11 @@ class SolnCard extends Card {
     return (
       super.styles +
       `
-.card {
+main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 1em;
 }
     `
     );
