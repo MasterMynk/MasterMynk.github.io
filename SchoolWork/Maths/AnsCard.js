@@ -15,8 +15,12 @@ main {
   justify-content: center;
   align-items: center;
   gap: 0.25em;
+  padding: .65em;
 }
-main::before { content: "∴ "; }
+main::before {
+  content: "∴ ";
+  font-size: 1.35em;
+}
     `
     );
   }

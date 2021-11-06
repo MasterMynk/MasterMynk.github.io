@@ -17,6 +17,8 @@ class CardGrid extends HTMLElement {
     padding: 0 min(4vw, 5em);
 
     width: 100%;
+
+    margin-bottom: 4em !important;
   }
 
   main ::slotted(soln-card) {
