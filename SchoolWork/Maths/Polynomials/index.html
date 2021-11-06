@@ -33,9 +33,11 @@
     <script src="/SchoolWork/Maths/SolnCard.js" defer type="module"></script>
     <script src="/SchoolWork/Maths/AnsCard.js" defer type="module"></script>
 
+    <script src="/SchoolWork/Maths/MathsFrac.js" defer></script>
+    <script src="/SchoolWork/Maths/MathsDiv.js" defer="defer"></script>
+
     <script src="/SchoolWork/CardGrid.js" defer></script>
     <script src="/SchoolWork/Maths/SolnSteps.js" defer></script>
-    <script src="/SchoolWork/Maths/MathsFrac.js" defer></script>
   </head>
 
   <body>
@@ -120,7 +122,7 @@
             </div>
           </soln-steps>
           <ans-card
-            >The card is
+            >The sum is
             <maths-frac>
               <div slot="numerator">1</div>
               <div slot="denominator">3</div>
@@ -208,16 +210,18 @@
         <soln-card>
           <soln-steps qt-identifier="f">
             <div>(x³ + 3x² + 3x + 1) ÷ (x² + 2x + 1)</div>
-            <div class="div">
-              <div class="quotient">x + 1</div>
-              <div class="divisor">x² + 2x + 1</div>
-              <div class="divident">x³ + 3x² + 3x + 1</div>
-              <div class="div-steps">
-                <div>-x³ - 2x² - x - 0</div>
-                <div>x² + 2x + 1</div>
-                <div>-x² - 2x - 1</div>
-                <div>0</div>
-              </div>
+            <div>
+              <maths-div>
+                <div slot="quotient">x + 1</div>
+                <div slot="divisor">x² + 2x + 1</div>
+                <div slot="divident">x³ + 3x² + 3x + 1</div>
+                <div slot="steps">
+                  <div>-x³ - 2x² - x - 0</div>
+                  <div>x² + 2x + 1</div>
+                  <div>-x² - 2x - 1</div>
+                  <div>0</div>
+                </div>
+              </maths-div>
             </div>
           </soln-steps>
           <ans-card>The Remainder is 0</ans-card>
@@ -460,16 +464,18 @@
         <soln-card>
           <soln-steps qt-identifier="1">
             <div>(x³ - 3x² + 5x + 8) ÷ (x² - 2)</div>
-            <div class="div" style="--divisor-size: 1.9ch">
-              <div class="quotient">x - 3</div>
-              <div class="divisor">x² - 2</div>
-              <div class="divident">x³ - 3x² + 5x + 8</div>
-              <div class="div-steps">
-                <div>-x³ - 0x² + 2x - 0</div>
-                <div>-3x² + 7x + 8</div>
-                <div>-3x² - 0x - 6</div>
-                <div>7x + 2</div>
-              </div>
+            <div>
+              <maths-div>
+                <div slot="quotient">x - 3</div>
+                <div slot="divisor">x² - 2</div>
+                <div slot="divident">x³ - 3x² + 5x + 8</div>
+                <div slot="steps">
+                  <div>-x³ - 0x² + 2x - 0</div>
+                  <div>-3x² + 7x + 8</div>
+                  <div>-3x² - 0x - 6</div>
+                  <div>7x + 2</div>
+                </div>
+              </maths-div>
             </div>
           </soln-steps>
           <ans-card>
@@ -502,16 +508,18 @@
                 <div slot="denominator" style="--offset: 25%">x² - x + 1</div>
               </maths-frac>
             </div>
-            <div class="div" style="--divisor-size: 6.8ch">
-              <div class="quotient">x - 2</div>
-              <div class="divisor">x² - x + 1</div>
-              <div class="divident">x³ - 3x² + 3x - 2</div>
-              <div class="div-steps">
-                <div>-x³ + x² - x - 0</div>
-                <div>-2x² + 2x - 2</div>
-                <div>2x² - 2x + 2</div>
-                <div>0</div>
-              </div>
+            <div>
+              <maths-div>
+                <div slot="quotient">x - 2</div>
+                <div slot="divisor">x² - x + 1</div>
+                <div slot="divident">x³ - 3x² + 3x - 2</div>
+                <div slot="steps">
+                  <div>-x³ + x² - x - 0</div>
+                  <div>-2x² + 2x - 2</div>
+                  <div>2x² - 2x + 2</div>
+                  <div>0</div>
+                </div>
+              </maths-div>
             </div>
           </soln-steps>
           <ans-card>g(x) = x - 2</ans-card>
@@ -520,16 +528,18 @@
         <soln-card>
           <soln-steps qt-identifier="3">
             <div>(x³ - 3x² + 3x - 8) ÷ (x² + 2x + 3)</div>
-            <div class="div" style="--divisor-size: 6.7ch">
-              <div class="quotient">x - 5</div>
-              <div class="divisor">x² + 2x + 3</div>
-              <div class="divident">x³ - 3x² + 3x - 8</div>
-              <div class="div-steps">
-                <div>-x³ - 2x² - 3x - 0</div>
-                <div>-5x² + 0x - 8</div>
-                <div>5x² + 10x + 15</div>
-                <div>10x + 7</div>
-              </div>
+            <div>
+              <maths-div>
+                <div slot="quotient">x - 5</div>
+                <div slot="divisor">x² + 2x + 3</div>
+                <div slot="divident">x³ - 3x² + 3x - 8</div>
+                <div slot="steps">
+                  <div>-x³ - 2x² - 3x - 0</div>
+                  <div>-5x² + 0x - 8</div>
+                  <div>5x² + 10x + 15</div>
+                  <div>10x + 7</div>
+                </div>
+              </maths-div>
             </div>
             <div>Divisor × Q + R = Divident</div>
             <div>(x² + 2x + 3)(x - 5) + (10x + 7) = x³ - 3x² + 3x - 8</div>
@@ -550,18 +560,20 @@
             <div>(x - √6)(x + √6)</div>
             <div>x² - (√6)²</div>
             <div>x² - 6</div>
-            <div class="div" style="--divisor-size: 4.7ch">
-              <div class="quotient">3x² - 10x + 8</div>
-              <div class="divisor">x² - 6</div>
-              <div class="divident">3x<sup>4</sup> - 10x³ - 10x² + 60x - 48</div>
-              <div class="div-steps">
-                <div>-3x<sup>4</sup> - 0x³ + 18x² - 0x - 0</div>
-                <div>-10x³ + 8x² + 60x - 48</div>
-                <div>10x³ - 0x² - 60x - 0</div>
-                <div>8x² + 0x - 48</div>
-                <div>-8x² - 0x + 48</div>
-                <div>0</div>
-              </div>
+            <div>
+              <maths-div>
+                <div slot="quotient">3x² - 10x + 8</div>
+                <div slot="divisor">x² - 6</div>
+                <div slot="divident">3x<sup>4</sup> - 10x³ - 10x² + 60x - 48</div>
+                <div slot="steps">
+                  <div>-3x<sup>4</sup> - 0x³ + 18x² - 0x - 0</div>
+                  <div>-10x³ + 8x² + 60x - 48</div>
+                  <div>10x³ - 0x² - 60x - 0</div>
+                  <div>8x² + 0x - 48</div>
+                  <div>-8x² - 0x + 48</div>
+                  <div>0</div>
+                </div>
+              </maths-div>
             </div>
             <div>Factorizing Q</div>
             <div>3x² - 10x + 8</div>
@@ -590,18 +602,20 @@
         <soln-card>
           <soln-steps qt-identifier="5">
             <div>(x + 5)</div>
-            <div class="div" style="--divisor-size: 4ch">
-              <div class="quotient">7x² + 11x - 6</div>
-              <div class="divisor">x + 5</div>
-              <div class="divident">7x³ + 46x² + 49x - 30</div>
-              <div class="div-steps">
-                <div>-7x³ - 35x² - 0x - 0</div>
-                <div>11x² + 49x - 30</div>
-                <div>-11x² - 55x - 0</div>
-                <div>-6x - 30</div>
-                <div>6x + 30</div>
-                <div>0</div>
-              </div>
+            <div>
+              <maths-div>
+                <div slot="quotient">7x² + 11x - 6</div>
+                <div slot="divisor">x + 5</div>
+                <div slot="divident">7x³ + 46x² + 49x - 30</div>
+                <div slot="steps">
+                  <div>-7x³ - 35x² - 0x - 0</div>
+                  <div>11x² + 49x - 30</div>
+                  <div>-11x² - 55x - 0</div>
+                  <div>-6x - 30</div>
+                  <div>6x + 30</div>
+                  <div>0</div>
+                </div>
+              </maths-div>
             </div>
             <div>Factorizing Q</div>
             <div>7x² + 11x - 6</div>
@@ -687,16 +701,18 @@
                 <div slot="denominator" style="--offset: 20%">x² - 2x + 3</div>
               </maths-frac>
             </div>
-            <div class="div" style="--divisor-size: 7.5ch">
-              <div class="quotient">x - 5</div>
-              <div class="divisor">x² - 2x + 3</div>
-              <div class="divident">x³ - 7x² + 13x - 15</div>
-              <div class="div-steps">
-                <div>-x³ + 2x² - 3x - 0</div>
-                <div>-5x² + 10x - 15</div>
-                <div>5x² - 10x + 15</div>
-                <div>0</div>
-              </div>
+            <div>
+              <maths-div>
+                <div slot="quotient">x - 5</div>
+                <div slot="divisor">x² - 2x + 3</div>
+                <div slot="divident">x³ - 7x² + 13x - 15</div>
+                <div slot="steps">
+                  <div>-x³ + 2x² - 3x - 0</div>
+                  <div>-5x² + 10x - 15</div>
+                  <div>5x² - 10x + 15</div>
+                  <div>0</div>
+                </div>
+              </maths-div>
             </div>
           </soln-steps>
           <ans-card>g(x) = x - 5</ans-card>

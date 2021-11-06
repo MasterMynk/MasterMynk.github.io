@@ -9,18 +9,18 @@ class CardGrid extends HTMLElement {
   @import url(/SchoolWork/global.css);
 
   main {
-    width: 100%;
-
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: stretch;
     gap: 3em;
+    padding: 0 min(4vw, 5em);
+
+    width: 100%;
   }
 
   main ::slotted(soln-card) {
-    max-width: 400px;
-    width: 100%;
+    min-width: min(375px, 96vw);
   }
 
 </style>

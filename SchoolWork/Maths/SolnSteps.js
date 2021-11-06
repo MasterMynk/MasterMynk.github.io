@@ -40,7 +40,7 @@ main ::slotted(*:first-child)::before { content: "${this.qtName}) "; }
 
 main ::slotted(*:not(:first-child))::before { content: "⇒ "; }
 main ::slotted(*:not(:first-child)) {
-  padding-left: ${this.qtName.length + 1.35}ex;
+  padding-left: ${this.qtName.length + 1.2}ch;
 }
 `;
   }
