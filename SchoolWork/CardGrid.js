@@ -19,14 +19,14 @@ class CardGrid extends HTMLElement {
   }
 
   main ::slotted(soln-card) {
-    max-width: 375px;
+    max-width: 400px;
     width: 100%;
   }
 
 </style>
 
 <main>
-  <slot />
+  <slot></slot>
 </main>
     `;
   }

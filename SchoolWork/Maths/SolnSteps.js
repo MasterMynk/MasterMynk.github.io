@@ -15,7 +15,7 @@ class SolnSteps extends HTMLElement {
 </style>
 
 <main>
-  <slot />
+  <slot></slot>
 </main>
     `;
   }
@@ -28,7 +28,13 @@ class SolnSteps extends HTMLElement {
     return `
 @import url(/SchoolWork/global.css);
 
-main ::slotted(*) { margin-bottom: 1em !important; }
+main ::slotted(*) {
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+
+  margin-bottom: 1em !important;
+}
 
 main ::slotted(*:first-child)::before { content: "${this.qtName}) "; }
 

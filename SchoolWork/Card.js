@@ -31,7 +31,7 @@ export default class Card extends HTMLElement {
 </style>
 
 <main>
-  <slot />
+  <slot></slot>
 </main>
     `;
   }

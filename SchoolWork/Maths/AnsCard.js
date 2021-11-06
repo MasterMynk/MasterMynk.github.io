@@ -10,8 +10,11 @@ class AnsCard extends Card {
       super.styles +
       `
 main {
-  text-align: center;
   font-size: 1.1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25em;
 }
 main::before { content: "∴ "; }
     `
