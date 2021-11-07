@@ -58,6 +58,8 @@
       defer
       type="module"
     ></script>
+    <script src="/SchoolWork/CardGrid.js" defer></script>
+    <script src="/SchoolWork/TimeTable/LinkCard.js" defer type="module"></script>
   </head>
 
   <body>
@@ -512,8 +514,8 @@
     </header>
 
     <main>
-      <ol class="cards">
-        <li class="card link-card">
+      <card-grid>
+        <link-card>
           <h2>Today:</h2>
           <ol class="todays-btns">
             <li>😴</li>
@@ -524,7 +526,7 @@
               >Report</a
             >
           </div>
-        </li>
+        </link-card>
 
         <li class="card ind-card">
           <table class="xa resp-table" id="curr">
@@ -1009,7 +1011,7 @@
             </tr>
           </table>
         </li>
-      </ol>
+      </card-grid>
     </main>
 
     <button class="install btn active">Install</button>

@@ -345,7 +345,7 @@ function update() {
     ) {
       let messageCard = $(".message.card");
       if (!messageCard) {
-        const cards = $cl("cards");
+        const cards = $t("card-grid");
         messageCard = $new("li");
 
         messageCard.classList.add("card", "message");
@@ -461,6 +461,7 @@ function statusLogic(timeDetails, status, correspondingInp) {
 // Function for easy testing
 function newDate() {
   const date = new Date();
+  date.setDate(date.getDate() + 1);
   return date;
 }
 

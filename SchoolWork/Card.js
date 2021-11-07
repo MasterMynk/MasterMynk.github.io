@@ -69,8 +69,3 @@ main {
     else this.removeAttribute("secondary");
   }
 }
-
-// The only reason that this element isn't named just 'card' is because custom
-// elements compulsorily should include a hyphen(-).
-// Source: https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define
-customElements.define("cust-card", Card);
