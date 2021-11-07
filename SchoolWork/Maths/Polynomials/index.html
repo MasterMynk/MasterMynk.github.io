@@ -30,14 +30,22 @@
     <link rel="stylesheet" href="/SchoolWork/general.css" />
     <link rel="stylesheet" href="/SchoolWork/Maths/style.css" />
 
-    <script src="/SchoolWork/Maths/AnsCard.js" defer type="module"></script>
-    <script src="/SchoolWork/Maths/SolnCard.js" defer type="module"></script>
+    <script
+      src="/SchoolWork/Maths/Components/AnsCard.js"
+      defer
+      type="module"
+    ></script>
+    <script
+      src="/SchoolWork/Maths/Components/SolnCard.js"
+      defer
+      type="module"
+    ></script>
 
-    <script src="/SchoolWork/Maths/MathsDiv.js" defer></script>
-    <script src="/SchoolWork/Maths/MathsFrac.js" defer></script>
+    <script src="/SchoolWork/Maths/Components/MathsDiv.js" defer></script>
+    <script src="/SchoolWork/Maths/Components/MathsFrac.js" defer></script>
 
-    <script src="/SchoolWork/CardGrid.js" defer></script>
-    <script src="/SchoolWork/Maths/SolnSteps.js" defer></script>
+    <script src="/SchoolWork/Components/CardGrid.js" defer></script>
+    <script src="/SchoolWork/Maths/Components/SolnSteps.js" defer></script>
   </head>
 
   <body>
@@ -564,7 +572,9 @@
               <maths-div>
                 <div slot="quotient">3x² - 10x + 8</div>
                 <div slot="divisor">x² - 6</div>
-                <div slot="divident">3x<sup>4</sup> - 10x³ - 10x² + 60x - 48</div>
+                <div slot="divident">
+                  3x<sup>4</sup> - 10x³ - 10x² + 60x - 48
+                </div>
                 <div slot="steps">
                   <div>-3x<sup>4</sup> - 0x³ + 18x² - 0x - 0</div>
                   <div>-10x³ + 8x² + 60x - 48</div>

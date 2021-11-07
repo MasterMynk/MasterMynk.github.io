@@ -1,4 +1,4 @@
-import Card from "/SchoolWork/Card.js";
+import Card from "/SchoolWork/Components/Card.js";
 
 class LinkCard extends Card {
   constructor() {
