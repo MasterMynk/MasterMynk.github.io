@@ -43,7 +43,7 @@ export default class Card extends HTMLElement {
 main {
   padding: 1em;
   backdrop-filter: blur(var(--card-blur));
-  background: rgba(var(--elem-bg-clr), var(--opacity));
+  background: rgba(var(--elem-bg-clr), calc(var(--opacity) + .25));
 
   height: 100%;
 
@@ -51,7 +51,14 @@ main {
   border: var(--border-thickness) solid ${this.borderClr};
 
   box-shadow: 0.5em 0.5em 0.5em rgba(10, 10, 10, 0.6);
-}`;
+}
+
+@supports (backdrop-filter: blur(var(--card-blur))) {
+  main {
+    background: rgba(var(--elem-bg-clr), var(--opacity));
+  }
+}
+`;
   }
 
   get secondary() {

@@ -37,7 +37,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   backdrop-filter: blur(var(--nav-bg-blur));
-  background-color: rgb(30, 30, 30);
+  background-color: rgba(var(--elem-bg-clr), calc(var(--opacity) + .25));
   position: sticky;
   top: 0;
   z-index: 1;
