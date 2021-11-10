@@ -221,7 +221,7 @@ function setDataTime(mobile = false) {
     !("time" in tds[0].dataset)
   )
     tds.forEach((td, i) =>
-      td.setAttribute("data-time", timings[i % 2].innerText)
+      td.setAttribute("data-time", timings[i % timings.length].innerText)
     );
 }
 

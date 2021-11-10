@@ -266,7 +266,7 @@ td {
 
 .ind-card {
   padding: 1.5em 1vw;
-  max-width: 900px;
+  max-width: 1000px;
 }
 
 table:not(#curr) {
