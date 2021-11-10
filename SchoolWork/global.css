@@ -21,3 +21,29 @@ html {
   --btn-bg-clr: rgba(10, 10, 10, 0.5);
   --nav-bg-blur: 2px;
 }
+
+.btn,
+.dropdown {
+  color: inherit;
+  cursor: pointer;
+  font-size: inherit;
+  text-align: center !important;
+  border: var(--border-thickness) solid currentColor;
+  padding: 0.7em 1em;
+  border-radius: var(--btn-border-rad);
+  font-family: inherit;
+  display: inline-block;
+  text-decoration: none;
+  background-color: var(--btn-bg-clr);
+  transition: background-color 250ms, border 250ms, color 250ms;
+  text-shadow: 0.1em 0.1em 0.2em rgba(10, 10, 10, 0.7);
+}
+
+.btn:is(:hover, :focus, .active),
+:is(.active.btn, form.active) > .go-btn,
+ul.active .btn {
+  outline: none;
+  border-color: rgb(var(--main-clr)) !important;
+  background-color: rgb(var(--main-clr)) !important;
+  color: var(--theme-font-clr) !important;
+}

@@ -96,30 +96,6 @@ nav {
   display: none;
 } /* Hides the checbox */
 
-.btn,
-.dropdown {
-  color: inherit;
-  cursor: pointer;
-  font-size: 1em;
-  border: var(--border-thickness) solid;
-  padding: 0.3em 1em;
-  border-radius: var(--btn-border-rad);
-  font-family: inherit;
-  display: inline-block;
-  text-decoration: none;
-  background-color: var(--btn-bg-clr);
-  transition: background-color 250ms, border 250ms, color 250ms;
-  text-shadow: 0.1em 0.1em 0.2em rgba(10, 10, 10, 0.7);
-}
-
-.btn:is(:hover, :focus, .active),
-:is(.active.btn, form.active) > .go-btn,
-ul.active .btn {
-  border-color: rgb(var(--main-clr)) !important;
-  background-color: rgb(var(--main-clr)) !important;
-  color: var(--theme-font-clr) !important;
-}
-
 h1 {
   font-size: 3.5em;
   font-weight: 700;
@@ -184,12 +160,6 @@ div.pop-up {
 @media (min-width: 769px) {
   body::before {
     background-image: var(--bg-1080), var(--default-bg);
-  }
-}
-
-@media (max-width: 645px) {
-  .btn:focus {
-    outline: none;
   }
 }
 

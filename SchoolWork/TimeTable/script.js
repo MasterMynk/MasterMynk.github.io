@@ -461,7 +461,7 @@ function statusLogic(timeDetails, status, correspondingInp) {
 // Function for easy testing
 function newDate() {
   const date = new Date();
-  date.setDate(date.getDate() + 1);
+  date.setDate(9);
   return date;
 }
 

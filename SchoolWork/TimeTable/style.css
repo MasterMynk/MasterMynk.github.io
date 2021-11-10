@@ -89,7 +89,6 @@
 }
 
 /* Menu Item */
-
 .menu-content .name {
   display: block;
   padding: 1em 2em;
@@ -262,6 +261,8 @@ td {
 
 .ind label {
   font-size: 0.75em;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
 }
 
 .ind-card {
@@ -284,6 +285,10 @@ table:not(#curr) {
 .todays.btn,
 .todays.btn-list .btn {
   display: block;
+}
+
+[name="third-lang"].btn {
+  font-size: .75em;
 }
 
 .go-btn {

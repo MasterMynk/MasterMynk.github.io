@@ -31,6 +31,7 @@
     <meta name="theme-color" content="#D35400" />
 
     <title>Live class Time Table</title>
+    <link rel="stylesheet" href="/SchoolWork/global.css">
     <link rel="stylesheet" href="/SchoolWork/general.css" />
     <link rel="stylesheet" href="/SchoolWork/TimeTable/style.css" />
 
@@ -64,6 +65,7 @@
       defer
       type="module"
     ></script>
+    <script src="/SchoolWork/Components/InputGo.js" defer></script>
   </head>
 
   <body>
@@ -518,12 +520,14 @@
     </header>
 
     <main>
-      <card-grid>
+      <card-grid cards-min-width=450>
         <link-card>
           <h2>Today:</h2>
+
           <ol class="todays-btns">
             <li>😴</li>
           </ol>
+          
           <div class="small report-btn-container">
             Link(s) not working?
             <a href="#report-pop-up" id="report-prompt" class="pop-up btn"
@@ -570,8 +574,8 @@
               </td>
 
               <td>
-                <form>
-                  <select name="third-lang" class="dropdown">
+                <input-go>
+                  <select class="btn small" slot="input">
                     <option value="https://meet.google.com/zft-cpcy-fnj">
                       French
                     </option>
@@ -588,8 +592,8 @@
                       Sanskrit
                     </option>
                   </select>
-                  <a href="#" class="btn go-btn">Join</a>
-                </form>
+                  Join 🚀
+                </input-go>
               </td>
 
               <td>
@@ -651,8 +655,8 @@
               </td>
 
               <td>
-                <form>
-                  <select name="third-lang" class="dropdown">
+                <input-go>
+<select class="btn small" slot="input">
                     <option value="https://meet.google.com/zft-cpcy-fnj">
                       French
                     </option>
@@ -669,8 +673,8 @@
                       Sanskrit
                     </option>
                   </select>
-                  <a href="#" class="btn go-btn">Join</a>
-                </form>
+Join🚀
+</input-go>
               </td>
               <td></td>
               <td></td>
@@ -732,8 +736,8 @@
               </td>
 
               <td>
-                <form>
-                  <select name="third-lang" class="dropdown">
+                <input-go>
+<select class="btn small" slot="input">
                     <option value="https://meet.google.com/zft-cpcy-fnj">
                       French
                     </option>
@@ -750,8 +754,8 @@
                       Sanskrit
                     </option>
                   </select>
-                  <a href="#" class="btn go-btn">Join</a>
-                </form>
+Join🚀
+</input-go>
               </td>
 
               <td>
@@ -807,8 +811,8 @@
               </td>
 
               <td>
-                <form>
-                  <select name="third-lang" class="dropdown">
+                <input-go>
+<select class="btn small" slot="input">
                     <option value="https://meet.google.com/zft-cpcy-fnj">
                       French
                     </option>
@@ -825,8 +829,8 @@
                       Sanskrit
                     </option>
                   </select>
-                  <a href="#" class="btn go-btn">Join</a>
-                </form>
+Join🚀
+</input-go>
               </td>
               <td></td>
             </tr>
@@ -888,8 +892,8 @@
               </td>
 
               <td>
-                <form>
-                  <select name="third-lang" class="dropdown">
+                <input-go>
+<select class="btn small" slot="input">
                     <option value="https://meet.google.com/zft-cpcy-fnj">
                       French
                     </option>
@@ -906,8 +910,8 @@
                       Sanskrit
                     </option>
                   </select>
-                  <a href="#" class="btn go-btn">Join</a>
-                </form>
+Join🚀
+</input-go>
               </td>
 
               <td>
@@ -969,8 +973,8 @@
               </td>
 
               <td>
-                <form>
-                  <select name="third-lang" class="dropdown">
+                <input-go>
+<select class="btn small" slot="input">
                     <option value="https://meet.google.com/zft-cpcy-fnj">
                       French
                     </option>
@@ -987,8 +991,8 @@
                       Sanskrit
                     </option>
                   </select>
-                  <a href="#" class="btn go-btn">Join</a>
-                </form>
+Join🚀
+</input-go>
               </td>
               <td></td>
               <td></td>
