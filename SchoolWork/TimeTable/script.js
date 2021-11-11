@@ -298,7 +298,7 @@ function update() {
       `#curr tr:nth-child(${date.getDay() + 1}) > td:not(:first-child)`
     );
 
-    const todaysBtns = $cl("todays-btns");
+    const todaysBtns = $id("todays-btns");
     todaysBtns.innerHTML = "";
 
     todaysRow.forEach(({ firstElementChild: btn }, i) => {

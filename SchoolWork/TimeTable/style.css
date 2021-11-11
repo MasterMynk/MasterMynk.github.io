@@ -282,10 +282,17 @@ table:not(#curr) {
   margin-bottom: 1em;
 }
 
+#todays-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
 .todays.btn,
 .todays.btn-list .btn {
   display: block;
 }
+
 
 [name="third-lang"].btn {
   font-size: .75em;

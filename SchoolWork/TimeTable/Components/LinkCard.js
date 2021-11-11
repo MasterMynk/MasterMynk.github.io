@@ -13,7 +13,7 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1em;
+  gap: 1.5em;
 }
 `
     );
