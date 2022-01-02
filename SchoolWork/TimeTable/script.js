@@ -29,14 +29,11 @@ class Message {
 
 const messages = [
   // All class names should be in capitals. This is because they are checked with the heading of the class.
-  new Message(4, 4, [`Happy Diwali ✨️!`], ["All"]),
   new Message(
     2,
-    16,
-    [
-      `No class today due to Diwali ✨️ Holidays but stuff will still be posted in Google Classroom of Maths 🧮 and Science 🔬.`,
-    ],
-    ["XA", "XB", "XC"]
+    8,
+    [`The timetable is subject to change`],
+    ["VIIIA", "VIIIB", "VIIIC", "VIIID", "7A", "7B", "7C", "7D"]
   ),
 ];
 
