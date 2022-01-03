@@ -11,7 +11,7 @@
 //       "/SchoolWork/general.css",
 //       "/SchoolWork/TimeTable/style.css",
 
-//       "/SchoolWork/TimeTable/script.js",
+//       "/SchoolWork/TimeTable/scripts/script.js",
 
 //       "/SchoolWork/bg768.webp",
 

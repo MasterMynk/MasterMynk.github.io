@@ -134,7 +134,7 @@ function swInit() {
   return new Promise((resolve) => {
     // Service worker
     if ("serviceWorker" in navigator && $('link[rel="manifest"]'))
-      navigator.serviceWorker.register("/SchoolWork/TimeTable/sw.js");
+      navigator.serviceWorker.register("/SchoolWork/TimeTable/scripts/sw.js");
     resolve();
   });
 }
