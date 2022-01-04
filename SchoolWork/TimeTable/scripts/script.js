@@ -35,6 +35,12 @@ const messages = [
     [`The timetable is subject to change`],
     ["VIIIA", "VIIIB", "VIIIC", "VIIID", "7A", "7B", "7C", "7D"]
   ),
+  new Message(
+    2,
+    8,
+    [`Don't worrry. I will correct the timetable today itself`],
+    ["IXA", "IXB", "IXC"]
+  ),
 ];
 
 class LiveClass {
