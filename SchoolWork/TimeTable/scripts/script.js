@@ -83,7 +83,7 @@ const liveClasses = [
   //   new Date(2021, 9, 11),
   //   new Date(2021, 9, 13, 11, 45, 0, 0),
   //   new Date(2021, 9, 13, 12, 15, 0, 0),
-  //   "Scouts/Guides",
+  //   "Scouts 🏕️/Guides 🏕️",
   //   "https://meet.google.com/tqi-iwyf-pvx",
   //   ["XA", "XB", "XC"]
   // ),
