@@ -39,7 +39,7 @@ const messages = [
     2,
     8,
     [`Don't worrry. I will correct the timetable today itself`],
-    ["IXA", "IXB", "IXC"]
+    ["IXC"]
   ),
 ];
 
