@@ -29,18 +29,12 @@ class Message {
 
 const messages = [
   // All class names should be in capitals. This is because they are checked with the heading of the class.
-  new Message(
-    2,
-    8,
-    [`The timetable is subject to change`],
-    ["VIIIA", "VIIIB", "VIIIC", "VIIID", "7A", "7B", "7C", "7D"]
-  ),
-  new Message(
-    2,
-    8,
-    [`Don't worrry. I will correct the timetable today itself`],
-    ["IXC"]
-  ),
+  // new Message(
+  //   2,
+  //   8,
+  //   [`The timetable is subject to change`],
+  //   ["VIIIA", "VIIIB", "VIIIC", "VIIID", "7A", "7B", "7C", "7D"]
+  // ),
 ];
 
 class LiveClass {
@@ -62,6 +56,8 @@ class LiveClass {
       classes.some((str) => $t("h1").innerText === str)
     )
       this.toShow = true;
+
+    console.log(newDate(), to, newDate() <= to);
 
     this.elem = $new("a");
     this.elem.href = link;
@@ -85,14 +81,14 @@ class LiveClass {
 }
 
 const liveClasses = [
-  // new LiveClass(
-  //   new Date(2021, 9, 11),
-  //   new Date(2021, 9, 13, 11, 45, 0, 0),
-  //   new Date(2021, 9, 13, 12, 15, 0, 0),
-  //   "Scouts 🏕️/Guides 🏕️",
-  //   "https://meet.google.com/tqi-iwyf-pvx",
-  //   ["XA", "XB", "XC"]
-  // ),
+  new LiveClass(
+    new Date(2022, 0, 2),
+    new Date(2022, 0, 6, 11, 00, 0, 0),
+    new Date(2022, 0, 6, 11, 45, 0, 0),
+    "English",
+    "https://meet.google.com/xvr-tkht-mmj",
+    ["IXA"]
+  ),
 ];
 
 const linkCardLiTemplate = (() => {
