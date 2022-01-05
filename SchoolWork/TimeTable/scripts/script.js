@@ -178,12 +178,7 @@ function navInit() {
   if ($("nav")) {
     const division = localStorage.getItem("division");
 
-    if (
-      division &&
-      $id(division) &&
-      $(".ind > div:last-child > label").innerText <= division
-    )
-      $id(division).checked = true;
+    if (division && $id(division)) $id(division).checked = true;
     else $('input[name="div"]').checked = true;
   }
 }
@@ -391,18 +386,32 @@ function dynamicTdCreationLogic(refElem, ind, liveClass) {
 
 function radioChange(callUpdate = true) {
   Array.from($$(".ind input")).every(async (btn) => {
+    // Hide or show the button depending on whether its checked or not
+    btn.parentElement.style.display = btn.checked ? "none" : "block";
+
     if (btn.checked) {
-      const currClass =
-        $("h1").innerText.slice(0, $("h1").innerText.length - 1) +
+      const currHeader = $("h1").innerText;
+
+      const newHeader =
+        currHeader.slice(0, currHeader.length - 1) +
         btn.nextElementSibling.innerText;
+
+      // Saving the selected division for next time
       localStorage.setItem("division", btn.id);
 
-      $("h1").innerText = currClass;
+      // Hiding the selected button
+
+      // Updating the header
+      $("h1").innerText = newHeader;
+
+      // Changing the visible table
       $id("curr").removeAttribute("id");
-      $(`.${currClass.toLowerCase()}`).setAttribute("id", "curr");
-      callUpdate && (await update());
+      $(`.${newHeader.toLowerCase()}`).setAttribute("id", "curr");
+
+      callUpdate && update();
       return false;
     }
+
     return true;
   });
 }

@@ -1,3 +1,9 @@
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .soln {
   padding-left: 2.5em;
 }

@@ -49,14 +49,8 @@ body::before {
 }
 
 nav {
-  --nav-x-padding: 10vw;
-  --nav-y-padding: 2vh;
-
   width: 100%;
-  display: flex;
-  padding: var(--nav-y-padding) var(--nav-x-padding);
-  align-items: center;
-  justify-content: space-between;
+  padding: 2vh 10vw;
   backdrop-filter: blur(var(--nav-bg-blur));
   background-color: rgb(30, 30, 30);
   position: sticky;
