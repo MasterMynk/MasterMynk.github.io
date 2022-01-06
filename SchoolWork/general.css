@@ -11,6 +11,7 @@ html {
   --elem-bg-clr: 25, 25, 25;
   --opacity: 0.7;
   --norm-font-clr: #eee;
+  --norm-font-clr-rgb: 238, 238, 238;
   --theme-font-clr: #111; /* For fonts */
   --main-clr: 211, 84, 0;
   --accent-clr: royalblue;

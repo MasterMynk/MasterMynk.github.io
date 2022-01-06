@@ -44,25 +44,23 @@ class LiveClass {
     endTime = newDate(),
     name = "",
     link = "#",
-    classes = []
+    classes = [],
+    hostname
   ) {
     from.setHours(0, 0, 0, 0);
     const to = new Date(from);
     to.setDate(from.getDate() + 6);
 
-    if (
-      newDate() >= from &&
-      newDate() <= to &&
-      classes.some((str) => $t("h1").innerText === str)
-    )
-      this.toShow = true;
-
-    console.log(newDate(), to, newDate() <= to);
-
     this.elem = $new("a");
     this.elem.href = link;
     this.elem.innerText = name;
     this.elem.classList.add("btn");
+
+    if (hostname) {
+      this.hostname = $new("div");
+      this.hostname.classList.add("hostname");
+      this.hostname.innerHTML = hostname;
+    }
 
     this.startTime = startTime;
     const startMins = this.startTime.getMinutes();
@@ -77,6 +75,18 @@ class LiveClass {
     }${this.endTime.getMinutes()}`;
 
     this.range = `${this.startTimeStr} - ${this.endTimeStr}`;
+
+    this.from = from;
+    this.to = to;
+    this.classes = classes;
+  }
+
+  get toShow() {
+    return (
+      newDate() >= this.from &&
+      newDate() <= this.to &&
+      this.classes.some((str) => $t("h1").innerText === str)
+    );
   }
 }
 
@@ -87,7 +97,26 @@ const liveClasses = [
     new Date(2022, 0, 6, 11, 45, 0, 0),
     "English",
     "https://meet.google.com/xvr-tkht-mmj",
-    ["IXA"]
+    ["IXA"],
+    "Tr. Silvaliza"
+  ),
+  new LiveClass(
+    new Date(2022, 0, 2),
+    new Date(2022, 0, 6, 9, 35, 0, 0),
+    new Date(2022, 0, 6, 10, 10, 0, 0),
+    "History 📜",
+    "https://meet.google.com/scv-ssmo-vdg",
+    ["IXB"],
+    "Tr. Silvaliza"
+  ),
+  new LiveClass(
+    new Date(2022, 0, 2),
+    new Date(2022, 0, 6, 9, 0, 0, 0),
+    new Date(2022, 0, 6, 9, 35, 0, 0),
+    "English",
+    "https://meet.google.com/xvr-tkht-mmj",
+    ["IXC"],
+    "Tr. Silvaliza"
   ),
 ];
 
@@ -269,6 +298,8 @@ function update() {
 
               td.innerHTML = "";
               td.appendChild(liveClass.elem);
+              liveClass.hostname && td.appendChild(liveClass.hostname);
+
               return false;
             }
 
@@ -295,25 +326,40 @@ function update() {
     const todaysBtns = $cl("todays-btns");
     todaysBtns.innerHTML = "";
 
-    todaysRow.forEach(({ firstElementChild: btn }, i) => {
-      if (btn)
+    todaysRow.forEach(({ children }, i) => {
+      children.length &&
         todaysBtns.appendChild(
           (() => {
-            // Adds an li
             const li = linkCardLiTemplate.cloneNode(true);
-            const timingAndStatus = li.firstElementChild;
-            const timeDetails = timeInRange(
-              addTime(
-                $(`#curr tr > th:nth-child(${i + 2})`).innerText,
-                timingAndStatus.firstElementChild
-              ).innerText
+
+            // Adding the timing and status
+            (() => {
+              const timingAndStatus = li.firstElementChild;
+              const timeDetails = timeInRange(
+                addTime(
+                  $(`#curr tr > th:nth-child(${i + 2})`).innerText,
+                  timingAndStatus.firstElementChild
+                ).innerText
+              );
+
+              statusLogic(
+                timeDetails,
+                timingAndStatus.children[1],
+                children[0]
+              );
+            })();
+
+            // Adding the button
+            li.appendChild(
+              (() => {
+                const appendBtn = children[0].cloneNode(true);
+                appendBtn.classList.add("todays");
+                return appendBtn;
+              })()
             );
 
-            statusLogic(timeDetails, timingAndStatus.children[1], btn);
-
-            const appendBtn = btn.cloneNode(true);
-            appendBtn.classList.add("todays");
-            li.appendChild(appendBtn);
+            // Adding the host name
+            children[1] && li.appendChild(children[1].cloneNode(true));
 
             return li;
           })()
@@ -374,8 +420,10 @@ function dynamicTdCreationLogic(refElem, ind, liveClass) {
     // If we're working with the timing
     elemToAdd = refElem.cloneNode(true);
     elemToAdd.innerText = liveClass.range;
-  } else if (liveClass.startTime.getDay() === ind)
+  } else if (liveClass.startTime.getDay() === ind) {
     elemToAdd.appendChild(liveClass.elem);
+    liveClass.hostname && elemToAdd.appendChild(liveClass.hostname);
+  }
 
   return elemToAdd;
 }

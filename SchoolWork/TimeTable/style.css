@@ -3,6 +3,11 @@ nav {
   justify-content: center;
 }
 
+.hostname {
+  font-size: 0.7em;
+  text-align: center;
+}
+
 .message.card {
   justify-content: flex-start;
 }
@@ -13,10 +18,6 @@ nav {
 
 .message.card li {
   margin-bottom: 1em;
-}
-
-td {
-  font-size: 0.9em;
 }
 
 .ind label {
@@ -192,6 +193,7 @@ th {
 
 td {
   padding: 1em 0.5em;
+  font-size: 0.9em;
 }
 
 td:first-child,
