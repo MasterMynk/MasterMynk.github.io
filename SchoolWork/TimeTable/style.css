@@ -168,10 +168,19 @@ label.report {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  gap: 1em;
 }
 
 label.report:hover {
   background-color: rgba(var(--elem-bg-clr), 0.7);
+}
+
+label.report > .report-candidate-papa {
+  flex-grow: 1;
+}
+
+.report-candidate-papa > * {
+  display: block;
 }
 
 input[type="checkbox"] {

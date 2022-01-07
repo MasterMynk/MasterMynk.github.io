@@ -403,7 +403,6 @@ function update() {
       }
 
       // Actually adding the message in the card
-      console.log(messageObj);
       messageObj.messages.forEach((message) => {
         const messageElem = $new("li");
         messageElem.innerHTML = message;
@@ -615,17 +614,33 @@ $("#report-prompt.btn").onclick = () => {
   const reportList = $id("report-options");
   reportList.innerHTML = "";
 
-  const reportCandidates = $$(".todays-btns > li > *:last-child");
+  const reportCandidates = $$(".todays-btns > li > :is(.todays, .hostname)");
 
   reportCandidates.forEach((candidate) => {
     function wrap(elem) {
       const label = $new("label");
 
       label.innerHTML = `<input type="checkbox">`;
-      label.appendChild(elem);
+      label.appendChild(
+        (() => {
+          const div = document.createElement("div");
+
+          div.classList.add("report-candidate-papa");
+          div.appendChild(elem);
+
+          return div;
+        })()
+      );
       label.classList.add("report");
 
       return label;
+    }
+
+    if (candidate.classList.contains("hostname")) {
+      reportList.children[reportList.children.length - 1]
+        .getElementsByClassName("report-candidate-papa")[0]
+        .appendChild(candidate.cloneNode(true));
+      return;
     }
 
     const toAdd = candidate.cloneNode(true);
@@ -643,9 +658,6 @@ $("#report-prompt.btn").onclick = () => {
       return;
     }
 
-    if (toAdd.nodeName === "FORM")
-      toAdd.getElementsByClassName("go-btn")[0].classList.remove("go-btn");
-
     reportList.appendChild(wrap(toAdd));
   });
 };
@@ -662,21 +674,28 @@ $("#report.btn").onclick = () => {
       } whose link didn't work for me.&body=${Array.from(
         selectedCheckboxes
       ).reduce((str, checkbox, ind, arr) => {
-        const workingElem = checkbox.nextElementSibling;
+        const getFromCb = (className) =>
+          checkbox.nextElementSibling.getElementsByClassName(className)[0];
+
+        const btn = getFromCb("todays") || getFromCb("btn");
+        const hostname = getFromCb("hostname");
         let selectedName = "";
 
-        if (workingElem.nodeName === "FORM") {
-          const dropdown = workingElem.querySelector(".dropdown");
+        if (btn.nodeName === "FORM") {
+          const dropdown = btn.querySelector(".dropdown");
           selectedName =
             dropdown.children[dropdown.selectedIndex].innerText.trim();
-        } else selectedName = workingElem.innerText.trim();
+        } else selectedName = btn.innerText.trim();
 
-        let retStr = str + selectedName;
+        let grammar = "";
 
-        if (ind === arr.length - 2) retStr += " and ";
-        else if (ind < arr.length - 2) retStr += ", ";
+        if (ind !== 0)
+          if (ind === arr.length - 1) grammar += " and ";
+          else grammar += ", ";
 
-        return retStr;
+        return `${str}${grammar}${selectedName}${
+          hostname ? `(${hostname.innerText})` : ""
+        }`;
       }, "")} link${
         selectedCheckboxes.length > 1 ? "s aren't" : " isn't"
       } working`
