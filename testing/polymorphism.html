@@ -1,12 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <script>window.location.replace("https://redirect.teleparty.com/join/6d19559bd6ab0475")</script>
-</body>
+
+    <style>
+      *,
+      *::after,
+      *::before {
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        overflow: hidden;
+      }
+
+      video {
+        position: fixed;
+        z-index: -1;
+        right: 0;
+        top: 0;
+      }
+
+      div {
+        margin-top: 20vh;
+        display: flex; flex-direction:column; align-items: center;
+        justify-content: center;
+      }
+
+      h1 {
+        color: white;
+        z-index: 5;
+        font-family: sans-serif;
+        text-align: center;
+        padding-bottom: 3em;
+      }
+
+      a {
+        background-color: orangered;
+        padding: 1em 1.5em;
+        border-radius: 50px;
+        color: white;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <video autoplay loop width="100%"><source src="./bg.webm" /></video>
+    <div>
+      <h1>Please watch Interstellar with me uwu 👉🏼👈🏼</h1>
+      <a href="https://redirect.teleparty.com/join/6d19559bd6ab0475" target="_blank">Join me!</a>
+    </div>
+  </body>
 </html>
