@@ -61,12 +61,17 @@ main {
 
     display: flex;
     box-shadow: 0 0 5em rgba(0, 0, 0, 0.2);
+    width: min(90%, 62.5em);
+    height: min(37.6em, 100svh);
 
     .player-cont {
         flex: 1;
 
-        padding: 5.7em 8.8em;
         background-color: rgba(255, 255, 255, 0.4);
+
+        display: grid;
+        grid-template: 7fr 12fr 10fr / 1fr;
+        justify-items: center;
 
         > * {
             opacity: 0.6;
@@ -74,19 +79,24 @@ main {
         }
 
         .player-name {
+            align-self: end;
+
             font-size: 2.6em;
             font-weight: 400;
         }
 
         .score {
+            align-self: start;
+
             color: var(--clr-pri);
             font-weight: 400;
             text-align: center;
             font-size: 4.8em;
-            margin-bottom: 1.8em;
         }
 
-        .curr-score-cont {
+        .curr-score-cont {   
+            align-self: start;
+
             color: var(--fg-clr-2);
             background-color: var(--clr-pri);
             padding: 1.3em 4.5em 1.5em 4.5em;
@@ -105,10 +115,12 @@ main {
         }
     }
 
-    #player1-cont {
+    #player1-cont,
+    #screen {
         border-radius: var(--border-rad) 0 0 var(--border-rad);
     }
-    #player2-cont {
+    #player2-cont,
+    #screen.other {
         border-radius: 0 var(--border-rad) var(--border-rad) 0;
     }
 
@@ -136,7 +148,6 @@ main {
         z-index: -1;
 
         left: 0;
-        border-radius: var(--border-rad) 0 0 var(--border-rad);
 
         width: 50%;
         height: 100%;
@@ -145,7 +156,6 @@ main {
     }
     #screen.other {
         left: 50%;
-        border-radius: 0 var(--border-rad) var(--border-rad) 0;
     }
     #screen.winner {
         background-color: #2f2f2f;
@@ -232,5 +242,104 @@ main {
 
     #hold-btn {
         bottom: 5.5em;
+    }
+}
+
+@media (max-width: 800px) {
+    main {
+        height: min(75em, 90svh);
+        font-size: .75em;
+        
+        display: grid;
+        grid-template-rows: [player1-start] 1fr [dice-start] 1fr [player1-end player2-start] 1fr [dice-end] 1fr [player2-end];
+        grid-template-columns: 1em [hold-start] 1fr [hold-end] 1em [roll-start] 1fr [roll-end dice-start] 1fr 1fr [dice-end] 1fr [new-start] 1fr [new-end] 1em;
+
+        #player1-cont {
+            grid-column: 1 / -1;
+            grid-row: player1;
+        }
+
+        #player2-cont {
+            grid-column: 1 / -1;
+            grid-row: player2;
+        }
+
+        #player1-cont,
+        #screen {
+            border-radius: var(--border-rad) var(--border-rad) 0 0;
+        }
+
+        #player2-cont,
+        #screen.other {
+            border-radius: 0 0 var(--border-rad) var(--border-rad);
+        }
+
+        #screen {
+            width: 100%;
+            height: 50%;
+            transition: top var(--anim-dur) ease-in-out;
+        }
+
+        #screen.other {
+            left: 0;
+            top: 50%;
+        }
+
+        #dice {
+            grid-column: dice;
+            grid-row: dice;
+            align-self: center;
+            justify-self: center;
+
+            position: static;
+            transform: translateX(0) scale(0);
+        }
+
+        #dice.rolled {
+            transform: translateX(0) scale(1);
+        }
+
+        button {
+            position: static;
+            transform: translateX(0);
+            align-self: center;
+            justify-self: center;
+            font-size: 1.6em;
+            padding-block: 1em;
+
+            .btn-txt {
+                display: none;
+            }
+
+            .icon-emoji {
+                margin: 0;
+            }
+        }
+
+        button:active {
+            transform: translateY(7%);
+            box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.3);
+        }
+
+        #new-game-btn {
+            grid-column: new;
+            grid-row: dice;
+        }
+
+        #roll-dice-btn {
+            grid-column: roll;
+            grid-row: dice;
+        }
+
+        #hold-btn {
+            grid-column: hold;
+            grid-row: dice;
+        }
+    }
+}
+
+@media (max-width: 486px) {
+    main {
+        font-size: .5em;
     }
 }
