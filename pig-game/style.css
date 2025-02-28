@@ -1,0 +1,236 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    --bg-clr-1: rgb(191, 46, 52);
+    --bg-clr-2: rgb(117, 54, 130);
+    --fg-clr-1: #333;
+    --clr-pri: rgb(199, 54, 95);
+    --fg-clr-2: #eee;
+}
+
+body {
+    background-image: linear-gradient(
+        to bottom right,
+        var(--bg-clr-1),
+        var(--bg-clr-2)
+    );
+    min-height: 100svh;
+    font: normal expanded 1em "Nunito", serif;
+    font-optical-sizing: auto;
+    color: var(--fg-clr-1);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    outline: none;
+    border: none;
+    font-size: 1.1em;
+    padding: 0.3em 1.5em;
+    border-radius: 2em;
+    font-family: inherit;
+    color: #111;
+    box-shadow: 0 0.75em 1em rgba(0, 0, 0, 0.05);
+    background-color: rgb(255, 255, 255, 0.8);
+    transition: transform 300ms, box-shadow 300ms;
+
+    .icon-emoji {
+        font-size: 1.3em;
+        margin-right: 0.3em;
+    }
+}
+
+button:active {
+    transform: translate(-50%, 7%);
+    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.3);
+}
+
+main {
+    --border-rad: 10px;
+    --anim-dur: 250ms;
+
+    position: relative;
+
+    display: flex;
+    box-shadow: 0 0 5em rgba(0, 0, 0, 0.2);
+
+    .player-cont {
+        flex: 1;
+
+        padding: 5.7em 8.8em;
+        background-color: rgba(255, 255, 255, 0.4);
+
+        > * {
+            opacity: 0.6;
+            transition: opacity var(--anim-dur) ease-in-out;
+        }
+
+        .player-name {
+            font-size: 2.6em;
+            font-weight: 400;
+        }
+
+        .score {
+            color: var(--clr-pri);
+            font-weight: 400;
+            text-align: center;
+            font-size: 4.8em;
+            margin-bottom: 1.8em;
+        }
+
+        .curr-score-cont {
+            color: var(--fg-clr-2);
+            background-color: var(--clr-pri);
+            padding: 1.3em 4.5em 1.5em 4.5em;
+            text-align: center;
+            border-radius: var(--border-rad);
+
+            .curr-score-label {
+                font-weight: 400;
+                font-size: 1em;
+                margin-bottom: 0.5em;
+            }
+
+            .curr-score {
+                font-size: 2em;
+            }
+        }
+    }
+
+    #player1-cont {
+        border-radius: var(--border-rad) 0 0 var(--border-rad);
+    }
+    #player2-cont {
+        border-radius: 0 var(--border-rad) var(--border-rad) 0;
+    }
+
+    .player-cont.active {
+        > * {
+            opacity: 1;
+        }
+
+        .player-name {
+            font-weight: 600;
+        }
+    }
+
+    .player-cont.winner {
+        background-color: transparent;
+
+        .player-name {
+            color: var(--clr-pri);
+        }
+    }
+
+    #screen {
+        position: absolute;
+        top: 0;
+        z-index: -1;
+
+        left: 0;
+        border-radius: var(--border-rad) 0 0 var(--border-rad);
+
+        width: 50%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.35);
+        transition: left var(--anim-dur) ease-in-out;
+    }
+    #screen.other {
+        left: 50%;
+        border-radius: 0 var(--border-rad) var(--border-rad) 0;
+    }
+    #screen.winner {
+        background-color: #2f2f2f;
+    }
+
+    #dice {
+        --side: 6.5em;
+
+        position: absolute;
+        top: 10em;
+        left: 50%;
+        z-index: 1;
+
+        display: grid;
+        width: var(--side);
+        height: var(--side);
+        background-color: white;
+        box-shadow: 0 0 2em rgba(0, 0, 0, 0.2);
+        transform: translateX(-50%) scale(0);
+        transition: transform var(--anim-dur) ease-in-out;
+        border-radius: var(--border-rad);
+
+        grid-template: [top-start] 1fr [top-end mid-start] 1fr [mid-end down-start] 1fr [down-end] / [left-start] 1fr [left-end center-start] 1fr [center-end right-start] 1fr [right-end];
+        align-items: center;
+        justify-items: center;
+
+        .dot {
+            --radius: 0.9em;
+
+            display: none;
+            width: var(--radius);
+            height: var(--radius);
+            background-color: var(--clr-pri);
+            border-radius: 50%;
+        }
+
+        .dot.top {
+            grid-row: top;
+        }
+        .dot.left {
+            grid-column: left;
+        }
+        .dot.right {
+            grid-column: right;
+        }
+        .dot.mid {
+            grid-row: mid;
+        }
+        .dot.center {
+            grid-column: center;
+        }
+        .dot.down {
+            grid-row: down;
+        }
+    }
+
+    #dice.one > .one,
+    #dice.two > .two,
+    #dice.three > .three,
+    #dice.four > .four,
+    #dice.five > .five,
+    #dice.six > .six {
+        display: block;
+    }
+
+    #dice.rolled {
+        transform: translateX(-50%) scale(1);
+    }
+
+    button {
+        position: absolute;
+        z-index: 1;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #new-game-btn {
+        top: 2.5em;
+    }
+
+    #roll-dice-btn {
+        bottom: 9.7em;
+    }
+
+    #hold-btn {
+        bottom: 5.5em;
+    }
+}

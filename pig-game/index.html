@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pig Game</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+            rel="stylesheet"
+        />
+
+        <link rel="stylesheet" href="style.css" />
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <main>
+            <button id="new-game-btn">
+                <span class="icon-emoji">🔄</span> NEW GAME
+            </button>
+            <div id="dice">
+                <div class="dot four five six top left"></div>
+                <div
+                    id="top-right"
+                    class="dot two three four five six top right"
+                ></div>
+                <div class="dot six mid left"></div>
+                <div class="dot one three five mid center"></div>
+                <div class="dot six mid right"></div>
+                <div class="dot two three four five six down left"></div>
+                <div class="dot four five six down right"></div>
+            </div>
+            <div class="player-cont active" id="player1-cont">
+                <h2 class="player-name">PLAYER 1</h2>
+                <p class="score">0</p>
+                <div class="curr-score-cont">
+                    <h3 class="curr-score-label">CURRENT</h3>
+                    <p class="curr-score">0</p>
+                </div>
+            </div>
+            <div class="player-cont" id="player2-cont">
+                <h2 class="player-name">PLAYER 2</h2>
+                <p class="score">0</p>
+                <div class="curr-score-cont">
+                    <h3 class="curr-score-label">CURRENT</h3>
+                    <p class="curr-score">0</p>
+                </div>
+            </div>
+            <div id="screen"></div>
+            <button id="roll-dice-btn">
+                <span class="icon-emoji">🎲</span> ROLL DICE
+            </button>
+            <button id="hold-btn">
+                <span class="icon-emoji">📥</span> HOLD
+            </button>
+        </main>
+    </body>
+</html>
