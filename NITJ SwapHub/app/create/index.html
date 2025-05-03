@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/general.css" />
+        <link rel="stylesheet" href="/style.css" />
+        <link rel="stylesheet" href="style.css" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="icon" type="image/png" href="/assets/icon.png" />
+
+        <title>Post your listing</title>
+
+        <script src="script.js" type="module"></script>
+    </head>
+    <body>
+        <form method="post">
+            <h2 id="form-heading">Create your listing</h2>
+
+            <div class="input-cont">
+                <input
+                    type="text"
+                    name="title"
+                    id="title"
+                    placeholder="Title"
+                    required
+                />
+            </div>
+
+            <div class="input-cont radio" id="trade-type-cont">
+                <h4 class="field-heading">
+                    How do you want to trade this product?
+                </h4>
+                <label for="buy-sell">
+                    <input type="radio" name="exchange" id="buy-sell" checked />
+                    Buy/Sell
+                </label>
+                <label for="exchange">
+                    <input type="radio" name="exchange" id="exchange" />
+                    Exchange
+                </label>
+            </div>
+
+            <div class="input-cont">
+                <input
+                    type="text"
+                    inputmode="numeric"
+                    name="price"
+                    id="price"
+                    placeholder="Price"
+                    required
+                />
+            </div>
+
+            <div class="input-cont">
+                <textarea
+                    name="description"
+                    id="description"
+                    placeholder="Enter a description"
+                    required
+                ></textarea>
+            </div>
+
+            <div class="input-cont">
+                <h4 class="field-heading">Enter the thumbnail</h4>
+                <label for="thumbnail-inp" class="fancy-btn">
+                    Choose file
+                    <input
+                        type="file"
+                        accept="image/png,image/jpeg"
+                        required
+                        id="thumbnail-inp"
+                    />
+                </label>
+                <p class="guidance" id="thumbnail-guidance">
+                    <ion-icon
+                        name="alert-circle-outline"
+                        class="warning-icon"
+                    ></ion-icon>
+                    <ion-icon
+                        name="checkmark-circle-outline"
+                        class="affirm-icon"
+                    ></ion-icon>
+                    Image should not exceed 1Mib in size.
+                </p>
+            </div>
+
+            <div class="input-cont">
+                <button id="post-btn" class="fancy-btn">Post!</button>
+            </div>
+        </form>
+
+        <nav>
+            <a id="create-listing" class="sect-btn" href="/app">
+                <ion-icon name="arrow-back-outline"></ion-icon>Go Back
+            </a>
+        </nav>
+
+        <script
+            type="module"
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+        ></script>
+        <script
+            nomodule
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+        ></script>
+    </body>
+</html>

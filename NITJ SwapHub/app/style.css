@@ -1,0 +1,114 @@
+body {
+    padding-top: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    margin-inline: 10svw;
+    font-size: 1.7em;
+
+    h1 {
+        font-weight: 400;
+
+        #name-to-greet {
+            color: hsl(var(--pri-clr-hs), var(--pri-clr-l));
+        }
+    }
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: 400;
+}
+
+main {
+    margin-block: 2rem auto;
+    margin-inline: 10svw;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+    gap: 1em;
+
+    color: #333;
+}
+
+.product-listing {
+    display: flex;
+    flex-direction: column;
+    transition: scale 300ms ease-in;
+    color: inherit;
+    text-decoration: inherit;
+
+    .thumbnail {
+        max-width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .title {
+        font-size: 1.5em;
+        padding: 0.5rem;
+        margin-bottom: auto;
+    }
+
+    .value {
+        background-color: hsl(var(--pri-clr-hs), var(--pri-clr-l));
+        color: var(--fg-clr);
+        text-align: center;
+        padding-block: 0.5em;
+        font-size: 1.3em;
+    }
+
+    .value.exchange {
+        background-color: var(--sec-clr);
+    }
+
+    .op-cont {
+        padding: 0.5rem;
+        background-color: #eee;
+        border-radius: 0 0 20px 20px;
+
+        a {
+            color: inherit;
+        }
+    }
+}
+
+.product-listing:hover {
+    scale: 1.1;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100svh;
+    width: 100svw;
+    background-color: rgba(0, 0, 0, 0.6);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .modal {
+        display: grid;
+        grid-template: 1fr 1fr / 1fr 1fr;
+        gap: 2em;
+        font-size: 2em;
+        background-image: linear-gradient(
+            hsl(var(--pri-clr-hs), var(--pri-clr-l)),
+            hsl(var(--pri-clr-hs), var(--pri-dark-clr-l))
+        );
+        padding: 1em 3em;
+        border-radius: 1em;
+
+        h2 {
+            grid-column: 1 / -1;
+        }
+    }
+}
+
+.modal-overlay.hidden {
+    display: none;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/general.css" />
+        <link rel="stylesheet" href="style.css" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="icon" type="image/png" href="/assets/icon.png" />
+
+        <title>View the listing</title>
+
+        <script src="script.js" type="module"></script>
+    </head>
+    <body>
+        <section id="img-display"><img src="#" alt="Product image" /></section>
+        <section id="content">
+            <h1 id="product-title"></h1>
+
+            <div class="sub-sect">
+                <h3 class="sub-sect-h">Description</h3>
+                <p id="description"></p>
+            </div>
+
+            <div class="sub-sect">
+                <h3 class="sub-sect-h">Method of exchange</h3>
+                <div id="exchange-method"></div>
+            </div>
+        </section>
+        <section id="op">
+            <h2>Posted by</h2>
+
+            <div id="op-pfp-cont">
+                <img
+                    src="#"
+                    alt="Profile picture of original poster"
+                    id="op-pfp"
+                />
+            </div>
+
+            <h3 id="op-name"></h3>
+            <a href="mailto:" id="op-email"></a>
+
+            <button class="fancy-btn" id="start-chat-btn">Start a chat!</button>
+        </section>
+
+        <script
+            type="module"
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+        ></script>
+        <script
+            nomodule
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+        ></script>
+    </body>
+</html>

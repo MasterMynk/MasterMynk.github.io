@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NITJ SwapHub</title>
+        <link rel="stylesheet" href="/general.css" />
+        <link rel="stylesheet" href="style.css" />
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+            rel="stylesheet"
+        />
+
+        <link rel="icon" type="image/png" href="/assets/icon.png" />
+
+        <script type="module" src="script.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Hello<span id="name-to-greet"></span>!</h1>
+        </header>
+
+        <main></main>
+
+        <nav>
+            <a id="create-listing" class="sect-btn" href="/app/create/">
+                <ion-icon name="add-outline"></ion-icon>Create Listing
+            </a>
+
+            <input type="checkbox" id="sign-out-checkbox" class="sect-btn" />
+            <label for="sign-out-checkbox" class="sect-btn">
+                <ion-icon name="log-out-outline"></ion-icon>Sign Out
+            </label>
+        </nav>
+
+        <div class="modal-overlay hidden" id="sign-out-modal-overlay">
+            <div class="modal">
+                <h2>Are you sure you want to Sign Out?</h2>
+                <button class="fancy-btn" id="sign-out-btn">
+                    Yes, sign me out
+                </button>
+                <button class="fancy-btn exit-btn">No, take me back!</button>
+            </div>
+        </div>
+
+        <script
+            type="module"
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+        ></script>
+        <script
+            nomodule
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+        ></script>
+    </body>
+</html>

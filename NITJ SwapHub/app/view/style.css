@@ -1,0 +1,146 @@
+body {
+    display: flex;
+    height: 100svh;
+}
+
+section#img-display {
+    flex: 2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+section#content {
+    flex: 3;
+    background-color: #f7f7f7;
+    padding: 1em;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3.5em;
+
+    #product-title {
+        font-size: 4em;
+        color: hsl(var(--pri-clr-hs), var(--pri-dark-clr-l));
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 0.2em;
+    }
+
+    .sub-sect-h {
+        font-size: 2em;
+        color: hsl(var(--pri-clr-hs), var(--pri-clr-l));
+        margin-bottom: 0.5em;
+    }
+
+    #description {
+        font-size: 1.2em;
+        line-height: 1.5;
+        padding-inline: 2em;
+        text-align: justify;
+    }
+
+    #exchange-method {
+        display: inline-flex;
+        gap: 0.5em;
+        align-items: center;
+
+        color: var(--fg-clr);
+        margin-left: 3em;
+        padding: 1em 2em;
+        border-radius: 20px;
+        font-size: 1.2em;
+
+        ion-icon {
+            font-size: 1.6em;
+        }
+    }
+
+    #exchange-method.exchange {
+        background-color: var(--sec-clr);
+    }
+
+    #exchange-method.payment {
+        background-color: hsl(var(--pri-clr-hs), var(--pri-clr-l));
+    }
+}
+
+section#op {
+    flex: 1 0 100px;
+    color: var(--fg-clr);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-bottom: calc(5svh + 0.2em);
+
+    background-image: linear-gradient(
+        hsl(var(--pri-clr-hs), var(--pri-clr-l)),
+        hsl(var(--pri-clr-hs), var(--pri-darker-clr-l))
+    );
+
+    h2 {
+        font-size: 2.7em;
+        margin-block: 1em min(2em, 5svh);
+    }
+
+    #op-pfp-cont {
+        height: 150px;
+        aspect-ratio: 1;
+        align-self: center;
+
+        img {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+        }
+    }
+
+    #op-name {
+        font-size: 1.9em;
+        margin-block: min(3em, 5svh) 0.5em;
+    }
+
+    #op-email {
+        color: inherit;
+        text-decoration: none;
+        font-size: 1.2em;
+        margin-bottom: auto;
+    }
+
+    #op-email:hover {
+        text-decoration: underline;
+    }
+
+    button {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 780px) {
+    body {
+        flex-direction: column;
+        height: auto;
+    }
+
+    section#img-display {
+        max-height: 50svh;
+    }
+
+    section#content {
+        overflow-y: unset;
+    }
+
+    section#op,
+    section#img-display,
+    section#content {
+        flex: 0 1 auto;
+    }
+}
