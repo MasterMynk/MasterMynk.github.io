@@ -100,7 +100,7 @@ thumbnailInp.addEventListener("change", e => {
     // Greater than 1 Mib
     if (e.target.files.length === 0)
         thumbnailGuidance.classList.remove("warning", "affirm");
-    else if (e.target.files[0].size > 1049000) {
+    else if (e.target.files[0].size > 5245000) {
         console.log("Here");
         e.target.value = "";
         thumbnailGuidance.classList.add("warning");
