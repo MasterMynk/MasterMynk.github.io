@@ -88,7 +88,7 @@ document.getElementById("post-btn").addEventListener("click", async e => {
             console.error("Error adding document: ", e);
         }
 
-        window.location.href = "/app";
+        window.location.href = "/nitj-swaphub/app";
     };
     reader.onerror = () => {
         console.log("Error occurred reading file");

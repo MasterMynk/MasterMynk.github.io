@@ -20,7 +20,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-if (!localStorage.getItem("view")) window.location.replace("/app");
+if (!localStorage.getItem("view")) window.location.replace("/nitj-swaphub/app");
 
 const productTitle_e = document.getElementById("product-title");
 const description_e = document.getElementById("description");

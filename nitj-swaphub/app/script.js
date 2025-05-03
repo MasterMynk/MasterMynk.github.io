@@ -87,7 +87,7 @@ querySnapshot.forEach(doc => {
 
     const listing = document.createElement("a");
     listing.classList.add("product-listing");
-    listing.href = "/app/view";
+    listing.href = "/nitj-swaphub/app/view";
     listing.addEventListener("click", e =>
         localStorage.setItem("view", doc.id)
     );
