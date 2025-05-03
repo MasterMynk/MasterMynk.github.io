@@ -49,7 +49,7 @@ onAuthStateChanged(auth, user => {
             " " + firstName[0].toUpperCase() + firstName.slice(1).toLowerCase();
 
         console.log(user.photoURL);
-    } else window.location.replace("/");
+    } else window.location.replace("/nitj-swaphub");
 });
 
 /* Web page basic functionality */
